@@ -1,5 +1,6 @@
 # Use shell-nix to use nix command with flakes support
 # This is useful when bootstrapping from a NixOS install image
+# Note: non-free packages are allowed for convenience
 
 let
   unstable = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz;
@@ -15,7 +16,7 @@ pkgs.stdenvNoCC.mkDerivation {
   nativeBuildInputs = with installPkgs; [
     pkgs.nixFlakes
 
-    # Override potentially old scripts of install image
+    # Override potentially old versions of install image
     nixos-generate-config
     nixos-install
     nixos-enter
