@@ -3,9 +3,9 @@
 # Note: non-free packages are allowed for convenience
 
 let
-  unstable = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz;
-  pkgs = import unstable { };
-  installPkgs = (import "${unstable}/nixos" {
+  nixpkgs = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/release-20.09.tar.gz;
+  pkgs = import nixpkgs { };
+  installPkgs = (import "${nixpkgs}/nixos" {
     configuration = {};
     system = pkgs.system;
   }).config.system.build;
