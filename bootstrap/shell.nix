@@ -1,9 +1,8 @@
 # Use shell-nix to use nix command with flakes support
 # This is useful when bootstrapping from a NixOS install image
-# Note: non-free packages are allowed for convenience
 
 let
-  nixpkgs = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/release-20.09.tar.gz;
+  nixpkgs = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-20.09.tar.gz;
   pkgs = import nixpkgs { };
   installPkgs = (import "${nixpkgs}/nixos" {
     configuration = {};
