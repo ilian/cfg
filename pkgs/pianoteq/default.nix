@@ -9,7 +9,7 @@ let
     else throw "Unsupported system: ${stdenv.system}"; # TODO: ARM
 in
 stdenv.mkDerivation rec {
-  name = "pianoteq_trial_v${version}";
+  pname = "pianoteq";
   inherit version;
 
   src = fetchurl {
