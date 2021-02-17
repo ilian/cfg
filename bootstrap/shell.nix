@@ -22,11 +22,11 @@ pkgs.stdenvNoCC.mkDerivation {
     nixos-rebuild
     # manual.manpages
   ];
-  
+
   shellHook = ''
     # Work around error of nixos-rebuild: unrecognised flag '--experimental-features'
     # Let nixos-rebuild use the nix package we define
-    export _NIXOS_REBUILD_REEXEC=1 
+    export _NIXOS_REBUILD_REEXEC=1
 
     nix() {
       ${pkgs.nixFlakes}/bin/nix --option experimental-features "nix-command flakes" "$@"
