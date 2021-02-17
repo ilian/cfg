@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, perl, coreutils, p7zip, autoPatchelfHook, alsaLib, freetype, libX11, libXext, libXcursor, libXinerama, libXrandr, jack2 }:
+{ pkgs, stdenv, fetchurl, perl, coreutils, p7zip, autoPatchelfHook, alsaLib, freetype, libX11, libXext, libXcursor, libXinerama, libXrandr, jack2 }:
 
 let
-  version = "7.0.5";
+  version = "7.2.0";
   urlVersion = builtins.replaceStrings ["."] [""] version;
   htmlDownloadUrl = "https://www.modartt.com/try?file=pianoteq_linux_trial_v${urlVersion}.7z";
   archDir =
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       rm $out # Clean up HTML page since tryDownload appends to $out
       tryDownload "https://www.modartt.com/$dlToken"
     '';
-    sha256 = "09xz367d40vlxx4g7inwl7wk2xqca00z9q07s8fcbraq6rw3a114";
+    hash = "sha256-l8rwRcXstmrLbPj8KTXjf05GnPknSBTH9ja9noDs4Vw=";
   };
 
   nativeBuildInputs = [
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     ln -s "$out/lib/lv2/Pianoteq 7.lv2/Pianoteq_7.so" "$out/lib/vst/Pianoteq 7.so"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with pkgs.lib; {
     description = "Software synthesizer featuring physically modelled pianos";
     homepage = "https://www.modartt.com/pianoteq";
     license = licenses.unfree;
