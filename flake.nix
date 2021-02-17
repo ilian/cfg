@@ -1,45 +1,50 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.09";
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-    home-manager = {
-      url = "github:rycee/home-manager";
-      follows = "nixpkgs";
-    };
+
+    nixpkgs.url = "github:ilian/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils/flatten-tree-system";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    musnix = {
+      url = "github:musnix/musnix";
+      flake = false;
+    };
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-utils, ... }: 
+  outputs = inputs@{ self, nixpkgs, flake-utils, home-manager, ... }:
   with builtins;
   with nixpkgs.lib;
   let
     inherit (flake-utils.lib) eachDefaultSystem flattenTreeSystem;
     allowUnfreeModule = { nixpkgs.config.allowUnfree = true; };
-    nixWithFlakes = ( { pkgs, ... } : {
-      nix = {
-        package = pkgs.nixFlakes;
-        extraOptions = ''
-          experimental-features = nix-command flakes
-        '';
-      };
-    });
     inputFlakes = {
-      nix.registry = with inputs; {
+      nix.registry = {
         nixpkgs.flake = nixpkgs;
         home-manager.flake = home-manager;
       };
     };
-    addFlakeOverlay = {
-      nixpkgs.overlays = [ self.overlay ];
+    overlayModule = {
+      nixpkgs.overlays = [
+        self.overlay
+        inputs.neovim-nightly-overlay.overlay
+      ];
     };
     defaultModules = [
       ./profiles/base.nix
       allowUnfreeModule
-      nixWithFlakes
       inputFlakes
-      addFlakeOverlay
+      overlayModule
+      (import inputs.musnix)
+      home-manager.nixosModules.home-manager
     ];
-    outputs = 
+    outputs =
       {
         # Import host configurations from ./hosts/
         nixosConfigurations =
