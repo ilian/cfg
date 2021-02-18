@@ -44,3 +44,7 @@ vim.g.completion_trigger_on_delete = 1
 vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.wo.signcolumn = 'yes'
+
+-- Use <Tab> and <S-Tab> to navigate through popup menu
+vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
