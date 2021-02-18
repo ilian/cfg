@@ -11,6 +11,10 @@ in {
       #sonokai
       vim-gruvbox8
 
+      # Language support
+      vim-nix
+      vim-elixir
+
       nvim-lspconfig
       completion-nvim
       nvim-treesitter
@@ -21,7 +25,6 @@ in {
       vim-cool              # No highlighting after move
       vim-rooter            # cd to project root, works well with fzf
       fzf-vim
-      vim-nix               # Nix language support
       pear-tree
       vim-better-whitespace # Highlight and delete whitespace
       editorconfig-vim

@@ -19,11 +19,19 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']e',  '<cmd>lua vim.lsp.diagnostic.goto_next()                          <CR>', opts)
 end
 
-local servers = {'clangd', 'jsonls', 'cssls', 'html', 'svelte'}
-for _, server in ipairs(servers) do
-  lspconf[server].setup {
-    on_attach = on_attach,
-  }
+local servers = {
+  clangd = {},
+  jsonls = {},
+  cssls = {},
+  html = {},
+  svelte = {},
+  elixirls = {
+    cmd = {"elixir-ls"}
+  },
+}
+for server, options in pairs(servers) do
+  options.on_attach = on_attach
+  lspconf[server].setup(options)
 end
 
 vim.api.nvim_command([[command! Format execute 'lua vim.lsp.buf.formatting()']])
