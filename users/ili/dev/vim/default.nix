@@ -80,7 +80,9 @@ in {
 
       nnoremap <silent> <C-p> :FZF<cr>
 
-      let g:better_whitespace_enabled=1
+      " Temporarily disable until the following issue is fixed:
+      " https://github.com/ntpeters/vim-better-whitespace/issues/125
+      let g:better_whitespace_enabled=0
       let g:strip_whitespace_on_save=1
     '';
 
