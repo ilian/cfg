@@ -16,6 +16,11 @@
     };
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    nix-elixir = {
+      url = "github:hauleth/nix-elixir";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, flake-utils, home-manager, ... }:
@@ -34,6 +39,7 @@
       nixpkgs.overlays = [
         self.overlay
         inputs.neovim-nightly-overlay.overlay
+        (import inputs.nix-elixir)
       ];
     };
     defaultModules = [
