@@ -5,6 +5,24 @@
     stateVersion = "21.03";
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Hack" ]; })
+      killall
+      file
+      binutils # readelf
+      ripgrep
+      ranger
+
+      # Archiving
+      unzip
+      (p7zip.override {
+        enableUnfree = true; # RAR support
+      })
+
+      # System monitoring
+      htop
+      nload
+      cpufrequtils # cpufreq-info
+      pciutils # lspci
+      arp-scan
     ];
   };
 
