@@ -118,6 +118,14 @@
         bind v split-window -h -c "#{pane_current_path}"
         bind s split-window -v -c "#{pane_current_path}"
         bind c new-window -c "#{pane_current_path}"
+
+        # Copy with vim-like keybindings
+        bind-key -T copy-mode-vi v send -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X begin-selection\; send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send -X copy-selection
+
+        # Copy text selected by dragging the mouse
+        set -g mouse
       '';
     };
   };
