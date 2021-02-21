@@ -125,6 +125,7 @@
         bind-key -T copy-mode-vi y send -X copy-selection
 
         # Copy text selected by dragging the mouse
+        # and use mouse wheel for scrollback
         set -g mouse
       '';
     };
