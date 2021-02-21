@@ -44,15 +44,12 @@ in {
       bear
 
       # LSP servers
-      # C++
+      rnix-lsp
       clang-tools # clangd
-
-      # Web
       nodePackages.vscode-html-languageserver-bin
       nodePackages.vscode-css-languageserver-bin
-      nodePackages.svelte-language-server
-
       nodePackages.vscode-json-languageserver
+      nodePackages.svelte-language-server
     ];
     extraConfig = ''
       if filereadable($HOME . "/.vimrc")

@@ -20,6 +20,7 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
+  rnix = {},
   clangd = {},
   jsonls = {},
   cssls = {},
