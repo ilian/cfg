@@ -17,6 +17,7 @@
       lfs.enable = true;
       aliases = {
         co = "checkout";
+        fu = "fetch upstream";
       };
       ignores = [ "*.swp" ];
       userName = "ilian";
