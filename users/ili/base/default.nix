@@ -130,7 +130,7 @@
 
         # Change color of selected text
         # This makes the last selected character more visible
-        set mode-style "fg=#ffffff,bg=#606060"
+        set -g mode-style "fg=#ffffff,bg=#606060"
       '';
     };
   };
