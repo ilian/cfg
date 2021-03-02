@@ -8,6 +8,7 @@
     # Debugging
     gdb
     radare2
+    xxd
   ];
 
   programs = {
