@@ -127,6 +127,10 @@
         # Copy text selected by dragging the mouse
         # and use mouse wheel for scrollback
         set -g mouse
+
+        # Change color of selected text
+        # This makes the last selected character more visible
+        set mode-style "fg=#ffffff,bg=#606060"
       '';
     };
   };
