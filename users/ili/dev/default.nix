@@ -18,6 +18,7 @@
       aliases = {
         co = "checkout";
         fu = "fetch upstream";
+        ru = "rebase upstream/master";
       };
       ignores = [ "*.swp" ];
       userName = "ilian";
