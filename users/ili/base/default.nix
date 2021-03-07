@@ -10,6 +10,7 @@
       binutils # readelf
       ripgrep
       ranger
+      remmina
 
       # Archiving
       unzip
