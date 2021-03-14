@@ -11,10 +11,7 @@ in {
       #sonokai
       vim-gruvbox8
 
-      # Language support
-      vim-nix
-      vim-elixir
-
+      vim-polyglot          # Language pack collection
       nvim-lspconfig
       completion-nvim
       nvim-treesitter
