@@ -99,6 +99,8 @@
       baseIndex = 1;
       escapeTime = 0;
       terminal = "tmux-256color";
+      # Consistent socket path for both terminal started from KDE and ssh session
+      secureSocket = false;
       extraConfig = ''
         set-option -sa terminal-overrides ',xterm-256color:RGB'
         set-option -sa terminal-overrides ',alacritty:RGB'
