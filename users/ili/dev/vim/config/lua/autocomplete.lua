@@ -29,6 +29,7 @@ local servers = {
   elixirls = {
     cmd = {"elixir-ls"}
   },
+  tsserver = {},
 }
 for server, options in pairs(servers) do
   options.on_attach = on_attach

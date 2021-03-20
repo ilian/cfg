@@ -47,6 +47,8 @@ in {
       nodePackages.vscode-css-languageserver-bin
       nodePackages.vscode-json-languageserver
       nodePackages.svelte-language-server
+      nodePackages.typescript
+      nodePackages.typescript-language-server
     ];
     extraConfig = ''
       if filereadable($HOME . "/.vimrc")
