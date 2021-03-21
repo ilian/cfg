@@ -7,6 +7,7 @@ in {
     enable = true;
     package = pkgs.neovim-nightly;
     vimAlias = true;
+    vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
       #sonokai
       vim-gruvbox8
