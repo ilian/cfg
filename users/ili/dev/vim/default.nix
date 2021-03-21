@@ -56,7 +56,9 @@ in {
       endif
 
       let mapleader = " "
+      nnoremap ; :
 
+      set nowrap
       set cursorline             " Highlight current line
       set clipboard+=unnamedplus " Sync clipboard with OS
       set mouse=a                " Enable mouse support
@@ -66,8 +68,22 @@ in {
       set tabstop=2              " Expand TAB to 2 spaces
       set shiftwidth=2
       set softtabstop=2
+      set scrolloff=2            " View context lines above/below cursor
+      set nojoinspaces           " Do not add extra spaces after joining sentences
+      set splitright             " Create vsplits on the right
+      set splitbelow             " Create split on the bottom
 
-      autocmd BufNewFile,BufRead *.svelte set filetype=svelte
+      " Keep undo history after quit
+      if !isdirectory($HOME."/.vim")
+        call mkdir($HOME."/.vim", "", 0755)
+      endif
+      if !isdirectory($HOME."/.vim/undo-dir")
+        call mkdir($HOME."/.vim/undo-dir", "", 0700)
+      endif
+      set undodir=~/.vim/undo-dir
+      set undofile
+
+      " Load lua config
       set runtimepath^=${luaDir}
       :luafile ${luaDir}/init.lua
 
@@ -79,6 +95,7 @@ in {
       colorscheme gruvbox8
 
       nnoremap <silent> <C-p> :FZF<cr>
+      nnoremap <leader>; :Buffers<cr>
 
       " Temporarily disable until the following issue is fixed:
       " https://github.com/ntpeters/vim-better-whitespace/issues/125
