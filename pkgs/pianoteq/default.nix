@@ -3,7 +3,7 @@
 let
   version = "7.2.0";
   urlVersion = builtins.replaceStrings ["."] [""] version;
-  htmlDownloadUrl = "https://www.modartt.com/try?file=pianoteq_linux_trial_v${urlVersion}.7z";
+  htmlDownloadUrl = "https://www.modartt.com/json/download?file=pianoteq_linux_trial_v${urlVersion}.7z";
   archDir =
     if stdenv.system == "x86_64-linux" then "x86-64bit"
     else throw "Unsupported system: ${stdenv.system}"; # TODO: ARM
@@ -15,14 +15,9 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = htmlDownloadUrl;
     postFetch = ''
-      dlToken="$(${perl}/bin/perl -ne '/<form action="(try\?q=.*?)"/ && print $1 . "\n"' < $out)"
-      dlTokenMatches=$(${coreutils}/bin/wc -l <<< "$dlToken")
-      if [ $dlTokenMatches -ne 1 ]; then
-        echo "Failed to match download token. Got $dlTokenMatches matches instead of 1" >&2
-        exit 1
-      fi
+      curl+=(-b cookies) # Use cookies that we received on the first request
       rm $out # Clean up HTML page since tryDownload appends to $out
-      tryDownload "https://www.modartt.com/$dlToken"
+      tryDownload "${htmlDownloadUrl}"
     '';
     hash = "sha256-l8rwRcXstmrLbPj8KTXjf05GnPknSBTH9ja9noDs4Vw=";
   };
