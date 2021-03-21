@@ -56,9 +56,6 @@ in {
         source ~/.vimrc
       endif
 
-      let mapleader = " "
-      nnoremap ; :
-
       set nowrap
       set cursorline             " Highlight current line
       set clipboard+=unnamedplus " Sync clipboard with OS
@@ -73,6 +70,13 @@ in {
       set nojoinspaces           " Do not add extra spaces after joining sentences
       set splitright             " Create vsplits on the right
       set splitbelow             " Create split on the bottom
+      set colorcolumn=80         " Show line at 80 chars
+
+      let mapleader = " "
+      nnoremap ; :
+      nnoremap <silent> <C-p> :FZF<cr>
+      nnoremap <leader>; :Buffers<cr>
+      nnoremap <leader><leader> <c-^> " Toggle buffer with <leader> <leader>
 
       " Keep undo history after quit
       if !isdirectory($HOME."/.vim")
@@ -95,8 +99,6 @@ in {
       set background=dark
       colorscheme gruvbox8
 
-      nnoremap <silent> <C-p> :FZF<cr>
-      nnoremap <leader>; :Buffers<cr>
 
       " Temporarily disable until the following issue is fixed:
       " https://github.com/ntpeters/vim-better-whitespace/issues/125
