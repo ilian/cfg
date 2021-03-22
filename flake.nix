@@ -1,7 +1,7 @@
 {
   inputs = {
 
-    nixpkgs.url = "github:ilian/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils/flatten-tree-system";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
