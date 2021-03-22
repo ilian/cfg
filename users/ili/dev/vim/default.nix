@@ -74,9 +74,10 @@ in {
 
       let mapleader = " "
       nnoremap ; :
-      nnoremap <silent> <C-p> :FZF<cr>
-      nnoremap <leader>; :Buffers<cr>
       nnoremap <leader><leader> <c-^> " Toggle buffer with <leader> <leader>
+      nnoremap <leader>f :RangerEdit<cr>
+      nnoremap <silent> <C-p> :Files<cr>
+      nnoremap <leader>; :Buffers<cr>
 
       " Keep undo history after quit
       if !isdirectory($HOME."/.vim")
@@ -98,7 +99,6 @@ in {
 
       set background=dark
       colorscheme gruvbox8
-
 
       " Temporarily disable until the following issue is fixed:
       " https://github.com/ntpeters/vim-better-whitespace/issues/125
