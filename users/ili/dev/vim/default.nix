@@ -29,6 +29,7 @@ in {
       vim-signify           # Show modified lines (vcs)
       vim-fugitive          # Git
       vim-startuptime       # :StartupTime
+      emmet-vim             # Generate HTML from abbreviations
     ];
     extraPackages = with pkgs; [
       # Treesitter dependencies
@@ -104,6 +105,7 @@ in {
       " https://github.com/ntpeters/vim-better-whitespace/issues/125
       let g:better_whitespace_enabled=0
       let g:strip_whitespace_on_save=1
+      let g:user_emmet_leader_key=','   " Use ,, to expand emmet abbreviation
     '';
 
   };
