@@ -17,9 +17,7 @@ in {
       completion-nvim
       nvim-treesitter
 
-      ranger-vim            # File manager integration
-      bclose-vim            # ranger-vim dependency
-
+      ranger-vim            # File manager
       vim-cool              # No highlighting after move
       vim-rooter            # cd to project root, works well with fzf
       fzf-vim
@@ -78,6 +76,7 @@ in {
       nnoremap <leader><leader> <c-^> " Toggle buffer with <leader> <leader>
       nnoremap <leader>f :RangerEdit<cr>
       nnoremap <silent> <C-p> :Files<cr>
+      tmap <silent> <C-p> <C-\><C-n>:Files<cr>  " Allow <C-p> in ranger
       nnoremap <leader>; :Buffers<cr>
 
       " Keep undo history after quit
@@ -105,7 +104,7 @@ in {
       " https://github.com/ntpeters/vim-better-whitespace/issues/125
       let g:better_whitespace_enabled=0
       let g:strip_whitespace_on_save=1
-      let g:user_emmet_leader_key=','   " Use ,, to expand emmet abbreviation
+      let g:user_emmet_leader_key=','     " Use ,, to expand emmet abbreviation
     '';
 
   };
