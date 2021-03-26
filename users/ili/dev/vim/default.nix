@@ -105,6 +105,7 @@ in {
       let g:better_whitespace_enabled=0
       let g:strip_whitespace_on_save=1
       let g:user_emmet_leader_key=','     " Use ,, to expand emmet abbreviation
+      let g:pear_tree_repeatable_expand=0 " Do not remove closing pair on return
     '';
 
   };
