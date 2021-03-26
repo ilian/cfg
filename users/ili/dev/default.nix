@@ -9,6 +9,8 @@
     gdb
     radare2
     xxd
+
+    cloudflared # Expose local HTTP endpoint publicly
   ];
 
   programs = {
