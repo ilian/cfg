@@ -7,6 +7,7 @@
     ../../profiles/laptop.nix
     ../../profiles/graphical.nix
     ../../profiles/gaming.nix
+    ../../profiles/avahi.nix
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_5_10;

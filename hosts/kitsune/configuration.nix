@@ -7,6 +7,7 @@
     ../../profiles/nvidia.nix
     ../../profiles/graphical.nix
     ../../profiles/gaming.nix
+    ../../profiles/avahi.nix
   ];
 
   # virtualisation.docker.enable = true;
