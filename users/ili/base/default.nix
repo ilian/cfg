@@ -14,9 +14,7 @@
 
       # Archiving
       unzip
-      (p7zip.override {
-        enableUnfree = true; # RAR support
-      })
+      p7zip # Without RAR support
 
       # System monitoring
       htop
