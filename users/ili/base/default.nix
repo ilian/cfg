@@ -4,13 +4,18 @@
   home = {
     stateVersion = "21.03";
     packages = with pkgs; [
+      # Graphical applications
+      thunderbird
+      remmina
       (nerdfonts.override { fonts = [ "Hack" ]; })
+
+      # Utilities
       killall
       file
       binutils # readelf
       ripgrep
       ranger
-      remmina
+      dig
 
       # Archiving
       unzip
