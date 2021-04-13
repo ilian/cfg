@@ -4,10 +4,12 @@
   home = {
     stateVersion = "21.03";
     packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "Hack" ]; })
+
       # Graphical applications
       thunderbird
       remmina
-      (nerdfonts.override { fonts = [ "Hack" ]; })
+      libreoffice
 
       # Utilities
       killall
@@ -137,6 +139,10 @@
         # Change color of selected text
         # This makes the last selected character more visible
         set -g mode-style "fg=#ffffff,bg=#606060"
+
+        # Do not update DISPLAY when attaching to tmux from an ssh session
+        # which can cause the variable to be unset
+        set-option -g update-environment "KRB5CCNAME SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
       '';
     };
   };
