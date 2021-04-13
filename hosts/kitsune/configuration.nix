@@ -3,19 +3,16 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../users/ili
+    ../../profiles/grub-efi.nix
     ../../profiles/nvidia.nix
     ../../profiles/graphical.nix
     ../../profiles/gaming.nix
     ../../profiles/avahi.nix
+    ../../users/ili
   ];
 
   # virtualisation.docker.enable = true;
   # networking.firewall.enable = false;
-
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.device = "nodev";
 
   services.sshd.enable = true;
 
@@ -24,5 +21,4 @@
   environment.systemPackages = with pkgs; [
     discord
   ];
-
 }

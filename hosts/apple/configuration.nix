@@ -3,11 +3,12 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../users/ili
+    ../../profiles/grub-efi.nix
     ../../profiles/laptop.nix
     ../../profiles/graphical.nix
     ../../profiles/gaming.nix
     ../../profiles/avahi.nix
+    ../../users/ili
   ];
 
   # boot.kernelPackages = pkgs.linuxPackages_5_10;
@@ -26,10 +27,6 @@
   #   Option   "DPI"             "96 x 96"
   #   Option   "RegistryDwords"  "EnableBrightnessControl=1"
   # '';
-
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.device = "nodev";
 
   services.sshd.enable = true;
 
