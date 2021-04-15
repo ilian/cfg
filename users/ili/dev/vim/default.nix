@@ -73,10 +73,12 @@ in {
 
       let mapleader = " "
       nnoremap ; :
-      nnoremap <leader><leader> <c-^> " Toggle buffer with <leader> <leader>
+      " Toggle buffer with <leader> <leader>
+      nnoremap <leader><leader> <c-^>
       nnoremap <leader>f :RangerEdit<cr>
       nnoremap <silent> <C-p> :Files<cr>
-      tmap <silent> <C-p> <C-\><C-n>:Files<cr>  " Allow <C-p> in ranger
+      " Allow <C-p> in ranger
+      tmap <silent> <C-p> <C-\><C-n>:Files<cr>
       nnoremap <leader>; :Buffers<cr>
 
       " Keep undo history after quit
