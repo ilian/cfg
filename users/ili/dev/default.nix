@@ -19,8 +19,10 @@
       lfs.enable = true;
       aliases = {
         co = "checkout";
+        fo = "fetch origin";
         fu = "fetch upstream";
-        ru = "rebase upstream/master";
+        rom = "rebase origin/master";
+        rum = "rebase upstream/master";
       };
       ignores = [ "*.swp" ];
       userName = "ilian";
