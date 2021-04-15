@@ -10,6 +10,7 @@ with lib;
       ++ optionals config.networking.networkmanager.enable [ "networkmanager" ]
       ++ optionals config.virtualisation.docker.enable [ "docker" ]
       ++ optionals config.services.jack.jackd.enable [ "jackaudio" ];
+    openssh.authorizedKeys.keyFiles = [ ./ssh-keys/apple.pub ];
   };
 
   home-manager.users.ili = {
