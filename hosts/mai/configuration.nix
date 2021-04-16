@@ -6,6 +6,8 @@
     ../../users/ili
   ];
 
+  nix.trustedUsers = [ "root" "@wheel" ];
+
   boot.loader.grub.device = "/dev/sda";
   boot.loader.timeout = 0;
 
