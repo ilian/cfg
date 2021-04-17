@@ -6,6 +6,11 @@
     ../../users/ili
   ];
 
+  swapDevices = [ {
+    device = "/var/swapfile";
+    size = 4096;
+  }];
+
   nix.trustedUsers = [ "root" "@wheel" ];
 
   services.borgbackup.repos.ili = {
