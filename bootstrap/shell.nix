@@ -14,6 +14,7 @@ pkgs.stdenvNoCC.mkDerivation {
   name = "flakes-bootstrap";
   nativeBuildInputs = with installPkgs; [
     pkgs.nixFlakes
+    pkgs.git # Override potentially old git version from impure environment
 
     # Override potentially old versions of install image
     nixos-generate-config
@@ -24,12 +25,13 @@ pkgs.stdenvNoCC.mkDerivation {
   ];
 
   shellHook = ''
+    # OCI Cloud Shell workaround
+    unset LD_LIBRARY_PATH
+
     # Work around error of nixos-rebuild: unrecognised flag '--experimental-features'
     # Let nixos-rebuild use the nix package we define
     export _NIXOS_REBUILD_REEXEC=1
 
-    nix() {
-      ${pkgs.nixFlakes}/bin/nix --option experimental-features "nix-command flakes" "$@"
-    }
+    export NIX_CONFIG="experimental-features = nix-command flakes"
   '';
 }
