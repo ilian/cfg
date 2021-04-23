@@ -24,7 +24,6 @@
       p7zip # Without RAR support
 
       # System monitoring
-      htop
       nload
       cpufrequtils # cpufreq-info
       pciutils # lspci
@@ -96,6 +95,13 @@
     direnv = {
       enable = true;
       enableNixDirenvIntegration = true;
+    };
+    htop = {
+      enable = true;
+      showCpuUsage = true;
+      detailedCpuTime = true; # Do not count steal time towards CPU usage %
+      highlightBaseName = true;
+      vimMode = true;
     };
     tmux = {
       enable = true;
