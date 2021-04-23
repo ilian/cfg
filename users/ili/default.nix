@@ -19,11 +19,11 @@ with lib;
     imports = [
       ./base
       ./dev
-    ];
+    ] ++ optionals config.services.xserver.enable [ ./graphical ];
   };
 
   # Don't require a password to login if disk encryption is enabled
-  services.xserver.displayManager.autoLogin = lib.mkIf (config.boot.initrd.luks.devices != {}) {
+  services.xserver.displayManager.autoLogin = mkIf (config.boot.initrd.luks.devices != {}) {
     enable = true;
     user = "ili";
   };
