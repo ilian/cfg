@@ -11,6 +11,11 @@
     xxd
 
     cloudflared # Expose local HTTP endpoint publicly
+
+    # nixpkgs
+    nix-review
+    nix-prefetch-git
+    nix-prefetch-github
   ];
 
   programs = {
