@@ -20,6 +20,7 @@
       nload
       cpufrequtils # cpufreq-info
       pciutils # lspci
+      sysstat # iostat, sar
       arp-scan
     ];
   };
