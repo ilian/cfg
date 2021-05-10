@@ -17,6 +17,8 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  programs.bcc.enable = true;
+
   environment.systemPackages = with pkgs; [
     n
   ];
