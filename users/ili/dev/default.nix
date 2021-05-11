@@ -5,17 +5,18 @@
   ];
 
   home.packages = with pkgs; [
-    # Debugging
-    gdb
-    radare2
-    xxd
-
+    gh # GitHub cli
     cloudflared # Expose local HTTP endpoint publicly
 
     # nixpkgs
     nix-review
     nix-prefetch-git
     nix-prefetch-github
+
+    # Debugging
+    gdb
+    radare2
+    xxd
   ];
 
   programs = {
