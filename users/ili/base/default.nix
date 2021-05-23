@@ -61,10 +61,12 @@
     };
     htop = {
       enable = true;
-      showCpuUsage = true;
-      detailedCpuTime = true; # Do not count steal time towards CPU usage %
-      highlightBaseName = true;
-      vimMode = true;
+      settings = {
+        show_cpu_usage = true;
+        detailed_cpu_time = true; # Do not count steal time towards CPU usage %
+        highlight_base_name = true;
+        vim_mode = true;
+      };
     };
     tmux = {
       enable = true;
