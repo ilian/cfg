@@ -18,7 +18,6 @@
 
       # System monitoring
       nload
-      cpufrequtils # cpufreq-info
       pciutils # lspci
       iotop
       sysstat # iostat, sar
