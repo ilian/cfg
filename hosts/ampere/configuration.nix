@@ -8,6 +8,8 @@
 
   nix.trustedUsers = [ "root" "@wheel" ];
 
+  boot.growPartition = true;
+
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
