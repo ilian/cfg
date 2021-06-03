@@ -47,8 +47,10 @@
           PROMPT_COMMAND="$PROMPT_COMMAND;$__HISTORY_UPDATE"
         fi
 
-        # Attach to a tmux session on ssh login
-        if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
+        # Create or attach to a tmux session on ssh login
+        # We don't attach for nested shells (e.g. when entering a nix shell)
+        if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]] \
+           && [[ $SHLVL == 1 ]]; then
           tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
         fi
       '';
