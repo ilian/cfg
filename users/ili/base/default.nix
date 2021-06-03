@@ -11,8 +11,6 @@
       ripgrep
       ranger
       dig
-
-      # Archiving
       unzip
       p7zip # Without RAR support
 
@@ -22,6 +20,9 @@
       iotop
       sysstat # iostat, sar
       arp-scan
+
+      # Remote desktop
+      x2goclient
     ];
   };
 

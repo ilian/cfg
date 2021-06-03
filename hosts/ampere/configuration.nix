@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../profiles/remote-desktop.nix
     ../../users/ili
   ];
 
