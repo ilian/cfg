@@ -22,7 +22,7 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.timeout = 0;
 
-  services.sshd.enable = true;
+  services.openssh.enable = true;
 
   networking.hostName = "mai";
 }

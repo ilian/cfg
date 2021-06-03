@@ -34,7 +34,7 @@
   #   Option   "RegistryDwords"  "EnableBrightnessControl=1"
   # '';
 
-  services.sshd.enable = true;
+  services.openssh.enable = true;
 
   networking.hostName = "apple";
 }

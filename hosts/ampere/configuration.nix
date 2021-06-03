@@ -16,7 +16,7 @@
     device = "nodev";
   };
 
-  services.sshd.enable = true;
+  services.openssh.enable = true;
 
   networking.hostName = "ampere";
 }

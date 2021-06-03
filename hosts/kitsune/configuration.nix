@@ -14,7 +14,7 @@
   # virtualisation.docker.enable = true;
   # networking.firewall.enable = false;
 
-  services.sshd.enable = true;
+  services.openssh.enable = true;
 
   networking.hostName = "kitsune";
 
