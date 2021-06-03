@@ -29,6 +29,7 @@
         fu = "fetch upstream";
         rom = "rebase origin/master";
         rum = "rebase upstream/master";
+        s = "status";
       };
       ignores = [ "*.swp" ];
       userName = "ilian";
