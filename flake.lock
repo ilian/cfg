@@ -64,6 +64,7 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "rev": "95da56b783e4ccc8ded71137e4add780b239dd46",
         "type": "github"
       }
     },
