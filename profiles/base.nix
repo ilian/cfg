@@ -13,6 +13,11 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    gc = {
+      automatic = true;
+      dates = "03:15";
+      options = "--delete-older-than 7d";
+    };
   };
 
   security.sudo.wheelNeedsPassword = false;
