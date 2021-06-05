@@ -11,6 +11,11 @@
     ../../users/ili
   ];
 
+  swapDevices = [ {
+    device = "/var/swapfile";
+    size = 4096;
+  }];
+
   boot.kernelParams = [
     # https://wiki.archlinux.org/index.php/Apple_Keyboard
     "hid_apple.iso_layout=0" # Map backtick below escape
