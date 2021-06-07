@@ -5,9 +5,11 @@
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Hack" ]; })
 
+      firefox
       thunderbird
-      remmina
       libreoffice
+      mpv
+      remmina
     ];
   };
 

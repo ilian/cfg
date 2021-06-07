@@ -9,9 +9,4 @@ with lib;
   ];
 
   services.xserver.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    firefox
-    mpv
-  ];
 }
