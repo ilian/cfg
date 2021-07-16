@@ -13,6 +13,8 @@
       dig
       unzip
       p7zip # Without RAR support
+      sshfs
+      exif
 
       # System monitoring
       nload
