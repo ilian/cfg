@@ -59,7 +59,7 @@
     command-not-found.enable = true;
     direnv = {
       enable = true;
-      enableNixDirenvIntegration = true;
+      nix-direnv.enable = true;
     };
     htop = {
       enable = true;
