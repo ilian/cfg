@@ -15,8 +15,6 @@
       flake = false;
     };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
     nix-elixir = {
       url = "github:hauleth/nix-elixir";
       flake = false;
@@ -38,7 +36,6 @@
     overlayModule = {
       nixpkgs.overlays = [
         self.overlay
-        inputs.neovim-nightly-overlay.overlay
         (import inputs.nix-elixir)
         (self: super: { unstable = nixpkgs-unstable.legacyPackages.${self.system}; })
       ];

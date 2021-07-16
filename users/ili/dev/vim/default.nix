@@ -5,7 +5,7 @@ let
 in {
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
+    package = pkgs.unstable.neovim-unwrapped;
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
@@ -15,7 +15,7 @@ in {
       vim-polyglot          # Language pack collection
       nvim-lspconfig
       completion-nvim
-      nvim-treesitter
+      #nvim-treesitter
 
       ranger-vim            # File manager
       vim-cool              # No highlighting after move
@@ -31,7 +31,7 @@ in {
     ];
     extraPackages = with pkgs; [
       # Treesitter dependencies
-      gcc
+      # gcc
 
       # C code navigation
       cscope
