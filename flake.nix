@@ -23,7 +23,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-utils, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, ... }:
   with builtins;
   with nixpkgs.lib;
   let
@@ -40,6 +40,7 @@
         self.overlay
         inputs.neovim-nightly-overlay.overlay
         (import inputs.nix-elixir)
+        (self: super: { unstable = nixpkgs-unstable.legacyPackages.${self.system}; })
       ];
     };
     defaultModules = [
