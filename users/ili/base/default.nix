@@ -17,8 +17,10 @@
       exif
 
       # System monitoring
+      tcpdump
       nload
       pciutils # lspci
+      usbutils
       iotop
       sysstat # iostat, sar
       arp-scan

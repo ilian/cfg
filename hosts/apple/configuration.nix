@@ -8,6 +8,7 @@
     ../../profiles/graphical.nix
     ../../profiles/gaming.nix
     ../../profiles/avahi.nix
+    ../../profiles/udev.nix
     ../../users/ili
   ];
 
