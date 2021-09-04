@@ -13,6 +13,7 @@
       dig
       unzip
       p7zip # Without RAR support
+      gnupg
       sshfs
       exif
 
