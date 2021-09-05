@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../users/ili
-    ../../profiles/dns-server
   ];
 
   swapDevices = [ {
