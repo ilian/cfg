@@ -22,7 +22,8 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  programs.bcc.enable = true;
+  # Takes a while to build
+  # programs.bcc.enable = true;
 
   environment.systemPackages = with pkgs; [
     n
