@@ -11,8 +11,10 @@
       ripgrep
       ranger
       dig
+      whois
       unzip
       p7zip # Without RAR support
+      atool # Manage file archives with sane defaults
       gnupg
       sshfs
       exif
