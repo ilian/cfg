@@ -109,8 +109,8 @@
         bind-key -T copy-mode-vi C-v send-keys -X begin-selection\; send-keys -X rectangle-toggle
         bind-key -T copy-mode-vi y send -X copy-selection
 
-        # Copy text selected by dragging the mouse
-        # and use mouse wheel for scrollback
+        # Copy text selected by dragging the mouse and use mouse wheel for
+        # scrollback
         set -g mouse
 
         # Change color of selected text
@@ -120,6 +120,18 @@
         # Do not update DISPLAY when attaching to tmux from an ssh session
         # which can cause the variable to be unset
         set-option -g update-environment "KRB5CCNAME SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+
+        # Forward all special tmux key combinations after pressing the F5 key.
+        # Changes can be reverted after pressing F5 again.
+        # Useful for nested tmux sessions.
+        bind-key -T root F5 \
+          set prefix None \; \
+          set key-table forward \; \
+          set -g status-right '[Forward mode]'
+        bind-key -T forward F5 \
+          set -u prefix \; \
+          set -u key-table \; \
+          set -g status-right '''
       '';
     };
   };
