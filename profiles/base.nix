@@ -1,5 +1,5 @@
 # Base module include by all hosts
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 {
   home-manager.useGlobalPkgs = true;
