@@ -26,7 +26,9 @@
   with nixpkgs.lib;
   let
     inherit (flake-utils.lib) eachDefaultSystem flattenTreeSystem;
-    allowUnfreeModule = { nixpkgs.config.allowUnfree = true; };
+    allowUnfreeModule = {
+      nixpkgs.config.allowUnfree = true;
+    };
     inputFlakes = {
       nix.registry = {
         nixpkgs.flake = nixpkgs;
@@ -37,7 +39,8 @@
       nixpkgs.overlays = [
         self.overlay
         (import inputs.nix-elixir)
-        (self: super: { unstable = nixpkgs-unstable.legacyPackages.${self.system}; })
+        #(self: super: { unstable = nixpkgs-unstable.legacyPackages.${self.system}; })
+        (final: prev: { unstable = import nixpkgs-unstable { system = final.system; config.allowUnfree = true; }; })
       ];
     };
     defaultModules = [
