@@ -6,7 +6,7 @@
 
   home.packages = with pkgs; [
     gh # GitHub cli
-    cloudflared # Expose local HTTP endpoint publicly
+    unstable.cloudflared # Expose local HTTP endpoint publicly
 
     # nixpkgs
     nix-review
