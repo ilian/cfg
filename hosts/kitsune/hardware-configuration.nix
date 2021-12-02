@@ -8,26 +8,24 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "ohci_pci" "ehci_pci" "ahci" "usb_storage" "uas" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" "wl" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/301b75a2-de4f-46bf-a450-e0b0176d127e";
+    { device = "/dev/disk/by-uuid/0ba4f8b6-ef2a-44a1-a85b-62971c21ea3b";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/5cfafcd4-a8aa-4b5f-a49d-c665aa3399d3";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/7fc8e8f6-2437-4c7f-abfe-8e1faba7ea0a";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/CDA3-B75E";
+    { device = "/dev/disk/by-uuid/14E8-3768";
       fsType = "vfat";
     };
 
   swapDevices = [ ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -3,7 +3,7 @@
 with lib;
 {
   imports = [
-    ./audio.nix
+    ./audio/pipewire.nix
     ./kde.nix
     #./xfce.nix
   ];

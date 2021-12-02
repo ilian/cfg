@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../profiles/audio/pipewire.nix
     ../../profiles/avahi.nix
     ../../profiles/gaming.nix
     ../../profiles/graphical.nix
@@ -20,8 +21,4 @@
   services.openssh.enable = true;
 
   networking.hostName = "kitsune";
-
-  environment.systemPackages = with pkgs; [
-    discord
-  ];
 }
