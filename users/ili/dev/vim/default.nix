@@ -5,7 +5,6 @@ let
 in {
   programs.neovim = {
     enable = true;
-    package = pkgs.unstable.neovim-unwrapped;
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
@@ -14,18 +13,22 @@ in {
 
       vim-polyglot          # Language pack collection
       nvim-lspconfig
-      completion-nvim
+      nvim-cmp
+      cmp-nvim-lsp
+      luasnip
       #nvim-treesitter
 
       ranger-vim            # File manager
+      fzf-vim
       vim-cool              # No highlighting after move
       vim-rooter            # cd to project root, works well with fzf
-      fzf-vim
-      pear-tree
+      indent-blankline-nvim # Add indentation guides to all lines
+      pear-tree             # Auto-pair parentheses, quotes, HTML tags, ...
       vim-better-whitespace # Highlight and delete whitespace
       editorconfig-vim
       vim-signify           # Show modified lines (vcs)
       vim-fugitive          # Git
+      vim-rhubarb           # GitHub integration for fugitive
       vim-startuptime       # :StartupTime
       emmet-vim             # Generate HTML from abbreviations
     ];
@@ -41,6 +44,7 @@ in {
       bear
 
       # LSP servers
+      rust-analyzer
       rnix-lsp
       clang-tools # clangd
       nodePackages.vscode-html-languageserver-bin
