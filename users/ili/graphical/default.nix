@@ -6,6 +6,7 @@
       (nerdfonts.override { fonts = [ "Hack" ]; })
 
       firefox
+      chromium
       thunderbird
       libreoffice
       mpv
