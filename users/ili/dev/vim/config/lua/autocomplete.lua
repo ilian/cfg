@@ -30,7 +30,9 @@ local servers = {
     cmd = {"elixir-ls"}
   },
   tsserver = {},
+  rust_analyzer = {},
 }
+
 for server, options in pairs(servers) do
   options.on_attach = on_attach
   lspconf[server].setup(options)
