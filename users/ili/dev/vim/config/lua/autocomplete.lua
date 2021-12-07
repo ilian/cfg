@@ -38,7 +38,20 @@ local servers = {
     cmd = {"elixir-ls"}
   },
   tsserver = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+        },
+        completion = {
+          postfix = {
+            enable = false,
+          },
+        },
+      },
+    },
+  },
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
