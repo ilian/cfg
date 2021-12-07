@@ -25,6 +25,7 @@
       lfs.enable = true;
       aliases = {
         co = "checkout";
+        d = "diff";
         fo = "fetch origin";
         fu = "fetch upstream";
         rom = "rebase origin/master";
