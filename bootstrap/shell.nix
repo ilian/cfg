@@ -2,7 +2,7 @@
 # This is useful when bootstrapping from a NixOS install image
 
 let
-  nixpkgs = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-20.09.tar.gz;
+  nixpkgs = builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-21.05.tar.gz;
   pkgs = import nixpkgs { };
   installPkgs = (import "${nixpkgs}/nixos" {
     configuration = {};
