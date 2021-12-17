@@ -24,8 +24,9 @@ echo "Copying NixOS configuration to /mnt/cfg" >&2
 cp -r "$cfg_root" /mnt/cfg
 chown -R 1000 /mnt/cfg
 chgrp -R 100 /mnt/cfg
+rm -rf /mnt/cfg/.git # Use generated files not added to git
 echo "Generating hardware configuration and installing to /mnt" >&2
 nix-shell "/mnt/cfg/bootstrap/shell.nix" --run "\
   nixos-generate-config --root /mnt --show-hardware-config > '/mnt/cfg/hosts/$host/hardware-configuration.nix'
-  nixos-install --flake '/mnt/cfg#$host' --show-trace
+  nixos-install --flake '/mnt/cfg#$host' --impure --show-trace
 "
