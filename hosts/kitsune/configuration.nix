@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/audio/pipewire.nix
     ../../profiles/avahi.nix
     ../../profiles/gaming.nix
     ../../profiles/graphical.nix
