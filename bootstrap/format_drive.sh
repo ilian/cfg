@@ -39,7 +39,8 @@ done
 
 sgdisk -Z "$drive"
 sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:nixos-boot "$drive"
-mkfs.fat -F 32 "${drive}1"
+udevadm trigger
+mkfs.fat -F 32 /dev/disk/by-partlabel/nixos-boot
 
 while [ -z $luks ]; do
   read -p "Enable disk encryption with LUKS? [Y/n] " choice
@@ -57,21 +58,26 @@ while [ -z $luks ]; do
 done
 
 if [ $luks -eq 1 ]; then
-  sgdisk -n 0:0:0 -t 0:8309 -c 0:nixos-LUKS "$drive"
-  cryptsetup luksFormat "${drive}2"
-  cryptsetup luksOpen "${drive}2" cryptroot
+  sgdisk -n 0:0:0 -t 0:8309 -c 0:nixos-luks "$drive"
+  udevadm trigger
+  partprobe "$drive"
+  part=/dev/disk/by-partlabel/nixos-luks
+  cryptsetup luksFormat "$part"
+  cryptsetup luksOpen "$part" cryptroot
   mkfs.ext4 /dev/mapper/cryptroot
 else
   sgdisk -n 0:0:0 -t 0:8300 -c 0:nixos-root "$drive"
-  mkfs.ext4 "${drive}2"
+  udevadm trigger
+  partprobe "$drive"
+  mkfs.ext4 /dev/disk/by-partlabel/nixos-root
 fi
 
 echo "Mounting partitions to /mnt and /mnt/boot" >&2
 if [ $luks -eq 1 ]; then
   mount /dev/mapper/cryptroot /mnt
 else
-  mount "${drive}2" /mnt
+  mount /dev/disk/by-partlabel/nixos-root /mnt
 fi
 
 mkdir /mnt/boot
-mount "${drive}1" /mnt/boot
+mount /dev/disk/by-partlabel/nixos-boot /mnt/boot
