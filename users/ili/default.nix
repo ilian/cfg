@@ -9,6 +9,7 @@ with lib;
     extraGroups = [ "wheel" "audio" ]
       ++ optionals config.networking.networkmanager.enable [ "networkmanager" ]
       ++ optionals config.virtualisation.docker.enable [ "docker" ]
+      ++ optionals config.virtualisation.libvirtd.enable [ "libvirtd" ]
       ++ optionals config.services.jack.jackd.enable [ "jackaudio" ];
       openssh.authorizedKeys.keyFiles =
         mapAttrsToList (name: _: ./ssh-keys + "/${name}")

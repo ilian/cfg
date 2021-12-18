@@ -3,10 +3,11 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../profiles/avahi.nix
+    ../../profiles/graphical.nix
     ../../profiles/grub-efi.nix
     ../../profiles/laptop.nix
-    ../../profiles/graphical.nix
-    ../../profiles/avahi.nix
+    ../../profiles/libvirt.nix
     ../../profiles/udev.nix
     ../../users/ili
   ];
