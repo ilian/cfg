@@ -18,6 +18,7 @@
       gnupg
       sshfs
       exif
+      yt-dlp
 
       # System monitoring
       tcpdump
