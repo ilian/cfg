@@ -9,7 +9,6 @@
       chromium
       thunderbird
       libreoffice
-      mpv
       remmina
     ];
   };
@@ -51,6 +50,12 @@
             bold_italic = { family = font; style = "Bold Italic"; };
           };
         };
+    };
+    mpv = {
+      enable = true;
+      config = {
+        hwdec = "auto-safe";
+      };
     };
   };
 }
