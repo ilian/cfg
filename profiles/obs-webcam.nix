@@ -6,7 +6,6 @@
   environment.systemPackages = with pkgs; [
     guvcview
     v4l-utils
-    noisetorch
     obs-studio
   ];
 }

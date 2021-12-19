@@ -8,7 +8,7 @@
     ../../profiles/graphical.nix
     ../../profiles/grub-efi.nix
     ../../profiles/nvidia.nix
-    ../../profiles/webcam.nix
+    ../../profiles/obs-webcam.nix
     ../../users/ili
   ];
 

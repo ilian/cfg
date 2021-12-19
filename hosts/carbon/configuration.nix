@@ -9,6 +9,7 @@
     ../../profiles/hwdec-tools.nix
     ../../profiles/laptop.nix
     ../../profiles/libvirt.nix
+    ../../profiles/obs-webcam.nix
     ../../profiles/udev.nix
     ../../users/ili
   ];
