@@ -28,9 +28,6 @@
       iotop
       sysstat # iostat, sar
       arp-scan
-
-      # Remote desktop
-      x2goclient
     ];
   };
 
