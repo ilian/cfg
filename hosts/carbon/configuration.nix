@@ -15,4 +15,8 @@
   ];
 
   networking.hostName = "carbon";
+  virtualisation.appvm = {
+    enable = true;
+    user = "ili";
+  };
 }

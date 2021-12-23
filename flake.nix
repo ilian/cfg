@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    appvm = {
+      url = "github:jollheef/appvm";
+      flake = false;
+    };
+
     musnix = {
       url = "github:musnix/musnix";
       flake = false;
@@ -50,6 +55,7 @@
       overlayModule
       (import inputs.musnix)
       home-manager.nixosModules.home-manager
+      (import "${inputs.appvm}/nixos")
     ];
     outputs =
       {
