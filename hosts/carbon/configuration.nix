@@ -15,6 +15,8 @@
   ];
 
   networking.hostName = "carbon";
-
-  services.fwupd.enable = true;
+  virtualisation.appvm = {
+    enable = true;
+    user = "ili";
+  };
 }
