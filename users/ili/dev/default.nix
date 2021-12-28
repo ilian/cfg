@@ -24,6 +24,7 @@
       enable = true;
       lfs.enable = true;
       aliases = {
+        c = "commit";
         co = "checkout";
         d = "diff";
         fo = "fetch origin";
