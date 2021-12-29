@@ -10,6 +10,7 @@
     ../../profiles/laptop.nix
     ../../profiles/libvirt.nix
     ../../profiles/obs-webcam.nix
+    ../../profiles/thinkpad-battery.nix
     ../../profiles/udev.nix
     ../../users/ili
   ];
