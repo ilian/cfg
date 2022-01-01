@@ -36,6 +36,9 @@
       ignores = [ "*.swp" ];
       userName = "ilian";
       userEmail = "ilian@tuta.io";
+      includes = [
+        { path = "~/work/.gitconfig"; condition = "gitdir:~/work/"; }
+      ];
     };
     fzf = {
       enable = true;
