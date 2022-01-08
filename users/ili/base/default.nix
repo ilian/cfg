@@ -22,6 +22,7 @@
 
       # System monitoring
       tcpdump
+      bridge-utils
       nload
       pciutils # lspci
       usbutils
