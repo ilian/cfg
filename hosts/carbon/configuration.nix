@@ -16,4 +16,22 @@
   ];
 
   networking.hostName = "carbon";
+  virtualisation.docker.enable = true;
+  services.printing.enable = true;
+
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    shares.guest = {
+      path = "/srv/public";
+      "read only" = "yes";
+      "guest ok" = "yes";
+      "guest only" = "yes";
+    };
+    extraConfig = ''
+      map to guest = Bad User
+      guest account = nobody
+      min protocol = SMB2
+    '';
+  };
 }
