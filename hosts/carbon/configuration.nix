@@ -16,7 +16,11 @@
   ];
 
   networking.hostName = "carbon";
-  virtualisation.docker.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    dockerSocket.enable = true;
+  };
   services.printing.enable = true;
 
   services.samba = {
