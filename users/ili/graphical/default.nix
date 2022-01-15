@@ -10,6 +10,7 @@
       thunderbird
       libreoffice
       remmina
+      pianoteq
     ];
   };
 
