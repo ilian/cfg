@@ -8,6 +8,10 @@
     gh # GitHub cli
     unstable.cloudflared # Expose local HTTP endpoint publicly
 
+    # Scripts
+    checkbashisms
+    shellcheck
+
     # nixpkgs
     nix-review
     nix-prefetch-git
