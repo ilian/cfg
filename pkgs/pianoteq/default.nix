@@ -1,7 +1,7 @@
 { pkgs, stdenv, fetchurl, perl, coreutils, p7zip, autoPatchelfHook, alsaLib, freetype, libX11, libXext, libXcursor, libXinerama, libXrandr, jack2 }:
 
 let
-  version = "7.3.0";
+  version = "7.5.2";
   urlVersion = builtins.replaceStrings ["."] [""] version;
   htmlDownloadUrl = "https://www.modartt.com/json/download?file=pianoteq_linux_trial_v${urlVersion}.7z";
   archDir =
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
       rm $out # Clean up HTML page since tryDownload appends to $out
       tryDownload "${htmlDownloadUrl}"
     '';
-    hash = "sha256-zeRnHNGVekXJiSUT1w1zKZd0TXRi3CHdNH74UWEhUBM=";
+    hash = "sha256-4+15GA14mPsjLRPzMTefi6oLUFhWoUVDWOlvXVS3hSQ=";
   };
 
   nativeBuildInputs = [
