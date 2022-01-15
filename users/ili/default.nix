@@ -12,9 +12,9 @@ with lib;
       ++ optionals config.virtualisation.libvirtd.enable [ "libvirtd" ]
       ++ optionals config.virtualisation.podman.enable [ "podman" ]
       ++ optionals config.services.jack.jackd.enable [ "jackaudio" ];
-      openssh.authorizedKeys.keyFiles =
-        mapAttrsToList (name: _: ./ssh-keys + "/${name}")
-                       (builtins.readDir ./ssh-keys);
+    openssh.authorizedKeys.keyFiles =
+      mapAttrsToList (name: _: ./ssh-keys + "/${name}")
+                     (builtins.readDir ./ssh-keys);
   };
 
   home-manager.users.ili = {
