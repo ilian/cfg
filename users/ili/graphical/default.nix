@@ -10,6 +10,7 @@
       thunderbird
       libreoffice
       remmina
+      helvum # pipewire patchbay
       pianoteq
     ];
   };
