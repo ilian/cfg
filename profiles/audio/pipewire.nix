@@ -10,6 +10,13 @@
     pulse.enable = true;
     jack.enable = true;
 
+    # Use small buffer size for JACK applications to minimize latency
+    config.jack = {
+      "jack.properties" = {
+        "node.latency" = "64/48000";
+      };
+    };
+
     media-session.config.bluez-monitor.rules = [
       {
         # Matches all cards
