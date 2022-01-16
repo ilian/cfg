@@ -10,12 +10,21 @@
     ../../profiles/laptop.nix
     ../../profiles/libvirt.nix
     ../../profiles/obs-webcam.nix
-    ../../profiles/thinkpad-battery.nix
     ../../profiles/udev.nix
     ../../users/ili
   ];
 
   networking.hostName = "carbon";
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      # Improve battery lifespan
+      START_CHARGE_THRESH_BAT0 = 75;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+    };
+  };
+
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
