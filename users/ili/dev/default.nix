@@ -33,6 +33,7 @@
         d = "diff";
         fo = "fetch origin";
         fu = "fetch upstream";
+        l = "log";
         rom = "rebase origin/master";
         rum = "rebase upstream/master";
         s = "status";
