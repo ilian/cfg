@@ -10,7 +10,7 @@
     ../../profiles/laptop.nix
     ../../profiles/libvirt.nix
     ../../profiles/obs-webcam.nix
-    ../../profiles/udev.nix
+    ../../profiles/idevice.nix
     ../../profiles/podman.nix
     ../../users/ili
   ];
