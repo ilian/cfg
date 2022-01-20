@@ -11,6 +11,7 @@
     ../../profiles/libvirt.nix
     ../../profiles/obs-webcam.nix
     ../../profiles/udev.nix
+    ../../profiles/podman.nix
     ../../users/ili
   ];
 
@@ -25,13 +26,7 @@
     };
   };
 
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-    dockerSocket.enable = true;
-  };
   services.printing.enable = true;
-
   services.samba = {
     enable = true;
     openFirewall = true;
