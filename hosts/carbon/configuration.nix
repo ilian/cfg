@@ -17,6 +17,10 @@
 
   networking.hostName = "carbon";
 
+  # Ignore EC interrupts that cause low-latency audio issues
+  # https://gist.github.com/ilian/439be7f83db31d58ce448eeb9ed34323
+  boot.kernelParams = [ "acpi_mask_gpe=0x6e" ];
+
   services.tlp = {
     enable = true;
     settings = {
