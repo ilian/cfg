@@ -43,7 +43,6 @@
     extraConfig = ''
       map to guest = Bad User
       guest account = nobody
-      min protocol = SMB2
     '';
   };
 }
