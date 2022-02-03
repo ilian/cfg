@@ -32,6 +32,7 @@
         co = "checkout";
         d = "diff";
         fo = "fetch origin";
+        fp = "fetch -p";
         fu = "fetch upstream";
         l = "log";
         rom = "rebase origin/master";
