@@ -64,8 +64,8 @@ in {
       set cursorline             " Highlight current line
       set clipboard+=unnamedplus " Sync clipboard with OS
       set mouse=a                " Enable mouse support
-      set smartcase
       set ignorecase
+      set smartcase              " Case-sensitive search iff pattern has uppercase char
       set expandtab              " Insert spaces instead of TAB
       set tabstop=2              " Expand TAB to 2 spaces
       set shiftwidth=2
