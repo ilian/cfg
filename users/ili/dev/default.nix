@@ -2,6 +2,7 @@
 {
   imports = [
     ./vim
+    ./ideavim.nix
   ];
 
   home.packages = with pkgs; [
