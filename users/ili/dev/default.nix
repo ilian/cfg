@@ -32,6 +32,7 @@
         c = "commit";
         co = "checkout";
         d = "diff";
+        ds = "diff --staged";
         fo = "fetch origin";
         fp = "fetch -p";
         fu = "fetch upstream";
