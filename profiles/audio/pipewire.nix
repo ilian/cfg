@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   hardware.pulseaudio.enable = pkgs.lib.mkForce false;
@@ -46,11 +46,13 @@
 
   # Enable pulseaudio volume control to control pipewire
   environment.systemPackages =
-    (if config.services.xserver.desktopManager.plasma5.enable then
-    with pkgs; [ plasma-pa ]
-    else
-    []
-    );
+    with pkgs;
+    lib.optionals config.services.xserver.desktopManager.plasma5.enable [
+      plasma-pa
+    ] ++ lib.optionals config.services.xserver.desktopManager.xfce.enable [
+      pavucontrol
+      xfce.xfce4-pulseaudio-plugin
+    ];
 
   # Allow applications for users in 'audio' group to use realtime scheduling
   users.extraGroups = { audio = {}; };
