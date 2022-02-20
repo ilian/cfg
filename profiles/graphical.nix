@@ -4,7 +4,8 @@ with lib;
 {
   imports = [
     ./audio/pipewire.nix
-    ./kde.nix
+    ./cinnamon-xp.nix
+    #./kde.nix
     #./xfce.nix
   ];
 
