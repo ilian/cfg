@@ -32,6 +32,7 @@ in {
       vim-rhubarb           # GitHub integration for fugitive
       vim-startuptime       # :StartupTime
       emmet-vim             # Generate HTML from abbreviations
+      vim-table-mode        # <leader>tm switches to table mode
     ];
     extraPackages = with pkgs; [
       # Treesitter dependencies
