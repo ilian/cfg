@@ -19,6 +19,7 @@
       sshfs
       exif
       yt-dlp
+      jq
 
       # System monitoring
       tcpdump

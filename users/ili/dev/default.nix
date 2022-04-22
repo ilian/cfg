@@ -9,6 +9,17 @@
     gh # GitHub cli
     unstable.cloudflared # Expose local HTTP endpoint publicly
 
+    # Infra
+    awscli
+    terraform
+    kubectl
+    kubernetes-helm
+    kubetail
+    kubeval
+    kubectx
+    k9s
+    lens
+
     # Scripts
     checkbashisms
     shellcheck
@@ -25,6 +36,17 @@
   ];
 
   programs = {
+    bash = {
+      shellAliases = {
+        "k" = "kubectl";
+        "g" = "git";
+      };
+      initExtra = ''
+        . ${pkgs.complete-alias}/bin/complete_alias
+        complete -F _complete_alias k
+        complete -F _complete_alias g
+      '';
+    };
     git = {
       enable = true;
       lfs.enable = true;
