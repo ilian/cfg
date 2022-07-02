@@ -71,6 +71,7 @@
            && [[ $SHLVL == 1 ]]; then
           tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
         fi
+        export PATH="$PATH":$HOME/bin
       '';
     };
     command-not-found.enable = true;
