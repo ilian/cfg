@@ -46,8 +46,11 @@
       shellAliases = {
         "k" = "kubectl";
         "g" = "git";
+        "tf" = "terraform";
       };
       initExtra = ''
+        complete -o nospace -C ${pkgs.terraform}/bin/terraform terraform
+        complete -o nospace -C ${pkgs.terraform}/bin/terraform tf
         . ${pkgs.complete-alias}/bin/complete_alias
         complete -F _complete_alias k
         complete -F _complete_alias g
