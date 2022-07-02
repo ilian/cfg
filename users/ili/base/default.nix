@@ -20,6 +20,10 @@
       exif
       yt-dlp
       jq
+      parallel
+      crudini
+      termtosvg # Record terminal as a svg animation
+      ministat # Plot and calculate stats of numeric data in files
 
       # System monitoring
       tcpdump
