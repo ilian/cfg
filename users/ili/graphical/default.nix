@@ -12,6 +12,7 @@
       remmina
       helvum # pipewire patchbay
       pianoteq
+      pdfpc # PDF Presentation
     ];
   };
 
