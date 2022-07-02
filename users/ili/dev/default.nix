@@ -8,9 +8,10 @@
   home.packages = with pkgs; [
     gh # GitHub cli
     unstable.cloudflared # Expose local HTTP endpoint publicly
+    python310Packages.grip # Preview Markdown files in a browser
 
     # Infra
-    awscli
+    awscli2
     terraform
     kubectl
     kubernetes-helm
@@ -19,6 +20,11 @@
     kubectx
     k9s
     lens
+    heroku
+    minikube
+    docker-machine-kvm2 # needed for minikube --driver=kvm2
+    dive # Examine contents of OCI images
+    trivy # Scan OCI images for vulnerabilities
 
     # Scripts
     checkbashisms
