@@ -60,6 +60,11 @@
           PROMPT_COMMAND="$PROMPT_COMMAND;$__HISTORY_UPDATE"
         fi
 
+        . ${pkgs.git}/share/bash-completion/completions/git-prompt.sh
+        # Show branch name in shell prompt
+        # Original PS1: '\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\] '
+        PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]$(__git_ps1 " (%s) ")\$\[\033[0m\] '
+
         # Create or attach to a tmux session on ssh login
         # We don't attach for nested shells (e.g. when entering a nix shell)
         if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]] \
