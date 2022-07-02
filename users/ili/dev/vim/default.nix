@@ -30,6 +30,8 @@ in {
       vim-signify           # Show modified lines (vcs)
       vim-fugitive          # Git
       vim-rhubarb           # GitHub integration for fugitive
+      gitlinker-nvim        # <leader>gy to copy permalink to Git frontend
+      plenary-nvim          # Dependency of gitlinker
       vim-startuptime       # :StartupTime
       emmet-vim             # Generate HTML from abbreviations
       vim-table-mode        # <leader>tm switches to table mode
