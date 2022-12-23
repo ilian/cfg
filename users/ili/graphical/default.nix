@@ -14,6 +14,8 @@
       pianoteq
       pdfpc # PDF Presentation
       xclip
+      unstable.obsidian
+      blender
     ];
   };
 
