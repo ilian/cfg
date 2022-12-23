@@ -12,7 +12,7 @@ in {
       #sonokai
       vim-gruvbox8
 
-      vim-polyglot          # Language pack collection
+      #vim-polyglot          # Language pack collection
       nvim-lspconfig
       nvim-cmp
       cmp-nvim-lsp

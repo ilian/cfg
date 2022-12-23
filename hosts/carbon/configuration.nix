@@ -22,6 +22,10 @@
   # TODO: After switching from KDE to Cinnamon, the issue appears to be resolved!
   #boot.kernelParams = [ "acpi_mask_gpe=0x6e" ];
 
+  # Disable power-profiles-daemon, which is enabled in KDE module by default
+  # This conflicts with TLP enabled below
+  services.power-profiles-daemon.enable = false;
+
   services.tlp = {
     enable = true;
     settings = {
@@ -46,4 +50,7 @@
       guest account = nobody
     '';
   };
+
+  # https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
+  system.stateVersion = "22.05";
 }

@@ -7,7 +7,7 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu.ovmf.enable = true; # UEFI
-    qemu.ovmf.package = pkgs.OVMFFull; # Use UEFI image with Secure Boot support
+    qemu.ovmf.packages = [ pkgs.OVMFFull ]; # Use UEFI image with Secure Boot support
     qemu.swtpm.enable = true;
   };
 
