@@ -6,6 +6,7 @@
     gettext # Required for custom applets to be installed
     libgtop # System Monitor applet
     redshift
-    cinnxp
+    cinnxp # XP Theme
+    okular # KDE document viewer
   ];
 }
