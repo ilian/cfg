@@ -50,6 +50,8 @@
         "....." = "cd ../../../..";
       };
       shellOptions = [ "histappend" ];
+      # Ignore commands beggining with a space
+      historyControl = [ "ignorespace" ];
       initExtra = ''
         # Write to history file and only read new commands
         # since last read
