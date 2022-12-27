@@ -3,6 +3,7 @@
 with lib;
 {
   imports = [
+    #./audio/pulseaudio.nix
     ./audio/pipewire.nix
     #./cinnamon-xp.nix
     #./xfce-xp.nix

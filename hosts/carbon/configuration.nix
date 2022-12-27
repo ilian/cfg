@@ -15,6 +15,9 @@
     ../../users/ili
   ];
 
+  # Using the latest kernel version fixed some audio issues I had on 5.15
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.hostName = "carbon";
 
   # Ignore EC interrupts that cause low-latency audio issues
