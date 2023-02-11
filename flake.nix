@@ -5,11 +5,6 @@
     flake-utils.url = "github:numtide/flake-utils/flatten-tree-system";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -19,14 +14,9 @@
       url = "github:musnix/musnix";
       flake = false;
     };
-
-    nix-elixir = {
-      url = "github:hauleth/nix-elixir";
-      flake = false;
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, nix-ld, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, ... }:
   with builtins;
   with nixpkgs.lib;
   let
@@ -43,7 +33,6 @@
     overlayModule = {
       nixpkgs.overlays = [
         self.overlay
-        (import inputs.nix-elixir)
         #(self: super: { unstable = nixpkgs-unstable.legacyPackages.${self.system}; })
         (final: prev: { unstable = import nixpkgs-unstable { system = final.system; config.allowUnfree = true; }; })
       ];
@@ -55,7 +44,6 @@
       overlayModule
       (import inputs.musnix)
       home-manager.nixosModules.home-manager
-      nix-ld.nixosModules.nix-ld
     ];
     outputs =
       {
