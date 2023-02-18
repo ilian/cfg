@@ -19,7 +19,6 @@
     kubeval
     kubectx
     k9s
-    lens
     heroku
     minikube
     docker-machine-kvm2 # needed for minikube --driver=kvm2
