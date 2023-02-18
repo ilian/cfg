@@ -16,6 +16,7 @@
       xclip
       unstable.obsidian
       blender
+      mesa-demos # glxinfo
     ];
   };
 
