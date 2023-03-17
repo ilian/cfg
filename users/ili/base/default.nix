@@ -49,9 +49,15 @@
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
       };
-      shellOptions = [ "histappend" ];
+      historyFileSize = 100000;
+      historySize = 100000;
       # Ignore commands beggining with a space
-      historyControl = [ "ignorespace" ];
+      historyControl = [
+        "ignorespace" # Do not store commands that start with space to history (useful for sensitive args)
+        "ignoredups" # Do not store repeated commands multiple times to history
+      ];
+      # Append history list instead of overwriting on shell exit
+      shellOptions = [ "histappend" ];
       initExtra = ''
         # Write to history file and only read new commands
         # since last read
