@@ -3,6 +3,7 @@
   imports = [
     ./vim
     ./ideavim.nix
+    ./helix.nix
   ];
 
   home.packages = with pkgs; [
