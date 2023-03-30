@@ -9,5 +9,6 @@
     ark
     kate
     okular
+    filelight
   ];
 }
