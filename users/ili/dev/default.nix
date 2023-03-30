@@ -78,6 +78,9 @@
       includes = [
         { path = "~/work/.gitconfig"; condition = "gitdir:~/work/"; }
       ];
+      extraConfig = {
+        merge.conflictstyle = "diff3";
+      };
     };
     fzf = {
       enable = true;
