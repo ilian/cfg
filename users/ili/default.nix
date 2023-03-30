@@ -6,8 +6,11 @@ with lib;
   users.users.ili = {
     createHome = true;
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" ]
-      ++ optionals config.networking.networkmanager.enable [ "networkmanager" ]
+    extraGroups = [
+     "wheel"
+     "audio"
+     "dialout" # Full access to serial ports
+    ] ++ optionals config.networking.networkmanager.enable [ "networkmanager" ]
       ++ optionals config.virtualisation.docker.enable [ "docker" ]
       ++ optionals config.virtualisation.podman.enable [ "podman" ]
       ++ optionals config.virtualisation.libvirtd.enable [ "libvirtd" ]
