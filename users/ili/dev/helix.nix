@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-
-let
-
-  theme="tokyonight_storm";
+{pkgs, ...}: let
+  theme = "tokyonight_storm";
   lf-pick = pkgs.writeShellScriptBin "lf-pick" ''
     function lfp(){
       local TEMP=$(mktemp)
@@ -13,20 +10,31 @@ let
 
     lfp
   '';
-
-in
-
-{
+in {
   home.packages = with pkgs; [
     jsonnet-language-server
-    nil # nix language server
+    marksman # Markdown language server
     nodePackages.bash-language-server
-    nodePackages.vscode-json-languageserver
     terraform-ls
     yaml-language-server
   ];
   programs.helix = {
     enable = true;
+    languages = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = "${pkgs.alejandra}/bin/alejandra";
+        formatter.args = ["-"];
+        language-server.command = "${pkgs.nil}/bin/nil";
+      }
+      {
+        name = "json";
+        auto-format = true;
+        language-server.command = "${pkgs.nodePackages.vscode-json-languageserver}/bin/vscode-json-languageserver";
+        language-server.args = ["--stdio"];
+      }
+    ];
     settings = {
       theme = theme;
       editor = {
