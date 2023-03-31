@@ -1,16 +1,4 @@
-{pkgs, ...}: let
-  theme = "tokyonight_storm";
-  lf-pick = pkgs.writeShellScriptBin "lf-pick" ''
-    function lfp(){
-      local TEMP=$(mktemp)
-      ${pkgs.lf}/bin/lf -selection-path="$TEMP"
-      cat "$TEMP"
-      rm "$TEMP"
-    }
-
-    lfp
-  '';
-in {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     jsonnet-language-server
     marksman # Markdown language server
@@ -36,16 +24,13 @@ in {
       }
     ];
     settings = {
-      theme = theme;
+      theme = "tokyonight_storm";
       editor = {
+        cursor-shape.insert = "bar";
+        lsp.display-messages = true;
+        idle-timeout = 200;
         bufferline = "always";
         rulers = [80];
-      };
-      editor.cursor-shape = {
-        insert = "bar"; # Change cursor to a bar instead of a block
-      };
-      editor.lsp = {
-        display-messages = true;
       };
       keys.normal = {
         "0" = "goto_line_start";
@@ -54,26 +39,10 @@ in {
         G = "goto_file_end";
         ret = ["move_line_down" "goto_first_nonwhitespace"];
         ";" = "command_mode";
-        # Tree file picker, based on https://gist.github.com/lukepighetti/8e4a13db5bdcd68a7d83eee19051ab14
-        # Broken due to broken UI after picking a file
-        # "C-f" = [
-        #   ":new"
-        #   ":theme default"
-        #   ":insert-output ${lf-pick}/bin/lf-pick"
-        #   "select_all"
-        #   "split_selection_on_newline"
-        #   "goto_file"
-        #   "goto_last_modified_file"
-        #   ":buffer-close!"
-        #   ":theme ${theme}"
-        # ];
-      };
-      keys.normal.g = {
-        q = ":reflow";
-      };
-      keys.normal.space = {
-        q = ":quit";
-        w = ":write";
+
+        g.q = ":reflow";
+        space.q = ":quit";
+        space.w = ":write";
       };
       keys.select = {
         "0" = "goto_line_start";
