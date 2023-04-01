@@ -72,7 +72,6 @@ in {
       set relativenumber
       set nowrap
       set cursorline             " Highlight current line
-      set clipboard+=unnamedplus " Sync clipboard with OS
       set mouse=a                " Enable mouse support
       set ignorecase
       set smartcase              " Case-sensitive search iff pattern has uppercase char
@@ -88,6 +87,10 @@ in {
 
       let mapleader = " "
       nnoremap ; :
+      " Use different mappings to yank to vim and OS clipboard
+      nnoremap <leader>y "+y
+      vnoremap <leader>y "+y
+      nnoremap <leader>Y "+Y
       " Search globally
       nnoremap <leader>/ :Rg<cr>
       " Toggle buffer by pressing <leader> twice
