@@ -68,6 +68,8 @@ in {
       set background=dark
       colorscheme kanagawa
 
+      set nu                     " Show line numbers
+      set relativenumber
       set nowrap
       set cursorline             " Highlight current line
       set clipboard+=unnamedplus " Sync clipboard with OS
