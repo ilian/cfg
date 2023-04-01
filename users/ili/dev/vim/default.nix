@@ -66,7 +66,7 @@ in {
       endif
 
       set background=dark
-      colorscheme gruvbox8
+      colorscheme kanagawa
 
       set nowrap
       set cursorline             " Highlight current line
