@@ -6,6 +6,8 @@
     ./helix.nix
   ];
 
+  home.sessionVariables.EDITOR = "vim";
+
   home.packages = with pkgs; [
     gh # GitHub cli
     unstable.cloudflared # Expose local HTTP endpoint publicly

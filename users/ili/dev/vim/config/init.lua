@@ -1,3 +1,3 @@
-require('autocomplete')
+require('ili')
 require"gitlinker".setup()
 

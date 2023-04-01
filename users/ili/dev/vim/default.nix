@@ -17,7 +17,7 @@ in {
       nvim-cmp
       cmp-nvim-lsp
       luasnip
-      #nvim-treesitter
+      nvim-treesitter.withAllGrammars
 
       ranger-vim            # File manager
       fzf-vim
@@ -33,13 +33,9 @@ in {
       gitlinker-nvim        # <leader>gy to copy permalink to Git frontend
       plenary-nvim          # Dependency of gitlinker
       vim-startuptime       # :StartupTime
-      emmet-vim             # Generate HTML from abbreviations
       vim-table-mode        # <leader>tm switches to table mode
     ];
     extraPackages = with pkgs; [
-      # Treesitter dependencies
-      # gcc
-
       # C code navigation
       cscope
       ctags
@@ -81,11 +77,16 @@ in {
 
       let mapleader = " "
       nnoremap ; :
-      " Toggle buffer with <leader> <leader>
+      " Search globally
+      nnoremap <leader>/ :Rg<cr>
+      " Toggle buffer by pressing <leader> twice
       nnoremap <leader><leader> <c-^>
+      nnoremap <leader>gs :Git<cr>
+      " Pick a file to edit using Ranger
       nnoremap <leader>f :RangerEdit<cr>
+      " Open file picker
       nnoremap <silent> <C-p> :Files<cr>
-      " Allow <C-p> in ranger
+      " Allow <C-p> while picking files in Ranger
       tmap <silent> <C-p> <C-\><C-n>:Files<cr>
       nnoremap <leader>; :Buffers<cr>
 
@@ -104,17 +105,6 @@ in {
       :luafile ${luaDir}/init.lua
 
 
-      " lua <<EOF
-      " require'nvim-treesitter.configs'.setup {
-      "   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-      "   ignore_install = {}, -- List of parsers to ignore installing
-      "   highlight = {
-      "     enable = true,              -- false will disable the whole extension
-      "     disable = {},  -- list of language that will be disabled
-      "   },
-      " }
-      " EOF
-
       if has('termguicolors')
         set termguicolors
       endif
@@ -122,11 +112,7 @@ in {
       set background=dark
       colorscheme gruvbox8
 
-      " Temporarily disable until the following issue is fixed:
-      " https://github.com/ntpeters/vim-better-whitespace/issues/125
-      let g:better_whitespace_enabled=0
       let g:strip_whitespace_on_save=1
-      let g:user_emmet_leader_key=','     " Use ,, to expand emmet abbreviation
       let g:pear_tree_repeatable_expand=0 " Do not remove closing pair on return
 
       " Rust
@@ -136,6 +122,4 @@ in {
     '';
 
   };
-
-  home.sessionVariables.EDITOR = "vim";
 }
