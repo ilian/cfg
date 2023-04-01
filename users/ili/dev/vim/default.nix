@@ -115,11 +115,6 @@ in {
 
       let g:strip_whitespace_on_save=1
       let g:pear_tree_repeatable_expand=0 " Do not remove closing pair on return
-
-      " Rust
-      let g:rustfmt_autosave = 1
-      let g:rustfmt_emit_files = 1
-      let g:rustfmt_fail_silently = 0
     '';
 
   };
