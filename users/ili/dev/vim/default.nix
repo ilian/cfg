@@ -85,6 +85,7 @@ in {
       set splitbelow             " Create split on the bottom
       set colorcolumn=80         " Show line at 80 chars
       set updatetime=100         " Time to react to changes (used by vim-signify, swap)
+      set shortmess+=I           " Hide intro message
 
       let mapleader = " "
       nnoremap ; :
