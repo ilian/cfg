@@ -11,6 +11,8 @@ in {
     plugins = with pkgs.vimPlugins; [
       #sonokai
       vim-gruvbox8
+      tokyonight-nvim
+      kanagawa-nvim
 
       #vim-polyglot          # Language pack collection
       nvim-lspconfig
@@ -59,6 +61,13 @@ in {
         source ~/.vimrc
       endif
 
+      if has('termguicolors')
+        set termguicolors
+      endif
+
+      set background=dark
+      colorscheme gruvbox8
+
       set nowrap
       set cursorline             " Highlight current line
       set clipboard+=unnamedplus " Sync clipboard with OS
@@ -103,14 +112,6 @@ in {
       " Load lua config
       set runtimepath^=${luaDir}
       :luafile ${luaDir}/init.lua
-
-
-      if has('termguicolors')
-        set termguicolors
-      endif
-
-      set background=dark
-      colorscheme gruvbox8
 
       let g:strip_whitespace_on_save=1
       let g:pear_tree_repeatable_expand=0 " Do not remove closing pair on return
