@@ -21,10 +21,13 @@ in {
       luasnip
       nvim-treesitter.withAllGrammars
 
+      # Telescope with dependencies
+      telescope-nvim
+      plenary-nvim
+
       ranger-vim            # File manager
-      fzf-vim
       vim-cool              # No highlighting after move
-      vim-rooter            # cd to project root, works well with fzf
+      vim-rooter            # cd to project root, works well with telescope
       indent-blankline-nvim # Add indentation guides to all lines
       pear-tree             # Auto-pair parentheses, quotes, HTML tags, ...
       vim-better-whitespace # Highlight and delete whitespace
@@ -35,7 +38,7 @@ in {
       gitlinker-nvim        # <leader>gy to copy permalink to Git frontend
       plenary-nvim          # Dependency of gitlinker
       vim-startuptime       # :StartupTime
-      vim-table-mode        # <leader>tm switches to table mode
+      #vim-table-mode        # <leader>tm switches to table mode (TODO: remove built-in key bindings, slows down <leader>t)
     ];
     extraPackages = with pkgs; [
       # C code navigation
@@ -87,24 +90,41 @@ in {
       set updatetime=100         " Time to react to changes (used by vim-signify, swap)
       set shortmess+=I           " Hide intro message
 
+
       let mapleader = " "
       nnoremap ; :
+
+      " Telescope pickers
+      nnoremap <leader>f :Telescope find_files<cr>
+      nnoremap <leader>b :Telescope buffers<cr>
+      nnoremap <leader>b :Telescope buffers<cr>
+      nnoremap <leader>/ :Telescope live_grep<cr>
+      nnoremap <leader>d :Telescope diagnostics<cr>
+      nnoremap <leader>s :Telescope lsp_document_symbols<cr>
+      nnoremap <leader>S :Telescope lsp_workspace_symbols<cr>
+
       " Use different mappings to yank to vim and OS clipboard
       nnoremap <leader>y "+y
       vnoremap <leader>y "+y
       nnoremap <leader>Y "+Y
-      " Search globally
-      nnoremap <leader>/ :Rg<cr>
+
       " Toggle buffer by pressing <leader> twice
       nnoremap <leader><leader> <c-^>
+
+      " Git status
       nnoremap <leader>gs :Git<cr>
+
       " Pick a file to edit using Ranger
-      nnoremap <leader>f :RangerEdit<cr>
-      " Open file picker
-      nnoremap <silent> <C-p> :Files<cr>
+      nnoremap <leader>t :RangerEdit<cr>
+
       " Allow <C-p> while picking files in Ranger
       tmap <silent> <C-p> <C-\><C-n>:Files<cr>
+
       nnoremap <leader>; :Buffers<cr>
+
+      " Use | to pipe selection in visual mode or select mode to external command
+      xnoremap \| :!
+
 
       " Keep undo history after quit
       if !isdirectory($HOME."/.vim")
@@ -120,8 +140,10 @@ in {
       set runtimepath^=${luaDir}
       :luafile ${luaDir}/init.lua
 
+      let g:better_whitespace_enabled=0  " Marks parts of Ranger in Red otherwise...
       let g:strip_whitespace_on_save=1
       let g:pear_tree_repeatable_expand=0 " Do not remove closing pair on return
+      let g:pear_tree_ft_disabled = ['TelescopePrompt'] " Allow <CR> to work in telescope
     '';
 
   };
