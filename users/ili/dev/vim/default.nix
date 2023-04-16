@@ -19,7 +19,9 @@ in {
       nvim-cmp
       cmp-nvim-lsp
       luasnip
+      fidget-nvim            # Show LSP status
       nvim-treesitter.withAllGrammars
+      nvim-treesitter-context
 
       # Telescope with dependencies
       telescope-nvim
@@ -92,21 +94,23 @@ in {
 
 
       let mapleader = " "
-      nnoremap ; :
 
       " Telescope pickers
       nnoremap <leader>f :Telescope find_files<cr>
       nnoremap <leader>b :Telescope buffers<cr>
       nnoremap <leader>b :Telescope buffers<cr>
       nnoremap <leader>/ :Telescope live_grep<cr>
-      nnoremap <leader>d :Telescope diagnostics<cr>
-      nnoremap <leader>s :Telescope lsp_document_symbols<cr>
-      nnoremap <leader>S :Telescope lsp_workspace_symbols<cr>
+      " Find files tracked by Git and allow while picking files in Ranger
+      nnoremap <C-p> :Telescope git_files<cr>
+      tmap <silent> <C-p> <C-\><C-n>:Telescope git_files<cr>
 
       " Use different mappings to yank to vim and OS clipboard
       nnoremap <leader>y "+y
       vnoremap <leader>y "+y
       nnoremap <leader>Y "+Y
+
+      " Replace highlight with contents of x register without modifying the register
+      xnoremap <leader>p "_dP
 
       " Toggle buffer by pressing <leader> twice
       nnoremap <leader><leader> <c-^>
@@ -117,13 +121,19 @@ in {
       " Pick a file to edit using Ranger
       nnoremap <leader>t :RangerEdit<cr>
 
-      " Allow <C-p> while picking files in Ranger
-      tmap <silent> <C-p> <C-\><C-n>:Files<cr>
-
-      nnoremap <leader>; :Buffers<cr>
-
       " Use | to pipe selection in visual mode or select mode to external command
       xnoremap \| :!
+
+      " Keep cursor at the same position while joining lines
+      nnoremap J mzJ`z
+
+      " Keep cursor centered when searching
+      nnoremap n nzzzv
+      nnoremap N Nzzzv
+
+      " Keep cursor centered when scrolling up/down half a screen
+      nnoremap <C-d> <C-d>zz
+      nnoremap <C-u> <C-u>zz
 
 
       " Keep undo history after quit
@@ -140,9 +150,10 @@ in {
       set runtimepath^=${luaDir}
       :luafile ${luaDir}/init.lua
 
-      let g:better_whitespace_enabled=0  " Marks parts of Ranger in Red otherwise...
+      let g:better_whitespace_enabled=0    " Marks parts of Ranger in Red otherwise...
+      let g:better_whitespace_operator=""  " Don't configure any mappings since they conflict with LSP keybindings
       let g:strip_whitespace_on_save=1
-      let g:pear_tree_repeatable_expand=0 " Do not remove closing pair on return
+      let g:pear_tree_repeatable_expand=0  " Do not remove closing pair on return
       let g:pear_tree_ft_disabled = ['TelescopePrompt'] " Allow <CR> to work in telescope
     '';
 

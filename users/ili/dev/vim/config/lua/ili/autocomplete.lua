@@ -1,42 +1,46 @@
-local lspconf = require 'lspconfig'
+local lspconfig = require 'lspconfig'
 local luasnip = require 'luasnip'
 local cmp = require 'cmp'
 
-local on_attach = function(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- Show LSP status
+require('fidget').setup({})
 
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+local on_attach = function(_, bufnr)
+  local opts = { buffer = bufnr, remap = false, silent = true }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<leader>d', require('telescope.builtin').diagnostics, opts)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+  vim.keymap.set('n', '<leader>s', require('telescope.builtin').lsp_document_symbols, opts)
+  vim.keymap.set('n', '<leader>S', require('telescope.builtin').lsp_workspace_symbols, opts)
+
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+  vim.keymap.set('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+
+  -- Create :Format command
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
 local servers = {
-  rnix = {},
   clangd = {},
-  jsonls = {},
   cssls = {},
-  html = {},
-  svelte = {},
   elixirls = {
     cmd = {"elixir-ls"}
   },
-  tsserver = {},
+  html = {},
+  jsonls = {},
+  pylsp = {},
+  rnix = {},
   rust_analyzer = {
     settings = {
       ["rust-analyzer"] = {
@@ -51,6 +55,8 @@ local servers = {
       },
     },
   },
+  svelte = {},
+  tsserver = {},
 }
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -58,11 +64,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 for server, options in pairs(servers) do
   options.capabilities = capabilities
   options.on_attach = on_attach
-  lspconf[server].setup(options)
+  lspconfig[server].setup(options)
 end
-
-vim.o.completeopt = 'menuone,noinsert,noselect'
-vim.wo.signcolumn = 'yes'
 
 -- Use nvim-cmp as our completion engine
 cmp.setup {
@@ -71,18 +74,38 @@ cmp.setup {
       luasnip.lsp_expand(args.body)
     end,
   },
-  mapping = {
+  window = {
+    documentation = {
+      max_height = 15,
+      max_width = 60,
+    }
+  },
+  formatting = {
+    fields = {'abbr', 'menu', 'kind'},
+    format = function(entry, item)
+      local short_name = {
+        nvim_lsp = 'LSP',
+        nvim_lua = 'nvim'
+      }
+
+      local menu_name = short_name[entry.source.name] or entry.source.name
+
+      item.menu = string.format('[%s]', menu_name)
+      return item
+    end,
+  },
+  mapping = cmp.mapping.preset.insert {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
+    ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = function(fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -90,8 +113,8 @@ cmp.setup {
       else
         fallback()
       end
-    end,
-    ['<S-Tab>'] = function(fallback)
+    end, {'i', 's'}),
+    ['<S-Tab>'] =cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -99,7 +122,7 @@ cmp.setup {
       else
         fallback()
       end
-    end,
+    end, {'i', 's'}),
   },
   sources = {
     { name = 'nvim_lsp' },
