@@ -36,8 +36,8 @@ return {
     { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection 'Right' },
     { key = 't', mods = 'LEADER', action = act.SpawnTab 'CurrentPaneDomain' },
     { key = 'c', mods = 'LEADER', action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 'v', mods = 'LEADER', action = act.SplitVertical{ domain =  'CurrentPaneDomain' } },
-    { key = 's', mods = 'LEADER', action = act.SplitHorizontal{ domain =  'CurrentPaneDomain' } },
+    { key = 's', mods = 'LEADER', action = act.SplitVertical{ domain =  'CurrentPaneDomain' } },
+    { key = 'v', mods = 'LEADER', action = act.SplitHorizontal{ domain =  'CurrentPaneDomain' } },
     { key = 'z', mods = 'LEADER', action = act.TogglePaneZoomState },
 
     -- Defaults
