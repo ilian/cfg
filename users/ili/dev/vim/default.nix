@@ -90,6 +90,7 @@ in {
       set splitright             " Create vsplits on the right
       set splitbelow             " Create split on the bottom
       set colorcolumn=80         " Show line at 80 chars
+      set signcolumn=yes         " Always show sign column to avoid layout shift when at least 1 sign exists
       set updatetime=100         " Time to react to changes (used by vim-signify, swap)
       set shortmess+=I           " Hide intro message
 
@@ -150,6 +151,8 @@ in {
       " Load lua config
       set runtimepath^=${luaDir}
       :luafile ${luaDir}/init.lua
+
+      let g:signify_priority = 0           " LSP sign priority is 10 by default. Let's set signify to a lower priority
 
       let g:better_whitespace_enabled=0    " Marks parts of Ranger in Red otherwise...
       let g:better_whitespace_operator=""  " Don't configure any mappings since they conflict with LSP keybindings
