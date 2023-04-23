@@ -60,6 +60,7 @@ in {
       nodePackages.svelte-language-server
       nodePackages.typescript
       nodePackages.typescript-language-server
+      terraform-ls
     ];
     extraConfig = ''
       if filereadable($HOME . "/.vimrc")
