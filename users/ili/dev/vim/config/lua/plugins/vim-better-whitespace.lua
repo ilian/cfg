@@ -1,15 +1,6 @@
 return {
   'ntpeters/vim-better-whitespace',
 
-  event = 'BufReadPost',
-
-  cmd = { 'StripWhitespace' },
-
-  keys = {
-    { ']w', '<Cmd>NextTrailingWhitespace<CR>', noremap = true },
-    { '[w', '<Cmd>PrevTrailingWhitespace<CR>', noremap = true },
-  },
-
   init = function()
     vim.g.better_whitespace_enabled = 1
     vim.g.strip_whitespace_on_save = 1
