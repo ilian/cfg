@@ -20,6 +20,7 @@ return {
       'unite',
       'qf',
       'help',
+      'toggleterm',
     }
   end
 }
