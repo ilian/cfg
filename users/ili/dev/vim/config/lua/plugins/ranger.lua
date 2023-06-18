@@ -4,7 +4,7 @@ return {
   config = function()
     -- Replacing netrw does not seem to work yet
     require("ranger-nvim").setup({ replace_netrw = false })
-    vim.api.nvim_set_keymap("n", "<leader>ef", "", {
+    vim.api.nvim_set_keymap("n", "<leader>t", "", {
       noremap = true,
       callback = function()
         require("ranger-nvim").open(true)
