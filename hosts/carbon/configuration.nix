@@ -39,20 +39,6 @@
   };
 
   services.printing.enable = true;
-  services.samba = {
-    enable = true;
-    openFirewall = true;
-    shares.guest = {
-      path = "/srv/public";
-      "read only" = "yes";
-      "guest ok" = "yes";
-      "guest only" = "yes";
-    };
-    extraConfig = ''
-      map to guest = Bad User
-      guest account = nobody
-    '';
-  };
 
   # https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
   system.stateVersion = "22.05";
