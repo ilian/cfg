@@ -2,7 +2,7 @@
 
 {
   home = {
-    stateVersion = "21.03";
+    stateVersion = "23.05";
     packages = with pkgs; [
       # Utilities
       killall
