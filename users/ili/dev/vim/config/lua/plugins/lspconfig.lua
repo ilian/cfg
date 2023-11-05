@@ -112,7 +112,7 @@ function user.setup_mason()
       'jsonnet_ls',
       'lemminx', -- XML
       'lua_ls',
-      'nil', -- Nix
+      'nil_ls', -- Nix
       'rust_analyzer',
       'terraformls',
       'tsserver',
