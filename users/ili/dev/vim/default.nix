@@ -15,6 +15,8 @@
     #       packages in $PATH
     extraPackages = with pkgs; [
       stdenv
+      gnumake
+      gcc
       nodejs
       go
     ];
