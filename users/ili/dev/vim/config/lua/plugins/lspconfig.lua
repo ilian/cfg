@@ -105,16 +105,17 @@ function user.setup_mason()
   -- See :help mason-lspconfig-settings
   require('mason-lspconfig').setup({
     ensure_installed = {
-      'eslint',
-      'tsserver',
-      'html',
-      'cssls',
-      'lua_ls',
-      'terraformls',
-      'jsonnet_ls',
       'bashls',
-      'nil_ls',
+      'cssls',
+      'eslint',
+      'html',
+      'jsonnet_ls',
+      'lemminx', -- XML
+      'lua_ls',
+      'nil', -- Nix
       'rust_analyzer',
+      'terraformls',
+      'tsserver',
     }
   })
 end
