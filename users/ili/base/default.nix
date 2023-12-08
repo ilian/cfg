@@ -4,6 +4,8 @@
   home = {
     stateVersion = "23.05";
     packages = with pkgs; [
+      xonsh
+
       # Utilities
       killall
       file
@@ -26,8 +28,10 @@
       crudini
       termtosvg # Record terminal as a svg animation
       ministat # Plot and calculate stats of numeric data in files
+      screen # Useful for communicating with serial devices
 
       # System monitoring
+      strace
       tcpdump
       bridge-utils
       nload
@@ -44,6 +48,7 @@
     bash = {
       enable = true;
       shellAliases = {
+        "l" = "ls -al --color=auto";
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";

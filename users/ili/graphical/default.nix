@@ -8,24 +8,25 @@
       firefox
       chromium
       thunderbird
+      slack
       libreoffice
       remmina
       helvum # pipewire patchbay
-      pianoteq
       pdfpc # PDF Presentation
       xclip
       unstable.obsidian
       blender
       mesa-demos # glxinfo
+      ffmpeg-full # ffplay
     ];
   };
 
   fonts.fontconfig.enable = true;
 
   # TODO: Requires xession setup by HM?
-  home.keyboard = {
-    options = [ "ctrl:swapcaps" ];
-  };
+  # home.keyboard = {
+  #   options = [ "ctrl:swapcaps" ];
+  # };
 
   programs = {
     alacritty = {

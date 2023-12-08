@@ -6,12 +6,13 @@
     ./helix.nix
   ];
 
-  home.sessionVariables.EDITOR = "vim";
-
   home.packages = with pkgs; [
     gh # GitHub cli
-    unstable.cloudflared # Expose local HTTP endpoint publicly
     python310Packages.grip # Preview Markdown files in a browser
+
+    # Rust
+    rustup
+    gcc # rustup depends on 'cc' for linking
 
     # Infra
     awscli2
@@ -33,7 +34,7 @@
     shellcheck
 
     # nixpkgs
-    nix-review
+    nixpkgs-review
     nix-prefetch-git
     nix-prefetch-github
 
@@ -41,6 +42,10 @@
     gdb
     radare2
     xxd
+
+    # Hardware
+    nxpmicro-mfgtools # uuu
+    #pmbootstrap
   ];
 
   programs = {
@@ -49,6 +54,8 @@
         "k" = "kubectl";
         "g" = "git";
         "tf" = "terraform";
+        "e" = "$EDITOR";
+        "lg" = "lazygit";
       };
       initExtra = ''
         complete -o nospace -C ${pkgs.terraform}/bin/terraform terraform
@@ -83,6 +90,9 @@
       extraConfig = {
         merge.conflictstyle = "diff3";
       };
+    };
+    lazygit = {
+      enable = true;
     };
     fzf = {
       enable = true;
