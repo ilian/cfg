@@ -5,18 +5,17 @@
     ./hardware-configuration.nix
     ../../profiles/avahi.nix
     ../../profiles/graphical.nix
-    ../../profiles/grub-efi.nix
+    ../../profiles/systemd-boot.nix
     ../../profiles/hwdec-tools.nix
     ../../profiles/laptop.nix
     ../../profiles/libvirt.nix
-    ../../profiles/obs-webcam.nix
     ../../profiles/idevice.nix
-    ../../profiles/podman.nix
+    ../../profiles/docker.nix
     ../../users/ili
   ];
 
   # Using the latest kernel version fixed some audio issues I had on 5.15
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "carbon";
 
@@ -27,19 +26,20 @@
 
   # Disable power-profiles-daemon, which is enabled in KDE module by default
   # This conflicts with TLP enabled below
-  services.power-profiles-daemon.enable = false;
+  # services.power-profiles-daemon.enable = false;
 
-  services.tlp = {
-    enable = true;
-    settings = {
-      # Improve battery lifespan
-      START_CHARGE_THRESH_BAT0 = 75;
-      STOP_CHARGE_THRESH_BAT0 = 80;
-    };
-  };
+  # services.tlp = {
+  #   enable = true;
+  #   # settings = {
+  #   #   # Improve battery lifespan
+  #   #   START_CHARGE_THRESH_BAT0 = 75;
+  #   #   STOP_CHARGE_THRESH_BAT0 = 80;
+  #   # };
+  # };
 
   services.printing.enable = true;
+  services.flatpak.enable = true;
 
   # https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.05";
 }
