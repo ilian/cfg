@@ -1,7 +1,7 @@
 { pkgs, stdenv, fetchurl, perl, coreutils, p7zip, autoPatchelfHook, alsaLib, freetype, libX11, libXext, libXcursor, libXinerama, libXrandr, jack2 }:
 
 let
-  version = "7.5.3";
+  version = "8.0.4";
   urlVersion = builtins.replaceStrings ["."] [""] version;
   htmlDownloadUrl = "https://www.modartt.com/json/download?file=pianoteq_linux_trial_v${urlVersion}.7z";
   archDir =
