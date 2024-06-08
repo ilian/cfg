@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.sessionVariables.EDITOR = "vim";
+
   # Manage Neovim config manually with Lazy.nvim
   # Symlink outside nix store to allow lazy-lock.json
   home.file."./.config/nvim".source =
