@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     gh # GitHub cli
     python310Packages.grip # Preview Markdown files in a browser
+    cloudflared # Expose web server publicly with cloudflared tunnel
 
     # Rust
     rustup
@@ -42,10 +43,15 @@
     gdb
     radare2
     xxd
+    d-spy # D-Bus explorer
 
     # Hardware
     nxpmicro-mfgtools # uuu
     #pmbootstrap
+
+    # Analytics
+    sqlite
+    clickhouse
   ];
 
   programs = {
