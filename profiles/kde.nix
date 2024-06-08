@@ -1,14 +1,26 @@
 { pkgs, ...} :
 
 {
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.autoNumlock = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.autoNumlock = true;
+  services.desktopManager.plasma6.enable = true;
 
-  environment.systemPackages = with pkgs; with plasma5Packages; [
+  environment.systemPackages = with pkgs.kdePackages; [
     ark
     kate
     okular
     filelight
   ];
+
+  # Screensharing for Wayland session
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+    };
+  };
 }

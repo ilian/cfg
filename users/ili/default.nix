@@ -24,11 +24,14 @@ with lib;
     imports = [
       ./base
       ./dev
-    ] ++ optionals config.services.xserver.enable [ ./graphical ];
+    ] ++ optionals (
+      config.services.xserver.enable ||
+      config.services.displayManager.sddm.wayland.enable
+    ) [ ./graphical ];
   };
 
   # Don't require a password to login if disk encryption is enabled
-  services.xserver.displayManager.autoLogin = mkIf (config.boot.initrd.luks.devices != {}) {
+  services.displayManager.autoLogin = mkIf (config.boot.initrd.luks.devices != {}) {
     enable = true;
     user = "ili";
   };

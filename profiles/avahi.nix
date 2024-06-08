@@ -1,7 +1,13 @@
 {
-  services.avahi.enable = true;
-  services.avahi.publish.enable = true;
-  services.avahi.publish.addresses = true;
-  services.avahi.nssmdns = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
 }
 

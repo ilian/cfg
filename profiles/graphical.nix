@@ -10,6 +10,4 @@ with lib;
     ./kde.nix
     #./xfce.nix
   ];
-
-  services.xserver.enable = true;
 }
