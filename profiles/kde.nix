@@ -6,11 +6,12 @@
   services.displayManager.sddm.autoNumlock = true;
   services.desktopManager.plasma6.enable = true;
 
-  environment.systemPackages = with pkgs.kdePackages; [
+  environment.systemPackages = with pkgs; with kdePackages; [
     ark
     kate
     okular
     filelight
+    wayland-utils
   ];
 
   # Screensharing for Wayland session
