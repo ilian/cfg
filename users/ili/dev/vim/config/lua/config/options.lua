@@ -25,8 +25,7 @@ vim.o.splitright = true
 -- Create split on the bottom
 vim.o.splitbelow = true
 -- Show line at 80 chars
--- TODO: Gets overwritten by a plugin?
-vim.o.colorcolumn = 80
+vim.o.colorcolumn = "80"
 -- Always show sign column to avoid layout shift when at least 1 sign exists
 vim.o.signcolumn = 'yes'
 vim.o.updatetime = 100
@@ -34,7 +33,11 @@ vim.o.updatetime = 100
 -- Keep undo history after quit (~/.local/state/nvim/undo/)
 vim.o.undofile = true
 
--- Hide startup message
--- Some plugins cause the message to become hidden shortly after startup anyways
-vim.opt.shortmess:append({ I = true })
-
+-- Editor options are synced from vscode to neovim
+-- Let's set the same options in vscode
+if vim.g.vscode then
+  vscode = require('vscode')
+  vscode.update_config("editor.tabSize", 2, "global")
+  vscode.update_config("editor.insertSpaces", true, "global")
+  vscode.update_config("editor.lineNumbers", "relative", "global")
+end

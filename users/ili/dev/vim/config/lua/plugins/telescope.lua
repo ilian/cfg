@@ -1,3 +1,10 @@
+if vim.g.vscode then
+  local vscode = require("vscode")
+  vim.keymap.set("n", "<leader>f", function() vscode.action("workbench.action.quickOpen") end)
+  vim.keymap.set("n", "<leader>/", function() vscode.action("workbench.action.findInFiles") end)
+  return {}
+end
+
 return {
   'nvim-telescope/telescope.nvim',
 

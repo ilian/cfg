@@ -1,3 +1,8 @@
+if vim.g.vscode then
+  -- Built-in
+  return {}
+end
+
 return {
   'lewis6991/gitsigns.nvim',
 
