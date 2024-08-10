@@ -4,6 +4,7 @@
   home = {
     stateVersion = "23.05";
     packages = with pkgs; [
+      mosh
       xonsh
 
       # Utilities
@@ -54,7 +55,6 @@
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
       };
-      historyFileSize = 100000;
       historySize = 100000;
       # Ignore commands beggining with a space
       historyControl = [
