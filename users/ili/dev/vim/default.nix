@@ -10,6 +10,7 @@
     "${config.home.homeDirectory}/src/ilian/cfg/users/ili/dev/vim/config";
   programs.neovim = {
     enable = true;
+    package = pkgs.unstable.neovim-unwrapped;
     vimAlias = true;
     vimdiffAlias = true;
     # Compilers for treesitter, mason, ...
