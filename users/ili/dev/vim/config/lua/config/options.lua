@@ -41,3 +41,5 @@ if vim.g.vscode then
   vscode.update_config("editor.insertSpaces", true, "global")
   vscode.update_config("editor.lineNumbers", "relative", "global")
 end
+
+--

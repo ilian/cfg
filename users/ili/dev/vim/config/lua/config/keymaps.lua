@@ -1,3 +1,8 @@
+local vscode;
+if vim.g.vscode then
+  vscode = require("vscode")
+end
+
 -- Space as leader key
 vim.g.mapleader = ' '
 
@@ -36,14 +41,13 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>')
 
 if vim.g.vscode then
-  vim.keymap.set('n', '<leader>q', function() require('vscode').call('workbench.action.quit') end)
+  vim.keymap.set('n', '<leader>q', function() vscode.call('workbench.action.quit') end)
 else
   vim.keymap.set("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit" })
 end
 
 -- Navigating windows without <C-w>
 if vim.g.vscode then
-  local vscode = require("vscode")
   vim.keymap.set("n", "<C-h>", function() vscode.call("workbench.action.navigateLeft") end)
   vim.keymap.set("n", "<C-j>", function() vscode.call("workbench.action.navigateDown") end)
   vim.keymap.set("n", "<C-k>", function() vscode.call("workbench.action.navigateUp") end)
