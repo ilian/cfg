@@ -13,7 +13,7 @@ if vim.g.vscode then
     vscode.call("editor.action.codeAction")
   end)
 
-  return
+  return {}
 end
 
 -- TODO: Add LSP for non-VSCode context
