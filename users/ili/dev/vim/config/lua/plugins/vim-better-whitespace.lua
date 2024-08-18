@@ -1,16 +1,18 @@
-if vim.g.vscode then
-	-- TODO: Prompt user when saving a file with trailing whitespace
-	return {}
-end
-
+-- Provides :StripWhitespace, :StripWhitespaceOnChangedLines
 return {
 	"ntpeters/vim-better-whitespace",
 
 	init = function()
 		vim.g.better_whitespace_enabled = 0
-		vim.g.strip_whitespace_on_save = 1
-		vim.g.strip_whitespace_confirm = 1
-		vim.g.better_whitespace_operator = "_s"
+		if vim.g.vscode then
+			-- Built-in
+			vim.g.strip_whitespace_on_save = 0
+			vim.g.strip_whitespace_confirm = 0
+		else
+			vim.g.strip_whitespace_on_save = 1
+			vim.g.strip_whitespace_confirm = 1
+		end
+		vim.g.better_whitespace_operator = "<leader>s"
 		vim.g.better_whitespace_filetypes_blacklist = {
 			"diff",
 			"unite",
