@@ -11,6 +11,9 @@
     ../../profiles/libvirt.nix
     ../../profiles/systemd-boot.nix
     ../../profiles/waydroid.nix
+    ../../profiles/idevice.nix
+    ../../profiles/libvirt.nix
+    ../../profiles/airplay-receiver.nix
     ../../users/ili
   ];
 
