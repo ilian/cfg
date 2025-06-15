@@ -15,7 +15,8 @@ with lib;
       ++ optionals config.virtualisation.podman.enable [ "podman" ]
       ++ optionals config.virtualisation.libvirtd.enable [ "libvirtd" ]
       ++ optionals config.services.jack.jackd.enable [ "jackaudio" ]
-      ++ optionals config.hardware.i2c.enable [ "i2c" ];
+      ++ optionals config.hardware.i2c.enable [ "i2c" ]
+      ++ optionals config.programs.wireshark.enable [ "wireshark" ];
     openssh.authorizedKeys.keyFiles =
       mapAttrsToList (name: _: ./ssh-keys + "/${name}")
                      (builtins.readDir ./ssh-keys);
