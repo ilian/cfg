@@ -87,7 +87,7 @@
            && [[ $SHLVL == 1 ]]; then
           tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
         fi
-        export PATH="$PATH":$HOME/bin
+        export PATH="$PATH":$HOME/bin:$HOME/.local/share/go/bin:$HOME/go/bin
       '';
     };
     command-not-found.enable = true;
@@ -113,6 +113,7 @@
       terminal = "tmux-256color";
       # Consistent socket path for both terminal started from KDE and ssh session
       secureSocket = false;
+      historyLimit = 5000;
       extraConfig = ''
         set-option -sa terminal-overrides ',xterm-256color:RGB'
         set-option -sa terminal-overrides ',alacritty:RGB'
