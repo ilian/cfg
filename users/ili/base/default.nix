@@ -41,6 +41,7 @@
       iotop
       sysstat # iostat, sar
       arp-scan
+      mtr # tracepath TUI with packet loss measurement
     ];
   };
 
