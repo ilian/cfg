@@ -43,6 +43,11 @@
     steam-run
   ];
 
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+
   # Cilium
   boot.kernel.sysctl = {
     # Disable rp_filter on Cilium interfaces since it may cause mangled packets to be dropped
