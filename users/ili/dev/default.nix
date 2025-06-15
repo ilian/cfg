@@ -10,6 +10,9 @@
     gh # GitHub cli
     python310Packages.grip # Preview Markdown files in a browser
     cloudflared # Expose web server publicly with cloudflared tunnel
+    devbox
+    foreman  # Procfile runner for development
+    hey  # HTTP load test
 
     # Rust
     rustup
@@ -52,6 +55,7 @@
     # Analytics
     sqlite
     clickhouse
+    duckdb
   ];
 
   programs = {
@@ -87,7 +91,12 @@
         rum = "rebase upstream/master";
         s = "status";
       };
-      ignores = [ "*.swp" ];
+      ignores = [
+        "*.swp"
+        "*.kate-swp"
+        ".direnv"
+        ".venv"
+      ];
       userName = "ilian";
       userEmail = "ilian@tuta.io";
       includes = [
