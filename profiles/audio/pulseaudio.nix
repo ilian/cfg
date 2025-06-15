@@ -1,7 +1,9 @@
 { pkgs, config, lib, ... }:
 
 {
-  sound.enable = true;
+  services.pipewire.audio.enable = false;
+  services.pipewire.alsa.enable = false;
+  services.pipewire.pulse.enable = false;
 
   hardware = {
     pulseaudio = {
