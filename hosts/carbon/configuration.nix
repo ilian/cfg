@@ -27,7 +27,7 @@
   # [   12.181657] sof-audio-pci-intel-tgl 0000:00:1f.3: ASoC: error at snd_soc_component_probe on 0000:00:1f.3: -22
   # [   12.182507] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: failed to instantiate card -22
   # [   12.183488] skl_hda_dsp_generic: probe of skl_hda_dsp_generic failed with error -22
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   programs.nix-ld.enable = true;
 
