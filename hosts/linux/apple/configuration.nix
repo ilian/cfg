@@ -3,13 +3,13 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/grub-efi.nix
-    ../../profiles/laptop.nix
-    ../../profiles/graphical.nix
-    ../../profiles/gaming.nix
-    ../../profiles/avahi.nix
-    ../../profiles/idevice.nix
-    ../../users/ili
+    ../../../profiles/linux/grub-efi.nix
+    ../../../profiles/linux/laptop.nix
+    ../../../profiles/linux/graphical.nix
+    ../../../profiles/linux/gaming.nix
+    ../../../profiles/linux/avahi.nix
+    ../../../profiles/linux/idevice.nix
+    ../../../users/ili
   ];
 
   swapDevices = [ {

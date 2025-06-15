@@ -3,18 +3,19 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/avahi.nix
-    ../../profiles/docker.nix
-    ../../profiles/graphical.nix
-    ../../profiles/hwdec-tools.nix
-    ../../profiles/laptop.nix
-    ../../profiles/libvirt.nix
-    ../../profiles/systemd-boot.nix
-    ../../profiles/waydroid.nix
-    ../../profiles/idevice.nix
-    ../../profiles/libvirt.nix
-    ../../profiles/airplay-receiver.nix
-    ../../users/ili
+    ../../../profiles/linux/avahi.nix
+    ../../../profiles/linux/docker.nix
+    ../../../profiles/linux/graphical.nix
+    ../../../profiles/linux/hwdec-tools.nix
+    ../../../profiles/linux/laptop.nix
+    ../../../profiles/linux/libvirt.nix
+    ../../../profiles/linux/systemd-boot.nix
+    ../../../profiles/linux/waydroid.nix
+    ../../../profiles/linux/idevice.nix
+    ../../../profiles/linux/libvirt.nix
+    ../../../profiles/linux/airplay-receiver.nix
+    ../../../users/ili/common
+    ../../../users/ili/linux
   ];
 
   # Fixes audio issues on 6.6

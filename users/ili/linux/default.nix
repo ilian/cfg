@@ -24,8 +24,7 @@ with lib;
 
   home-manager.users.ili = {
     imports = [
-      ./base
-      ./dev
+      # Add any imports here...
     ] ++ optionals (
       config.services.xserver.enable ||
       config.services.displayManager.sddm.wayland.enable

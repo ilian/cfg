@@ -59,13 +59,6 @@
           };
         };
     };
-    foot = {
-      enable = true;
-      settings = {
-        main = {
-        };
-      };
-    };
     mpv = {
       enable = true;
       config = {

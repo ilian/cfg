@@ -3,13 +3,13 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/avahi.nix
-    ../../profiles/gaming.nix
-    ../../profiles/graphical.nix
-    ../../profiles/grub-efi.nix
-    ../../profiles/nvidia.nix
-    ../../profiles/obs-webcam.nix
-    ../../users/ili
+    ../../../profiles/linux/avahi.nix
+    ../../../profiles/linux/gaming.nix
+    ../../../profiles/linux/graphical.nix
+    ../../../profiles/linux/grub-efi.nix
+    ../../../profiles/linux/nvidia.nix
+    ../../../profiles/linux/obs-webcam.nix
+    ../../../users/ili
   ];
 
   # virtualisation.docker.enable = true;
