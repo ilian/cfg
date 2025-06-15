@@ -17,6 +17,7 @@
       blender
       mesa-demos # glxinfo
       ffmpeg-full # ffplay
+      jetbrains-toolbox
     ];
   };
 
