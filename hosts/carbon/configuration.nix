@@ -31,6 +31,8 @@
 
   programs.nix-ld.enable = true;
 
+  hardware.i2c.enable = true;
+
   #nixpkgs.overlays = [(self: super: {
   #  mesa = pkgs.unstable.mesa;
   #})];
