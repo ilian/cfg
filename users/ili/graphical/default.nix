@@ -14,7 +14,6 @@
       helvum # pipewire patchbay
       pdfpc # PDF Presentation
       xclip
-      unstable.obsidian
       blender
       mesa-demos # glxinfo
       ffmpeg-full # ffplay
