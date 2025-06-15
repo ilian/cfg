@@ -83,6 +83,12 @@
   #   # };
   # };
 
+  # Resolve carbon to 127.0.0.1 instead of 127.0.0.2 which broke some programs
+  networking.extraHosts =
+    ''
+        127.0.0.1 carbon
+    '';
+
   services.printing.enable = true;
   services.flatpak.enable = true;
 
