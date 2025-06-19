@@ -16,7 +16,7 @@
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -40,7 +40,6 @@
       ];
     };
     commonModules = [
-      ./profiles/common/base.nix
       inputFlakes
       overlayModule
       home-manager.nixosModules.home-manager
