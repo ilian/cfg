@@ -10,6 +10,6 @@
     createHome = true;
     home = "/Users/ili";
     isHidden = false;
-    shell = pkgs.bash;
+    shell = pkgs.bashInteractive;
   };
 }
