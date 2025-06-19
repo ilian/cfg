@@ -3,6 +3,10 @@
 with lib;
 
 {
+  imports = [
+    ../common
+  ];
+
   users.users.ili = {
     createHome = true;
     isNormalUser = true;

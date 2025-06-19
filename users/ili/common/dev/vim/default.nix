@@ -7,7 +7,7 @@
   # Symlink outside nix store to allow lazy-lock.json
   home.file."./.config/nvim".source =
     config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/src/ilian/cfg/users/ili/dev/vim/config";
+    "${config.home.homeDirectory}/src/ilian/cfg/users/ili/common/dev/vim/config";
   programs.neovim = {
     enable = true;
     package = pkgs.unstable.neovim-unwrapped;
