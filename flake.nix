@@ -66,7 +66,7 @@
 
         darwinConfigurations =
           genAttrs (attrNames (filterAttrs (name: type: type == "directory") (readDir ./hosts/darwin)))
-                   (host: nixpkgs.lib.darwinSystem (
+                   (host: darwin.lib.darwinSystem (
                      let
                        syscfg = (import (./hosts/darwin + "/${host}") inputs);
                        defaultModules = commonModules ++ darwinModules;
