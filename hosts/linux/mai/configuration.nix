@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../../users/ili
+    ../../../users/ili/linux
   ];
 
   swapDevices = [ {

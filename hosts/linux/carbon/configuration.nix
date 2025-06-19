@@ -14,7 +14,6 @@
     ../../../profiles/linux/idevice.nix
     ../../../profiles/linux/libvirt.nix
     ../../../profiles/linux/airplay-receiver.nix
-    ../../../users/ili/common
     ../../../users/ili/linux
   ];
 

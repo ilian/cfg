@@ -3,6 +3,10 @@
 with lib;
 
 {
+  imports = [
+    ../common
+  ];
+
   users.users.ili = {
     createHome = true;
     isNormalUser = true;
@@ -24,7 +28,8 @@ with lib;
 
   home-manager.users.ili = {
     imports = [
-      # Add any imports here...
+      ./base
+      ./dev
     ] ++ optionals (
       config.services.xserver.enable ||
       config.services.displayManager.sddm.wayland.enable

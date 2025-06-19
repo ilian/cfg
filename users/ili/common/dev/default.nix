@@ -29,7 +29,6 @@
     k9s
     heroku
     minikube
-    docker-machine-kvm2 # needed for minikube --driver=kvm2
     dive # Examine contents of OCI images
     trivy # Scan OCI images for vulnerabilities
 
@@ -46,7 +45,6 @@
     gdb
     radare2
     xxd
-    d-spy # D-Bus explorer
 
     # Hardware
     nxpmicro-mfgtools # uuu

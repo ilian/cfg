@@ -9,7 +9,7 @@
     ../../../profiles/linux/gaming.nix
     ../../../profiles/linux/avahi.nix
     ../../../profiles/linux/idevice.nix
-    ../../../users/ili
+    ../../../users/ili/linux
   ];
 
   swapDevices = [ {

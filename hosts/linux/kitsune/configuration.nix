@@ -9,7 +9,7 @@
     ../../../profiles/linux/grub-efi.nix
     ../../../profiles/linux/nvidia.nix
     ../../../profiles/linux/obs-webcam.nix
-    ../../../users/ili
+    ../../../users/ili/linux
   ];
 
   # virtualisation.docker.enable = true;

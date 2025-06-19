@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../../profiles/linux/remote-desktop.nix
-    ../../../users/ili
+    ../../../users/ili/linux
   ];
 
   nix.trustedUsers = [ "root" "@wheel" ];
