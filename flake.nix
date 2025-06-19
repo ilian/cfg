@@ -42,14 +42,15 @@
     commonModules = [
       inputFlakes
       overlayModule
-      home-manager.nixosModules.home-manager
     ];
     linuxModules = [
       ./profiles/linux/base.nix
       (import inputs.musnix)
+      home-manager.nixosModules.home-manager
     ];
     darwinModules = [
       ./profiles/darwin/base.nix
+      home-manager.darwinModules.home-manager
     ];
     outputs =
       {
