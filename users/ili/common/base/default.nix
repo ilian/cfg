@@ -3,6 +3,7 @@
 {
   home = {
     stateVersion = "23.05";
+
     packages = with pkgs; [
       mosh
       xonsh
@@ -34,7 +35,6 @@
       tcpdump
       nload
       pciutils # lspci
-      usbutils
       arp-scan
       mtr # tracepath TUI with packet loss measurement
     ];

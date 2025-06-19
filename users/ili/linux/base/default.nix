@@ -10,6 +10,7 @@
       sysstat # iostat, sar
       bridge-utils
       iotop
+      usbutils
     ];
   };
 }
