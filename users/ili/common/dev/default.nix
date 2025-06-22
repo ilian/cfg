@@ -8,7 +8,7 @@
 
   home.packages = with pkgs; [
     gh # GitHub cli
-    python310Packages.grip # Preview Markdown files in a browser
+    python3Packages.grip # Preview Markdown files in a browser
     cloudflared # Expose web server publicly with cloudflared tunnel
     devbox
     foreman  # Procfile runner for development

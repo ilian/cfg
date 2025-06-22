@@ -24,7 +24,6 @@
       yt-dlp
       jq
       jless
-      xsv # CSV toolkit
       parallel
       crudini
       termtosvg # Record terminal as a svg animation
