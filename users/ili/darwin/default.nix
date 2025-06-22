@@ -19,4 +19,16 @@
       };
     };
   };
+
+  local.dock.enable = true;
+  local.dock.entries = [
+    { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
+    { path = "/System/Applications/System Settings.app"; }
+    {
+      path = "/Users/ili/Downloads/";
+      section = "others";
+    }
+  ];
+  # defaults to config.system.primaryUser
+  local.dock.username = "ili";
 }

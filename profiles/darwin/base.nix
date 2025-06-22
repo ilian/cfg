@@ -4,6 +4,7 @@
 {
   imports = [
     ../common/base.nix
+    ./dock
   ];
 
   nix = {
