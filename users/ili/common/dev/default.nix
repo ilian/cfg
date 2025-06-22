@@ -14,10 +14,6 @@
     foreman  # Procfile runner for development
     hey  # HTTP load test
 
-    # Rust
-    rustup
-    gcc # rustup depends on 'cc' for linking
-
     # Infra
     awscli2
     terraform
