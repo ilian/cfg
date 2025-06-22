@@ -33,7 +33,7 @@ with lib;
     ] ++ optionals (
       config.services.xserver.enable ||
       config.services.displayManager.sddm.wayland.enable
-    ) [ ./graphical ];
+    ) [ ../common/graphical ./graphical ];
   };
 
   # Don't require a password to login if disk encryption is enabled

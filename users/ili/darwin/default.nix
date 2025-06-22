@@ -20,6 +20,12 @@
     };
   };
 
+  home-manager.users.ili = {
+    imports = [
+      ../common/graphical
+    ];
+  };
+
   local.dock.enable = true;
   local.dock.entries = [
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
