@@ -23,7 +23,6 @@
     kubeval
     kubectx
     k9s
-    heroku
     minikube
     dive # Examine contents of OCI images
     trivy # Scan OCI images for vulnerabilities
