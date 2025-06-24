@@ -15,7 +15,7 @@
         home = "/Users/ili";
         isHidden = false;
         shell = pkgs.bashInteractive;
-        uid = 510;
+        uid = 501;
       };
     };
   };
