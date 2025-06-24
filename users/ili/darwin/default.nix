@@ -23,6 +23,7 @@
   home-manager.users.ili = {
     imports = [
       ../common/graphical
+      ./dev
     ];
   };
 
