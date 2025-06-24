@@ -22,7 +22,7 @@
             fromYAML (builtins.readFile "${alacritty-theme}/themes/${themeName}.yaml");
           theme = getTheme "gruvbox_dark";
         in theme // {
-          shell.program = "tmux";
+          terminal.shell.program = "tmux";
           colors.primary.background = "0x1d2021"; # Higher contrast
           font = let font = "Hack Nerd Font Mono"; in {
             normal      = { family = font; style = "Regular"; };
