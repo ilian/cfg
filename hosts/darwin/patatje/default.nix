@@ -1,6 +1,6 @@
 { ... } :
 {
-  system = "x86_64-darwin";
+  system = "aarch64-darwin";
   modules = [
     ./configuration.nix
   ];
