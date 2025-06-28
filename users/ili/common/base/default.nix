@@ -3,12 +3,12 @@
 {
   home = {
     stateVersion = "23.05";
+
     packages = with pkgs; [
       mosh
       xonsh
 
       # Utilities
-      killall
       file
       binutils # readelf
       ripgrep
@@ -24,7 +24,6 @@
       yt-dlp
       jq
       jless
-      xsv # CSV toolkit
       parallel
       crudini
       termtosvg # Record terminal as a svg animation
@@ -32,14 +31,9 @@
       screen # Useful for communicating with serial devices
 
       # System monitoring
-      strace
       tcpdump
-      bridge-utils
       nload
       pciutils # lspci
-      usbutils
-      iotop
-      sysstat # iostat, sar
       arp-scan
       mtr # tracepath TUI with packet loss measurement
     ];

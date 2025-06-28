@@ -1,12 +1,12 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils/flatten-tree-system";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -14,16 +14,18 @@
       url = "github:musnix/musnix";
       flake = false;
     };
+
+    darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, darwin, ... }:
   with builtins;
   with nixpkgs.lib;
   let
     inherit (flake-utils.lib) eachDefaultSystem flattenTreeSystem;
-    allowUnfreeModule = {
-      nixpkgs.config.allowUnfree = true;
-    };
     inputFlakes = {
       nix.registry = {
         nixpkgs.flake = nixpkgs;
@@ -37,21 +39,37 @@
         (final: prev: { unstable = import nixpkgs-unstable { system = final.system; config.allowUnfree = true; }; })
       ];
     };
-    defaultModules = [
-      ./profiles/base.nix
-      allowUnfreeModule
+    commonModules = [
       inputFlakes
       overlayModule
+    ];
+    linuxModules = [
+      ./profiles/linux/base.nix
       (import inputs.musnix)
       home-manager.nixosModules.home-manager
+    ];
+    darwinModules = [
+      ./profiles/darwin/base.nix
+      home-manager.darwinModules.home-manager
     ];
     outputs =
       {
         # Import host configurations from ./hosts/
         nixosConfigurations =
-          genAttrs (attrNames (filterAttrs (name: type: type == "directory") (readDir ./hosts)))
+          genAttrs (attrNames (filterAttrs (name: type: type == "directory") (readDir ./hosts/linux)))
                    (host: nixpkgs.lib.nixosSystem (
-                     let syscfg = (import (./hosts + "/${host}") inputs);
+                     let
+                       syscfg = (import (./hosts/linux + "/${host}") inputs);
+                       defaultModules = commonModules ++ linuxModules;
+                     in syscfg // { modules = syscfg.modules ++ defaultModules; }
+                   ));
+
+        darwinConfigurations =
+          genAttrs (attrNames (filterAttrs (name: type: type == "directory") (readDir ./hosts/darwin)))
+                   (host: darwin.lib.darwinSystem (
+                     let
+                       syscfg = (import (./hosts/darwin + "/${host}") inputs);
+                       defaultModules = commonModules ++ darwinModules;
                      in syscfg // { modules = syscfg.modules ++ defaultModules; }
                    ));
 

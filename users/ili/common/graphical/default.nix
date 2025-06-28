@@ -1,32 +1,9 @@
 { pkgs, lib, ... }:
 
 {
-  home = {
-    packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Hack" ]; })
-
-      firefox
-      chromium
-      thunderbird
-      slack
-      libreoffice
-      remmina
-      helvum # pipewire patchbay
-      pdfpc # PDF Presentation
-      xclip
-      blender
-      mesa-demos # glxinfo
-      ffmpeg-full # ffplay
-      jetbrains-toolbox
-    ];
-  };
-
-  fonts.fontconfig.enable = true;
-
-  # TODO: Requires xession setup by HM?
-  # home.keyboard = {
-  #   options = [ "ctrl:swapcaps" ];
-  # };
+  home.packages = with pkgs; [
+    unstable.zed-editor
+  ];
 
   programs = {
     alacritty = {
@@ -49,7 +26,7 @@
             fromYAML (builtins.readFile "${alacritty-theme}/themes/${themeName}.yaml");
           theme = getTheme "gruvbox_dark";
         in theme // {
-          shell.program = "tmux";
+          terminal.shell.program = "tmux";
           colors.primary.background = "0x1d2021"; # Higher contrast
           font = let font = "Hack Nerd Font Mono"; in {
             normal      = { family = font; style = "Regular"; };
@@ -57,14 +34,8 @@
             italic      = { family = font; style = "Italic"; };
             bold_italic = { family = font; style = "Bold Italic"; };
           };
+          window.option_as_alt = "Both"; # Make key combinations with ALT work on macOS
         };
-    };
-    foot = {
-      enable = true;
-      settings = {
-        main = {
-        };
-      };
     };
     mpv = {
       enable = true;

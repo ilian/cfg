@@ -8,15 +8,11 @@
 
   home.packages = with pkgs; [
     gh # GitHub cli
-    python310Packages.grip # Preview Markdown files in a browser
+    python3Packages.grip # Preview Markdown files in a browser
     cloudflared # Expose web server publicly with cloudflared tunnel
     devbox
     foreman  # Procfile runner for development
     hey  # HTTP load test
-
-    # Rust
-    rustup
-    gcc # rustup depends on 'cc' for linking
 
     # Infra
     awscli2
@@ -27,9 +23,7 @@
     kubeval
     kubectx
     k9s
-    heroku
     minikube
-    docker-machine-kvm2 # needed for minikube --driver=kvm2
     dive # Examine contents of OCI images
     trivy # Scan OCI images for vulnerabilities
 
@@ -46,7 +40,6 @@
     gdb
     radare2
     xxd
-    d-spy # D-Bus explorer
 
     # Hardware
     nxpmicro-mfgtools # uuu
