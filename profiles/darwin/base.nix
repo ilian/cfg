@@ -1,4 +1,5 @@
-# Base module include by all hosts
+# Base module include by all darwin hosts
+
 { pkgs, ... }:
 
 {
@@ -20,7 +21,7 @@
     defaults = {
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
-        KeyRepeat = 3;  # 45 ms
+        KeyRepeat = 2;  # 30 ms
         NSAutomaticSpellingCorrectionEnabled = false;
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
