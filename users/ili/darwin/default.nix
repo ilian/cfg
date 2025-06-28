@@ -31,7 +31,7 @@
   local.dock.entries = [
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Firefox.app/"; }
-    { path = "/Applications/Slack.app/"; }
+    { path = "${pkgs.slack}/Applications/Slack.app/"; }
     { path = "/System/Applications/TextEdit.app"; }
     { path = "/System/Applications/Utilities/Activity Monitor.app"; }
     { path = "/System/Applications/System Settings.app"; }
