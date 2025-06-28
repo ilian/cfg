@@ -1,6 +1,10 @@
 { pkgs, lib, ... }:
 
 {
+  home.packages = with pkgs; [
+    unstable.zed-editor
+  ];
+
   programs = {
     alacritty = {
       enable = true;
