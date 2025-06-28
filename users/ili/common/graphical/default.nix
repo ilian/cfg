@@ -30,6 +30,7 @@
             italic      = { family = font; style = "Italic"; };
             bold_italic = { family = font; style = "Bold Italic"; };
           };
+          window.option_as_alt = "Both"; # Make key combinations with ALT work on macOS
         };
     };
     mpv = {
