@@ -53,7 +53,7 @@
       };
 
       screencapture = {
-        location = "~/Pictures/Screenshots";
+        location = "~/Pictures";  # Directory is not auto-created
       };
 
       trackpad = {
