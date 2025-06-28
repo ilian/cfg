@@ -29,9 +29,10 @@
 
   local.dock.enable = true;
   local.dock.entries = [
-    { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
+    { path = "${pkgs.unstable.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Firefox.app/"; }
-    { path = "${pkgs.slack}/Applications/Slack.app/"; }
+    { path = "${pkgs.unstable.slack}/Applications/Slack.app/"; }
+    { path = "${pkgs.unstable.obsidian}/Applications/Obsidian.app/"; }
     { path = "/System/Applications/TextEdit.app"; }
     { path = "/System/Applications/Utilities/Activity Monitor.app"; }
     { path = "/System/Applications/System Settings.app"; }
@@ -40,6 +41,4 @@
       section = "others";
     }
   ];
-  # defaults to config.system.primaryUser
-  local.dock.username = "ili";
 }
