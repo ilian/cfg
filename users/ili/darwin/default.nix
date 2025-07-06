@@ -41,5 +41,9 @@
       path = "~/Downloads/";
       section = "others";
     }
+    {
+      path = "~/Pictures/";
+      section = "others";
+    }
   ];
 }
