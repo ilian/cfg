@@ -45,6 +45,7 @@
       enable = true;
       shellAliases = {
         "l" = "ls -al --color=auto";
+        "ll" = "ls -hl --color=auto";
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
