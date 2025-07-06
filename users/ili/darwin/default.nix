@@ -32,6 +32,7 @@
     { path = "${pkgs.unstable.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Firefox.app/"; }
     { path = "${pkgs.unstable.slack}/Applications/Slack.app/"; }
+    { path = "${pkgs.unstable.thunderbird}/Applications/Thunderbird.app/"; }
     { path = "${pkgs.unstable.obsidian}/Applications/Obsidian.app/"; }
     { path = "/System/Applications/TextEdit.app"; }
     { path = "/System/Applications/Utilities/Activity Monitor.app"; }
