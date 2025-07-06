@@ -89,6 +89,8 @@
         "*.kate-swp"
         ".direnv"
         ".venv"
+        ".idea"
+        ".DS_Store"
       ];
       userName = "ilian";
       userEmail = "ilian@tuta.io";
