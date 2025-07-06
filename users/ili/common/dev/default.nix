@@ -68,6 +68,13 @@
         complete -F _complete_alias g
       '';
     };
+    readline = {
+      enable = true;
+      extraConfig = ''
+        # Enable colors when autocompleting file paths in a shell session
+        set colored-stats on
+      '';
+    };
     git = {
       enable = true;
       lfs.enable = true;
