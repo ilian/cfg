@@ -38,7 +38,7 @@
     { path = "/System/Applications/Utilities/Activity Monitor.app"; }
     { path = "/System/Applications/System Settings.app"; }
     {
-      path = "/Users/ili/Downloads/";
+      path = "~/Downloads/";
       section = "others";
     }
   ];
