@@ -27,6 +27,9 @@
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
         KeyRepeat = 2;  # 30 ms
+        # Repeat a key when holding it down which is important for graphical
+        # editors with vim emulation such as the Jetbrains IDEs
+        ApplePressAndHoldEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
