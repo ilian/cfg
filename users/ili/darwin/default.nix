@@ -40,10 +40,12 @@
     {
       path = "~/Downloads/";
       section = "others";
+      options = "--view fan --sort dateadded";
     }
     {
       path = "~/Pictures/";
       section = "others";
+      options = "--view fan --sort dateadded";
     }
   ];
 }
