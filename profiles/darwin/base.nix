@@ -30,6 +30,8 @@
         # Repeat a key when holding it down which is important for graphical
         # editors with vim emulation such as the Jetbrains IDEs
         ApplePressAndHoldEnabled = false;
+        # Disable add period with double-space
+        NSAutomaticPeriodSubstitutionEnabled = false;
         NSAutomaticSpellingCorrectionEnabled = false;
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
