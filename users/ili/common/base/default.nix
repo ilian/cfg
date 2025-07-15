@@ -11,6 +11,7 @@
       # Utilities
       file
       binutils # readelf
+      procps # watch, top, ps
       ripgrep
       ranger
       dig
