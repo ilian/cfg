@@ -25,6 +25,7 @@
     primaryUser = "ili";
     defaults = {
       NSGlobalDomain = {
+        AppleShowAllFiles = true;  # Show hidden files
         AppleShowAllExtensions = true;
         KeyRepeat = 2;  # 30 ms
         # Repeat a key when holding it down which is important for graphical
