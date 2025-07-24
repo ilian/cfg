@@ -6,6 +6,7 @@
   ];
 
   networking.computerName = "patatje";
+  networking.localHostName = "patatje";
 
   system.stateVersion = 5;
 }
