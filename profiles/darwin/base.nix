@@ -21,6 +21,13 @@
     reattach = true;  # Required for Touch ID support for sudo to work with tmux
   };
 
+  services.openssh.extraConfig = ''
+    # Require public key authentication method
+    PasswordAuthentication no
+    ChallengeResponseAuthentication no
+    KbdInteractiveAuthentication no
+  '';
+
   system = {
     primaryUser = "ili";
     defaults = {
