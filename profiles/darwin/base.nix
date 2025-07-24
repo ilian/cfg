@@ -16,6 +16,14 @@
     };
   };
 
+  networking.applicationFirewall = {
+    enable = true;
+    blockAllIncoming = false;
+    allowSigned = false;
+    allowSignedApp = false;
+    enableStealthMode = true;
+  };
+
   security.pam.services.sudo_local = {
     touchIdAuth = true;
     reattach = true;  # Required for Touch ID support for sudo to work with tmux
