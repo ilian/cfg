@@ -15,24 +15,36 @@
     let
       homeDirectory = config.home.homeDirectory;
       tokenValiditySeconds = 12 * 60 * 60;
-      triggerScript = pkgs.writeShellScript "codeartifact-trigger" ''
-        set -eu
-        out_path="$HOME/.m2/settings.xml"
-        if [[ -f "$out_path" ]]; then
-          last_mod=$(stat -f %m "$out_path")
-          now=$(date +%s)
-          if (( now - last_mod < ${toString (tokenValiditySeconds - 60)} )); then
-            exit 0
-          fi
-        fi
-        exec $HOME/bin/codeartifact-maven-updater -f -d ${toString tokenValiditySeconds}
-      '';
+      tokenValidityMarginSeconds = 60;
     in
     {
       enable = true;
       config = {
-        ProgramArguments = [ (toString triggerScript) ];
-        StartInterval = 10;
+        ProgramArguments = [
+          "${homeDirectory}/bin/codeartifact-maven-updater"
+          "-f" # Force token generation even if token is still valid
+          "-d"
+          (toString tokenValiditySeconds)
+        ];
+        # Run job every N seconds, but will be missed completely during sleep
+        StartInterval = tokenValiditySeconds - tokenValidityMarginSeconds;
+        # Run at 00:00 and 12:00 every day, launchd will start the job next time
+        # it is woken up. This option is independent of StartInterval.
+        StartCalendarInterval = [
+          {
+            Hour = 0;
+            Minute = 0;
+          }
+          {
+            Hour = 12;
+            Minute = 0;
+          }
+        ];
+        # Retry once every 10 seconds if the program fails
+        KeepAlive = {
+          SuccessfulExit = false;
+        };
+
         StandardOutPath = "${homeDirectory}/Library/Logs/codeartifact-maven-updater/out.log";
         StandardErrorPath = "${homeDirectory}/Library/Logs/codeartifact-maven-updater/err.log";
       };
