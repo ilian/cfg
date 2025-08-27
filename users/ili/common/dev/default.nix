@@ -100,7 +100,7 @@
         ".DS_Store"
       ];
       userName = "ilian";
-      userEmail = "ilian@tuta.io";
+      userEmail = "git@ilian.dev";
       includes = [
         { path = "~/work/.gitconfig"; condition = "gitdir:~/work/"; }
       ];
