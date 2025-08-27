@@ -13,6 +13,7 @@
     devbox
     foreman  # Procfile runner for development
     hey  # HTTP load test
+    pre-commit
 
     # Infra
     awscli2
