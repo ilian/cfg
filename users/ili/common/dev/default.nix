@@ -41,6 +41,8 @@
     gdb
     radare2
     xxd
+    mitmproxy
+    mitmproxy2swagger
 
     # Hardware
     nxpmicro-mfgtools # uuu
