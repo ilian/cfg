@@ -31,11 +31,18 @@
   local.dock.entries = [
     { path = "${pkgs.unstable.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Firefox.app/"; }
+    { path = "/Applications/Orion.app/"; }
+    { path = "/Applications/Safari Technology Preview.app/"; }
+    { path = "/Applications/Google Chrome Canary.app/"; }
     { path = "${pkgs.unstable.slack}/Applications/Slack.app/"; }
     { path = "${pkgs.unstable.thunderbird}/Applications/Thunderbird.app/"; }
+    { path = "~/Applications/IntelliJ IDEA Ultimate.app"; }
+    { path = "~/Applications/PyCharm.app"; }
     { path = "${pkgs.unstable.obsidian}/Applications/Obsidian.app/"; }
     { path = "/System/Applications/TextEdit.app"; }
     { path = "/System/Applications/Utilities/Activity Monitor.app"; }
+    { path = "/Applications/eqMac.app"; }
+    { path = "/System/Applications/Utilities/Audio MIDI Setup.app"; }
     { path = "/System/Applications/System Settings.app"; }
     {
       path = "~/Downloads/";
