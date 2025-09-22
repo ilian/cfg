@@ -14,6 +14,7 @@
     foreman  # Procfile runner for development
     hey  # HTTP load test
     pre-commit
+    presenterm
 
     # Infra
     awscli2
