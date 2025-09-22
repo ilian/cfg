@@ -60,6 +60,8 @@
       };
 
       dock = {
+        orientation = "right";
+        tilesize = 40;
         show-recents = false;
         wvous-tl-corner = 2;  # Mission Control
         wvous-bl-corner = 3;  # Application Windows
