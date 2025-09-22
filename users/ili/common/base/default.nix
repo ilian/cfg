@@ -51,6 +51,7 @@
         "..." = "cd ../..";
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
+        "......" = "cd ../../../../..";
       };
       historySize = 100000;
       # Ignore commands beggining with a space
