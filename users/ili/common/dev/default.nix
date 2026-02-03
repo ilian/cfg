@@ -51,7 +51,6 @@
 
     # Analytics
     sqlite
-    clickhouse
     duckdb
   ];
 
