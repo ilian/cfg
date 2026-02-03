@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../../profiles/linux/docker.nix
     ../../../profiles/linux/remote-desktop.nix
     ../../../users/ili/linux
   ];
@@ -15,7 +16,7 @@
     device = "nodev";
   };
 
-  nix.settings.trustedUsers = [ "root" "@wheel" ];
+  nix.settings.trusted-users = [ "root" "@wheel" ];
   programs.mosh.enable = true;
 
   services.openssh.enable = true;
