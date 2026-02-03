@@ -18,6 +18,7 @@
 
   nix.settings.trusted-users = [ "root" "@wheel" ];
   programs.mosh.enable = true;
+  services.tailscale.enable = true;
 
   services.openssh.enable = true;
   services.openssh.forwardX11 = true;
