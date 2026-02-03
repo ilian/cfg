@@ -7,8 +7,6 @@
     ../../../users/ili/linux
   ];
 
-  nix.trustedUsers = [ "root" "@wheel" ];
-
   boot.growPartition = true;
 
   boot.loader.grub = {
@@ -17,8 +15,13 @@
     device = "nodev";
   };
 
+  nix.settings.trustedUsers = [ "root" "@wheel" ];
+  programs.mosh.enable = true;
+
   services.openssh.enable = true;
   services.openssh.forwardX11 = true;
 
   networking.hostName = "ampere";
+
+  system.stateVersion = "22.11";
 }

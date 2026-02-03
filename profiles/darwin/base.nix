@@ -34,6 +34,7 @@
     PasswordAuthentication no
     ChallengeResponseAuthentication no
     KbdInteractiveAuthentication no
+    PubkeyAuthentication no
   '';
 
   system = {
@@ -83,5 +84,35 @@
         Clicking = true;  # Tap to cick
       };
     };
+  };
+
+  launchd.daemons.refresh-ls = {
+    environment = {
+      PATH = "/usr/bin:/bin:/Applications/Little Snitch.app/Contents/Components";
+    };
+    script = ''
+      set -eu
+      littlesnitch write-preference networkFilterEnabled false
+      littlesnitch write-preference networkFilterEnabled true
+      killall "Little Snitch Agent"
+    '';
+
+    # serviceConfig = {
+    #   Label         = "com.user.refresh-ls";
+    #   KeepAlive = {
+    #     SuccessfulExit = false;
+    #   };
+    #   StartInterval = 3 * 60 * 60 - 60;
+    #   StartCalendarInterval = [
+    #     { Hour =  3; Minute = 0; }         # 03:00
+    #     { Hour =  6; Minute = 0; }         # 06:00
+    #     { Hour =  9; Minute = 0; }         # 09:00
+    #     { Hour = 12; Minute = 0; }         # 12:00
+    #     { Hour = 15; Minute = 0; }         # 15:00
+    #     { Hour = 18; Minute = 0; }         # 18:00
+    #     { Hour = 21; Minute = 0; }         # 21:00
+    #     { Hour =  0; Minute = 0; }         # 00:00
+    #   ];
+    # };
   };
 }
