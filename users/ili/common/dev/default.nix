@@ -82,19 +82,6 @@
     git = {
       enable = true;
       lfs.enable = true;
-      aliases = {
-        c = "commit";
-        co = "checkout";
-        d = "diff";
-        ds = "diff --staged";
-        fo = "fetch origin";
-        fp = "fetch -p";
-        fu = "fetch upstream";
-        l = "log";
-        rom = "rebase origin/master";
-        rum = "rebase upstream/master";
-        s = "status";
-      };
       ignores = [
         "*.swp"
         "*.kate-swp"
@@ -103,12 +90,27 @@
         ".idea"
         ".DS_Store"
       ];
-      userName = "ilian";
-      userEmail = "git@ilian.dev";
       includes = [
         { path = "~/work/.gitconfig"; condition = "gitdir:~/work/"; }
       ];
-      extraConfig = {
+      settings = {
+        alias = {
+          c = "commit";
+          co = "checkout";
+          d = "diff";
+          ds = "diff --staged";
+          fo = "fetch origin";
+          fp = "fetch -p";
+          fu = "fetch upstream";
+          l = "log";
+          rom = "rebase origin/master";
+          rum = "rebase upstream/master";
+          s = "status";
+        };
+        user = {
+          name = "ilian";
+          email = "git@ilian.dev";
+        };
         merge.conflictstyle = "diff3";
       };
     };

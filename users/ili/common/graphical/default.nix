@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    unstable.zed-editor
+    pkgs.unstable.zed-editor
     ffmpeg  # ffplay
   ];
 
