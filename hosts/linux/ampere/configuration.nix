@@ -29,7 +29,7 @@
     extraFlags = [
      "--tls-san 100.80.57.27"
      # Cilium
-     "--disable=traefik,flannel,servicelb"
+     "--disable=traefik,flannel"
      "--flannel-backend=none"
      "--disable-network-policy"
      "--disable-kube-proxy"
