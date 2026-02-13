@@ -6,6 +6,7 @@
     ../../../profiles/linux/docker.nix
     ../../../profiles/linux/k3s.nix
     ../../../profiles/linux/remote-desktop.nix
+    ../../../profiles/linux/dnscrypt-proxy.nix
     ../../../users/ili/linux
   ];
 
