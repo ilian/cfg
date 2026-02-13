@@ -34,5 +34,10 @@
   networking.firewall.enable = true;
   networking.hostName = "ampere";
 
+  networking.wg-quick.interfaces.wg0 = {
+    autostart = true;
+    configFile = "/home/ili/Documents/wg0.conf";
+  };
+
   system.stateVersion = "22.11";
 }
