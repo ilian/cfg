@@ -115,6 +115,7 @@
     };
     lazygit = {
       enable = true;
+      enableBashIntegration = false;  # Exit (q) changes directory to repo root otherwise
     };
     fzf = {
       enable = true;
