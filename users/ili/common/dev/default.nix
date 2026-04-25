@@ -88,6 +88,8 @@
         ".venv"
         ".idea"
         ".DS_Store"
+        ".codex"
+        ".claude"
       ];
       includes = [
         { path = "~/work/.gitconfig"; condition = "gitdir:~/work/"; }
