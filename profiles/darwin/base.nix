@@ -52,6 +52,9 @@
         NSAutomaticSpellingCorrectionEnabled = false;
         NSNavPanelExpandedStateForSaveMode = true;
         NSNavPanelExpandedStateForSaveMode2 = true;
+        # Reduce the spacing between menu bar icons
+        NSStatusItemSpacing = 2;
+        NSStatusItemSelectionPadding = 2;
       };
 
       controlcenter = {
