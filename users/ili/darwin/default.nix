@@ -26,39 +26,4 @@
       ./dev
     ];
   };
-
-  local.dock.enable = true;
-  local.dock.entries = [
-    { path = "${pkgs.unstable.alacritty}/Applications/Alacritty.app/"; }
-    { path = "/Applications/Ghostty.app/"; }
-    { path = "/Applications/Firefox.app/"; }
-    { path = "/Applications/Google Chrome Canary.app/"; }
-    { path = "/Applications/Tor Browser.app/"; }
-    { path = "/Applications/Slack.app/"; }
-    { path = "${pkgs.unstable.thunderbird}/Applications/Thunderbird.app/"; }
-    { path = "~/Applications/IntelliJ IDEA.app"; }
-    { path = "~/Applications/PyCharm.app"; }
-    { path = "~/Applications/RustRover.app"; }
-    { path = "~/Applications/RubyMine.app"; }
-    { path = "${pkgs.unstable.zed-editor}/Applications/Zed.app/"; }
-    { path = "/Applications/Xcode.app/"; }
-    { path = "${pkgs.unstable.obsidian}/Applications/Obsidian.app/"; }
-    { path = "/System/Applications/TextEdit.app"; }
-    { path = "/System/Applications/Utilities/Activity Monitor.app"; }
-    { path = "/Applications/eqMac.app"; }
-    { path = "/System/Applications/Utilities/Audio MIDI Setup.app"; }
-    { path = "/Applications/GeForceNOW.app"; }
-    { path = "/Applications/UTM Virtual Machines.app"; }
-    { path = "/System/Applications/System Settings.app"; }
-    {
-      path = "~/Downloads/";
-      section = "others";
-      options = "--view fan --display stack --sort dateadded";
-    }
-    {
-      path = "~/Pictures/";
-      section = "others";
-      options = "--view fan --display stack --sort dateadded";
-    }
-  ];
 }
