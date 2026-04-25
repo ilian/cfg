@@ -9,6 +9,8 @@
       xonsh
 
       # Utilities
+      coreutils
+      time
       file
       binutils # readelf
       procps # watch, top, ps
