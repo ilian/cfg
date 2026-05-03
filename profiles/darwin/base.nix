@@ -1,6 +1,6 @@
 # Base module include by all darwin hosts
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -12,6 +12,22 @@
       automatic = true;
       interval = { Weekday = 0; Hour = 2; Minute = 0; };
       options = "--delete-older-than 7d";
+    };
+  };
+
+  # The system nix.gc above runs as root and only trims root-owned profiles,
+  # leaving home-manager generations (and the store paths they pin) behind.
+  # This per-user agent runs as the primary user to reap them.
+  launchd.user.agents.nix-gc-user = {
+    serviceConfig = {
+      ProgramArguments = [
+        "${config.nix.package}/bin/nix-collect-garbage"
+        "--delete-older-than"
+        "7d"
+      ];
+      StartCalendarInterval = [
+        { Weekday = 0; Hour = 2; Minute = 30; }
+      ];
     };
   };
 
