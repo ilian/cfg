@@ -25,7 +25,6 @@
     kubeval
     kubectx
     k9s
-    minikube
     dive # Examine contents of OCI images
     trivy # Scan OCI images for vulnerabilities
 
