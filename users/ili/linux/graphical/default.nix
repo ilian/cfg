@@ -6,13 +6,11 @@
       firefox
       chromium
       thunderbird
-      slack
       libreoffice
       remmina
       helvum # pipewire patchbay
       pdfpc # PDF Presentation
       xclip
-      blender
       mesa-demos # glxinfo
       ffmpeg-full # ffplay
       jetbrains-toolbox
