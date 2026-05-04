@@ -36,7 +36,7 @@
       nixpkgs.overlays = [
         self.overlay
         #(self: super: { unstable = nixpkgs-unstable.legacyPackages.${self.system}; })
-        (final: prev: { unstable = import nixpkgs-unstable { system = final.system; config.allowUnfree = true; }; })
+        (final: prev: { unstable = import nixpkgs-unstable { system = final.stdenv.hostPlatform.system; config.allowUnfree = true; }; })
       ];
     };
     commonModules = [

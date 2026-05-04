@@ -7,8 +7,8 @@
       xterm.enable = false;
       xfce.enable = true;
     };
-    displayManager.defaultSession = "xfce";
   };
+  services.displayManager.defaultSession = "xfce";
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "xfce4-session";
