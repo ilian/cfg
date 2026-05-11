@@ -142,10 +142,11 @@
         # scrollback
         set -g mouse on
 
-        # Keep copy-mode open after mouse selection so tmux does not jump back
-        # to the bottom of the scrollback when the mouse button is released,
-        # but clear the selection once the mouse button is released.
-        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection-no-clear \; send-keys -X clear-selection
+        # If a mouse drag has not scrolled back, finish selection on release by
+        # leaving copy-mode. Once scrolled up, keep copy-mode open on release so
+        # tmux does not jump back to the bottom; clear the selection, then move
+        # the cursor to the start of the line so it does not obscure the text.
+        bind-key -T copy-mode-vi MouseDragEnd1Pane if-shell -F '#{==:#{scroll_position},0}' 'send-keys -X copy-selection-and-cancel' 'send-keys -X copy-selection-no-clear; send-keys -X clear-selection; send-keys -X start-of-line'
 
         # Change color of selected text
         # This makes the last selected character more visible
