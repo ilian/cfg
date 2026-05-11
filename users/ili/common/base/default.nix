@@ -140,7 +140,12 @@
 
         # Copy text selected by dragging the mouse and use mouse wheel for
         # scrollback
-        set -g mouse
+        set -g mouse on
+
+        # Keep copy-mode open after mouse selection so tmux does not jump back
+        # to the bottom of the scrollback when the mouse button is released,
+        # but clear the selection once the mouse button is released.
+        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection-no-clear \; send-keys -X clear-selection
 
         # Change color of selected text
         # This makes the last selected character more visible
