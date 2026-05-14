@@ -12,6 +12,7 @@ return {
 
   -- See :help gitsigns-usage
   opts = {
+    base = 'HEAD',
     signs = {
       add = { text = '▎' },
       change = { text = '▎' },
@@ -34,10 +35,6 @@ return {
           branch_base = ref
           break
         end
-      end
-      if branch_base then
-        require('gitsigns').change_base(branch_base, true)
-        current_base = branch_base
       end
     end, 300)
 
