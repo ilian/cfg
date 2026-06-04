@@ -13,7 +13,7 @@
       time
       file
       binutils # readelf
-      procps # watch, top, ps
+      procps # watch (+ top, ps, free on Linux; macOS build is watch-only)
       ripgrep
       ranger
       dig
@@ -39,7 +39,19 @@
       pciutils # lspci
       arp-scan
       mtr # tracepath TUI with packet loss measurement
-    ];
+    ] ++ lib.optionals stdenv.isDarwin (
+      # The Nix rebuilds of these tools lack the private entitlements Apple
+      # signs the system copies with, so they break (e.g. `ps: time: requires
+      # entitlement`). Shadow them with symlinks to the entitled binaries.
+      # Audit with: codesign -d --entitlements - /bin/<tool>
+      map (p: lib.hiPrio (runCommandLocal "system-${baseNameOf p}" { } ''
+        mkdir -p $out/bin
+        ln -s ${p} $out/bin/${baseNameOf p}
+      '')) [
+        "/bin/ps"
+        "/usr/bin/top"
+      ]
+    );
   };
 
   programs = {
