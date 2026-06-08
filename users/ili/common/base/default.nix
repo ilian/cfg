@@ -137,8 +137,10 @@
 
         set -g status-style bg=default
 
-        setw -g window-status-current-format '#[underscore,bold]#I #W'
-        setw -g window-status-format '#I #W'
+        # Include the active pane's current directory basename in each tab.
+        # Keep it muted and short so the tab list stays readable.
+        setw -g window-status-current-format '#[underscore,bold]#I #W#[fg=colour244] (#{?#{>:#{w:#{b:pane_current_path}},10},#{=/9/…:#{b:pane_current_path}},#{b:pane_current_path}})'
+        setw -g window-status-format '#I #W#[fg=colour244] (#{?#{>:#{w:#{b:pane_current_path}},10},#{=/9/…:#{b:pane_current_path}},#{b:pane_current_path}})'
 
         # Let new windows inheirt working directory of current pane
         bind v split-window -h -c "#{pane_current_path}"
