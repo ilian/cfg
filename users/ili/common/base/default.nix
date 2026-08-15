@@ -147,6 +147,11 @@
         bind s split-window -v -c "#{pane_current_path}"
         bind c new-window -c "#{pane_current_path}"
 
+        # Allow applications inside tmux to forward OSC 52 clipboard writes
+        # to the outer terminal. The default `external` value only permits
+        # clipboard writes initiated by tmux itself.
+        set -s set-clipboard on
+
         # Copy with vim-like keybindings
         bind-key -T copy-mode-vi v send -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X begin-selection\; send-keys -X rectangle-toggle
