@@ -11,6 +11,9 @@
   programs.neovim = {
     enable = true;
     package = pkgs.unstable.neovim-unwrapped;
+    # Keep Home Manager's generated bootstrap Lua in the wrapper so it does
+    # not collide with the imperatively managed ~/.config/nvim/init.lua.
+    sideloadInitLua = true;
     vimAlias = true;
     vimdiffAlias = true;
     # Preserve the pre-26.05 defaults explicitly.
