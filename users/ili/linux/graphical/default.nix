@@ -8,7 +8,7 @@
       thunderbird
       libreoffice
       remmina
-      helvum # pipewire patchbay
+      crosspipe # PipeWire patchbay
       pdfpc # PDF Presentation
       xclip
       mesa-demos # glxinfo

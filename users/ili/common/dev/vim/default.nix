@@ -13,6 +13,9 @@
     package = pkgs.unstable.neovim-unwrapped;
     vimAlias = true;
     vimdiffAlias = true;
+    # Preserve the pre-26.05 defaults explicitly.
+    withRuby = true;
+    withPython3 = true;
     # Compilers for treesitter, mason, ...
     # TODO: supply to Mason outside $PATH to avoid conflicts with existing
     #       packages in $PATH

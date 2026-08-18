@@ -11,7 +11,7 @@
     size = 4096;
   }];
 
-  nix.trustedUsers = [ "root" "@wheel" ];
+  nix.settings.trusted-users = [ "root" "@wheel" ];
 
   services.borgbackup.repos.ili = {
     path = "/var/lib/borgbackup";
@@ -24,4 +24,7 @@
   services.openssh.enable = true;
 
   networking.hostName = "mai";
+
+  # Preserve defaults from when this host was first configured.
+  system.stateVersion = "20.09";
 }

@@ -1,6 +1,6 @@
-self: super:
+final: prev:
 
 {
-  n = self.callPackage ./n {};
-  cinnxp = self.callPackage ./cinnxp {};
+  n = final.callPackage ./n {};
+  cinnxp = final.callPackage ./cinnxp {};
 }

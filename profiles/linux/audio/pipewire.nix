@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 {
-  hardware.pulseaudio.enable = pkgs.lib.mkForce false;
+  services.pulseaudio.enable = pkgs.lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     easyeffects

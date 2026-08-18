@@ -43,4 +43,7 @@
   services.openssh.enable = true;
 
   networking.hostName = "apple";
+
+  # Preserve defaults from when this host was first configured.
+  system.stateVersion = "20.09";
 }

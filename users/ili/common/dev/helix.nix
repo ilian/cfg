@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     jsonnet-language-server
     marksman # Markdown language server
-    nodePackages.bash-language-server
+    bash-language-server
     terraform-ls
     yaml-language-server
     #rust-analyzer
