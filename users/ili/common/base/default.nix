@@ -128,6 +128,12 @@
       extraConfig = ''
         set-option -sa terminal-overrides ',xterm-256color:RGB'
         set-option -sa terminal-overrides ',alacritty:RGB'
+
+        # Preserve key modifiers when forwarding input from Ghostty.
+        set-option -as terminal-features ',xterm-ghostty:extkeys'
+        set -g extended-keys on
+        set -g extended-keys-format csi-u
+
         set -g focus-events on
 
         set-option -g status-position bottom
