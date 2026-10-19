@@ -15,6 +15,17 @@
   # Onboard Intel I219-V NIC, for networking in the initrd
   boot.initrd.availableKernelModules = [ "e1000e" ];
 
+  # UDP GRO settings recommended by Tailscale for exit nodes. A matching .link
+  # replaces the default naming policy, so the name has to be kept explicitly.
+  systemd.network.links."10-enp0s31f6" = {
+    matchConfig.Path = "pci-0000:00:1f.6";
+    linkConfig = {
+      Name = "enp0s31f6";
+      GenericReceiveOffloadUDPForwarding = true;
+      GenericReceiveOffloadList = false;
+    };
+  };
+
   networking = {
     hostName = "maja";
     useNetworkd = true;
