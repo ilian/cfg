@@ -14,8 +14,10 @@ fi
 
 cfg_root="$(realpath "$(dirname "$0")/..")"
 
-if [ ! -d "$cfg_root/hosts/$host" ]; then
-  echo "Host directory with name $host not found in $cfg_root/hosts" >&2
+host_dir="hosts/linux/$host"
+
+if [ ! -d "$cfg_root/$host_dir" ]; then
+  echo "Host directory with name $host not found in $cfg_root/hosts/linux" >&2
   exit 1
 fi
 
@@ -26,7 +28,5 @@ chown -R 1000 /mnt/cfg
 chgrp -R 100 /mnt/cfg
 rm -rf /mnt/cfg/.git # Use generated files not added to git
 echo "Generating hardware configuration and installing to /mnt" >&2
-nix-shell "/mnt/cfg/bootstrap/shell.nix" --run "\
-  nixos-generate-config --root /mnt --show-hardware-config > '/mnt/cfg/hosts/$host/hardware-configuration.nix'
-  nixos-install --flake '/mnt/cfg#$host' --impure --show-trace
-"
+nixos-generate-config --root /mnt --show-hardware-config > "/mnt/cfg/$host_dir/hardware-configuration.nix"
+nixos-install --flake "/mnt/cfg#$host" --impure --show-trace
