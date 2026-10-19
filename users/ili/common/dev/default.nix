@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ./vim
     ./ideavim.nix
     ./helix.nix
   ];
@@ -77,43 +76,6 @@
         # Enable colors when autocompleting file paths in a shell session
         set colored-stats on
       '';
-    };
-    git = {
-      enable = true;
-      lfs.enable = true;
-      ignores = [
-        "*.swp"
-        "*.kate-swp"
-        ".direnv"
-        ".venv"
-        ".idea"
-        ".DS_Store"
-        ".codex"
-        ".claude"
-      ];
-      includes = [
-        { path = "~/work/.gitconfig"; condition = "gitdir:~/work/"; }
-      ];
-      settings = {
-        alias = {
-          c = "commit";
-          co = "checkout";
-          d = "diff";
-          ds = "diff --staged";
-          fo = "fetch origin";
-          fp = "fetch -p";
-          fu = "fetch upstream";
-          l = "log";
-          rom = "rebase origin/master";
-          rum = "rebase upstream/master";
-          s = "status";
-        };
-        user = {
-          name = "ilian";
-          email = "git@ilian.dev";
-        };
-        merge.conflictstyle = "diff3";
-      };
     };
     lazygit = {
       enable = true;
