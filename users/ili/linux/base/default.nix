@@ -9,6 +9,7 @@
       strace
       sysstat # iostat, sar
       bridge-utils
+      ethtool
       iotop
       usbutils
     ];
