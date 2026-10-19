@@ -27,6 +27,8 @@
 
   services.logind.settings.Login.HandleLidSwitch = "ignore";
 
+  ili.dev.enable = false;
+
   nix.settings.trusted-users = [ "root" "@wheel" ];
 
   services.openssh.enable = true;

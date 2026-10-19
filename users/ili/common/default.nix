@@ -1,15 +1,18 @@
-{ pkgs, home-manager, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  # TODO: Move to graphical
-  fonts.packages = with pkgs; [
-    nerd-fonts.hack
-  ];
+  options.ili.dev.enable = lib.mkEnableOption "development tools for ili" // { default = true; };
 
-  home-manager.users.ili = {
-    imports = [
-      ./base
-      ./dev
+  config = {
+    # TODO: Move to graphical
+    fonts.packages = with pkgs; [
+      nerd-fonts.hack
     ];
+
+    home-manager.users.ili = {
+      imports = [
+        ./base
+      ] ++ lib.optionals config.ili.dev.enable [ ./dev ];
+    };
   };
 }

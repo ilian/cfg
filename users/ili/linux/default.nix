@@ -29,8 +29,8 @@ with lib;
   home-manager.users.ili = {
     imports = [
       ./base
-      ./dev
-    ] ++ optionals (
+    ] ++ optionals config.ili.dev.enable [ ./dev ]
+      ++ optionals (
       config.services.xserver.enable ||
       config.services.displayManager.sddm.wayland.enable
     ) [ ../common/graphical ./graphical ];

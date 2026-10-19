@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -23,7 +23,6 @@
   home-manager.users.ili = {
     imports = [
       ../common/graphical
-      ./dev
-    ];
+    ] ++ lib.optionals config.ili.dev.enable [ ./dev ];
   };
 }
