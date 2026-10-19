@@ -80,4 +80,5 @@ else
 fi
 
 mkdir /mnt/boot
-mount /dev/disk/by-partlabel/nixos-boot /mnt/boot
+# nixos-generate-config copies these masks into the hardware configuration
+mount -o fmask=0077,dmask=0077 /dev/disk/by-partlabel/nixos-boot /mnt/boot
