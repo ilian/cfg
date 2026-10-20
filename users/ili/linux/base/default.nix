@@ -14,4 +14,9 @@
       usbutils
     ];
   };
+
+  programs.htop.settings = {
+    show_cpu_frequency = true;
+    show_cpu_temperature = true;
+  };
 }
