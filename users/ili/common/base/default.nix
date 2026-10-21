@@ -65,6 +65,8 @@
       shellAliases = {
         "l" = "ls -al --color=auto";
         "ll" = "ls -hl --color=auto";
+        "e" = "$EDITOR";
+        "g" = "git";
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
@@ -95,6 +97,9 @@
         # Show branch name in shell prompt
         # Original PS1: '\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\] '
         PS1='\n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]$(__git_ps1 " (%s) ")\$\[\033[0m\] '
+
+        . ${pkgs.complete-alias}/bin/complete_alias
+        complete -F _complete_alias g
 
         # Create or attach to a tmux session on ssh login
         # We don't attach for nested shells (e.g. when entering a nix shell)
