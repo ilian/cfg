@@ -203,6 +203,9 @@
         # to the outer terminal. The default `external` value only permits
         # clipboard writes initiated by tmux itself.
         set -s set-clipboard on
+        # Support clipboard over mosh by defaulting the OSC 52 selection to c, which
+        # mosh requires and tmux leaves empty
+        set -as terminal-overrides ',xterm*:Ms=\E]52;%?%p1%l%t%p1%s%ec%;;%p2%s\7'
 
         # Copy with vim-like keybindings
         bind-key -T copy-mode-vi v send -X begin-selection
