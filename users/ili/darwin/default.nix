@@ -24,5 +24,7 @@
     imports = [
       ../common/graphical
     ] ++ lib.optionals config.ili.dev.enable [ ./dev ];
+
+    programs.bash.shellAliases.tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
   };
 }
