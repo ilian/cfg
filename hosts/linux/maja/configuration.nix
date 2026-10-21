@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./vpn-gateway.nix
+    ./k3s.nix
     ../../../profiles/linux/remote-unlock.nix
     ../../../profiles/linux/systemd-boot.nix
     ../../../users/ili/linux
