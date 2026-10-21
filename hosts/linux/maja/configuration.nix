@@ -16,6 +16,11 @@
   # Onboard Intel I219-V NIC, for networking in the initrd
   boot.initrd.availableKernelModules = [ "e1000e" ];
 
+  swapDevices = [ {
+    device = "/var/swapfile";
+    size = 8192;
+  }];
+
   # UDP GRO settings recommended by Tailscale for exit nodes. A matching .link
   # replaces the default naming policy, so the name has to be kept explicitly.
   systemd.network.links."10-enp0s31f6" = {
