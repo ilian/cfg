@@ -43,6 +43,7 @@
   nix.settings.trusted-users = [ "root" "@wheel" ];
 
   services.openssh.enable = true;
+  programs.mosh.enable = true;
 
   services.tailscale = {
     enable = true;
