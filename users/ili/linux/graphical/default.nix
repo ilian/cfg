@@ -3,9 +3,9 @@
 {
   home = {
     packages = with pkgs; [
-      firefox
+      (firefox.override { extraPolicies = { DisableTelemetry = true; DisableFirefoxStudies = true; }; })
       chromium
-      thunderbird
+      (thunderbird.override { extraPolicies.DisableTelemetry = true; })
       libreoffice
       remmina
       crosspipe # PipeWire patchbay

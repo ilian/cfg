@@ -49,7 +49,7 @@ in
     # Userspace networking forwards connections to the node's Tailscale IP to
     # localhost, so neither TUN nor iptables are needed in the initrd.
     serviceConfig = {
-      ExecStart = "${tailscaled} --tun=userspace-networking --statedir=/var/lib/tailscale";
+      ExecStart = "${tailscaled} --tun=userspace-networking --statedir=/var/lib/tailscale --no-logs-no-support";
       Environment = "SSL_CERT_FILE=${caBundle}";
       Restart = "on-failure";
     };

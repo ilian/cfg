@@ -22,4 +22,6 @@
   # Takes a while to build
   # programs.bcc.enable = true;
   programs.nix-ld.enable = true;
+
+  services.tailscale.extraDaemonFlags = [ "--no-logs-no-support" ];
 }
