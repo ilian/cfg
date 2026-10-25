@@ -1,7 +1,7 @@
-# Single node k3s with flannel. Pods using the vpn RuntimeClass get a separate
-# bridge, whose internet traffic vpn-gateway.nix sends through the VPN. In
-# namespaces labelled egress=vpn, a label that can only be set on creation, pods
-# have to use that class and can't use the host's network.
+# Pods using the vpn RuntimeClass get a separate bridge, whose internet traffic
+# vpn-gateway.nix sends through the VPN. In namespaces labelled egress=vpn, a
+# label that can only be set on creation, pods have to use that class and can't
+# use the host's network.
 { config, pkgs, ... }:
 
 let
@@ -24,14 +24,9 @@ let
   '';
 in
 {
-  services.k3s = {
-    enable = true;
-    role = "server";
-    # Unused, and each of them costs memory
-    disable = [ "traefik" "servicelb" "metrics-server" ];
-    # Admin kubeconfig at /etc/rancher/k3s/k3s.yaml, wheel can become root anyway
-    extraFlags = [ "--write-kubeconfig-group=wheel" "--write-kubeconfig-mode=0640" ];
+  imports = [ ../../../profiles/linux/k3s-flannel.nix ];
 
+  services.k3s = {
     manifests.vpn-egress.content = [
       {
         apiVersion = "node.k8s.io/v1";
@@ -149,17 +144,6 @@ in
     ];
   };
 
-  # Manifests managed by hand. k3s follows symlinked directories, but stops
-  # applying all manifests if one of them is missing.
-  systemd.tmpfiles.settings."10-k3s-ili" = {
-    "/home/ili/k8s-manifests".d = {
-      user = "ili";
-      group = "users";
-      mode = "0750";
-    };
-    "/var/lib/rancher/k3s/server/manifests/ili"."L+".argument = "/home/ili/k8s-manifests";
-  };
-
   # k3s reads templates in containerd 2 syntax from the -v3 name, NixOS'
   # containerdConfigTemplate writes the older one. Linking it here also
   # restarts k3s on changes.
@@ -192,25 +176,11 @@ in
 
   vpnGateway.networks.${vpnBridge} = vpnPodCidr;
 
-  home-manager.users.ili = {
-    programs.bash = {
-      shellAliases.k = "kubectl";
-      initExtra = "complete -F _complete_alias k";
-    };
-    # The kubectl of k3s comes without one, the script only runs kubectl itself
-    xdg.dataFile."bash-completion/completions/kubectl".source = pkgs.runCommand "kubectl-completion" { } ''
-      cp ${pkgs.kubectl}/share/bash-completion/completions/kubectl.bash $out
-    '';
-  };
-
   # Replies to pods arrive on the LAN interface, keep them out of the VPN gateway's table
   systemd.network.networks."40-enp0s31f6".routingPolicyRules = [
     { To = clusterCidr; Table = "main"; Priority = 9000; }
   ];
 
-  # Pods reach the API server through the kubernetes service, which points at the host
-  networking.firewall.interfaces = {
-    cni0.allowedTCPPorts = [ 6443 ];
-    ${vpnBridge}.allowedTCPPorts = [ 6443 ];
-  };
+  # Pods on the VPN bridge reach the API server the same way as on cni0
+  networking.firewall.interfaces.${vpnBridge}.allowedTCPPorts = [ 6443 ];
 }
