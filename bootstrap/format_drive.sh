@@ -38,6 +38,10 @@ for luks_part in "$(dmsetup ls --target crypt | cut -f1)"; do
 done
 
 sgdisk -Z "$drive"
+if [ ! -d /sys/firmware/efi ]; then
+  echo "Not booted with UEFI, adding a BIOS boot partition for GRUB" >&2
+  sgdisk -n 0:0:+1MiB -t 0:ef02 -c 0:bios-boot "$drive"
+fi
 sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:nixos-boot "$drive"
 udevadm trigger
 mkfs.fat -F 32 /dev/disk/by-partlabel/nixos-boot
