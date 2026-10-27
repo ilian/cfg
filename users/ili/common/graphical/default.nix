@@ -12,23 +12,16 @@
       settings =
         let
           alacritty-theme = pkgs.fetchFromGitHub {
-            owner = "eendroroy";
+            owner = "alacritty";
             repo = "alacritty-theme";
-            rev = "0760a0c6129c7a51d2eb9995639b8bc6e1a3c793";
-            hash = "sha256-CWRAYDG5wAGwt6v8CljxREyHAQQ+vh1M8IiyoMm7yYE=";
+            rev = "a7c1c8b318520e28a7cb3c2e8c5c348931919080";
+            hash = "sha256-qByvzkrsT8qx95o1bvnHF1ssae9JcDj/0VDOcjk5e+w=";
           };
-          fromYAML = yaml:
-            builtins.fromJSON (builtins.readFile (pkgs.stdenv.mkDerivation {
-              name = "fromYAML";
-              phases = [ "buildPhase" ];
-              buildPhase = "${pkgs.yaml2json}/bin/yaml2json < ${builtins.toFile "yaml" yaml} > $out";
-            }));
           getTheme = themeName :
-            fromYAML (builtins.readFile "${alacritty-theme}/themes/${themeName}.yaml");
-          theme = getTheme "gruvbox_dark";
+            builtins.fromTOML (builtins.readFile "${alacritty-theme}/themes/${themeName}.toml");
+          theme = getTheme "kanagawa_wave";
         in theme // {
           terminal.shell.program = "tmux";
-          colors.primary.background = "0x1d2021"; # Higher contrast
           font = let font = "Hack Nerd Font Mono"; in {
             normal      = { family = font; style = "Regular"; };
             bold        = { family = font; style = "Bold"; };
