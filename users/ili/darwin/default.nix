@@ -26,5 +26,18 @@
     ] ++ lib.optionals config.ili.dev.enable [ ./dev ];
 
     programs.bash.shellAliases.tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+
+    programs.ghostty = {
+      enable = true;
+      package = null; # Installed outside of Nix
+      settings = {
+        font-family = "Hack Nerd Font Mono";
+        theme = "light:Selenized Light,dark:Kanagawa Wave";
+        keybind = [
+          "alt+left=unbind"
+          "alt+right=unbind"
+        ];
+      };
+    };
   };
 }
