@@ -8,6 +8,8 @@
   home.packages = with pkgs; [
     gh # GitHub cli
     tig # ncurses-based interface for git
+    unstable.tuicr # Terminal UI for code review
+    unstable.herdr
     python3Packages.grip # Preview Markdown files in a browser
     cloudflared # Expose web server publicly with cloudflared tunnel
     devbox
