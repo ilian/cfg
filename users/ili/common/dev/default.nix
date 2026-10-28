@@ -20,6 +20,7 @@
     awscli2
     terraform
     kubectl
+    krew
     kubernetes-helm
     kubetail
     kubeval
