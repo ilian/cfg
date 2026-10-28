@@ -21,6 +21,7 @@
     # Infra
     awscli2
     terraform
+    deploy-rs
     kubectl
     krew
     kubernetes-helm
