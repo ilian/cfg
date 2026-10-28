@@ -27,6 +27,14 @@
 
     programs.bash.shellAliases.tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
 
+    # Reduce the spacing between menu bar icons. System items (Wi-Fi, battery,
+    # Control Center, ...) are drawn by ControlCenter, which only honors the
+    # ByHost global domain.
+    targets.darwin.currentHostDefaults.NSGlobalDomain = {
+      NSStatusItemSpacing = 2;
+      NSStatusItemSelectionPadding = 2;
+    };
+
     programs.ghostty = {
       enable = true;
       package = null; # Installed outside of Nix
