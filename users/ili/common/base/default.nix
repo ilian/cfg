@@ -27,6 +27,7 @@
       atool # Manage file archives with sane defaults
       gnupg
       sshfs
+      rsync
       exif
       yt-dlp
       jq
