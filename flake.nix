@@ -19,9 +19,14 @@
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, darwin, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, darwin, deploy-rs, ... }:
   with builtins;
   with nixpkgs.lib;
   let
@@ -72,6 +77,24 @@
                        defaultModules = commonModules ++ darwinModules;
                      in syscfg // { modules = syscfg.modules ++ defaultModules; }
                    ));
+
+        # Deployed with `deploy`, building on the hosts as macOS can't build for Linux
+        deploy.nodes = genAttrs [ "maja" "baguette" "ampere" ] (host:
+          let
+            cfg = self.nixosConfigurations.${host};
+            # Activate with the deploy-rs of nixpkgs, which is in the binary
+            # cache and matches the `deploy` CLI
+            deployPkgs = cfg.pkgs.appendOverlays [
+              deploy-rs.overlays.default
+              (final: prev: { deploy-rs = { inherit (cfg.pkgs) deploy-rs; inherit (prev.deploy-rs) lib; }; })
+            ];
+          in {
+            hostname = host;
+            sshUser = "ili";
+            user = "root";
+            remoteBuild = true;
+            profiles.system.path = deployPkgs.deploy-rs.lib.activate.nixos cfg;
+          });
 
         # Export packages defined in ./pkgs as an overlay and flake packages.
         overlays.default = import ./pkgs;
