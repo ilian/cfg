@@ -11,11 +11,9 @@
       enable = true;
       settings =
         let
-          alacritty-theme = pkgs.fetchFromGitHub {
-            owner = "alacritty";
-            repo = "alacritty-theme";
-            rev = "a7c1c8b318520e28a7cb3c2e8c5c348931919080";
-            hash = "sha256-qByvzkrsT8qx95o1bvnHF1ssae9JcDj/0VDOcjk5e+w=";
+          alacritty-theme = builtins.fetchTarball {
+            url = "https://github.com/alacritty/alacritty-theme/archive/a7c1c8b318520e28a7cb3c2e8c5c348931919080.tar.gz";
+            sha256 = "sha256-qByvzkrsT8qx95o1bvnHF1ssae9JcDj/0VDOcjk5e+w=";
           };
           getTheme = themeName :
             builtins.fromTOML (builtins.readFile "${alacritty-theme}/themes/${themeName}.toml");
