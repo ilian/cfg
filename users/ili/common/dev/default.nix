@@ -29,7 +29,7 @@
     kubectx
     k9s
     dive # Examine contents of OCI images
-    trivy # Scan OCI images for vulnerabilities
+    cilium-cli
 
     # Scripts
     checkbashisms
