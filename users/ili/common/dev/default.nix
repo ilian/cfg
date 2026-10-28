@@ -81,9 +81,6 @@
       enable = true;
       enableBashIntegration = true;
     };
-    vscode = {
-      enable = true;
-    };
   };
 
 }
