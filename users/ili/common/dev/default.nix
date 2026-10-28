@@ -51,6 +51,9 @@
     # Analytics
     sqlite
     duckdb
+
+    android-tools
+    scrcpy
   ];
 
   programs = {
