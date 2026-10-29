@@ -1,4 +1,4 @@
-{ pkgs, options, inputs, ... }:
+{ config, lib, pkgs, options, inputs, ... }:
 
 {
   imports = [
@@ -38,6 +38,8 @@
     autostart = true;
     configFile = "/home/ili/Documents/wg0.conf";
   };
+  systemd.services.wg-quick-wg0.preStop = lib.mkForce
+    "wg-quick down ${config.networking.wg-quick.interfaces.wg0.configFile}";
 
   system.stateVersion = "22.11";
 }
