@@ -22,6 +22,7 @@ return {
     vim.keymap.set('n', '<leader>?', '<cmd>Telescope oldfiles<cr>')
     vim.keymap.set('n', '<leader>bl', '<cmd>Telescope buffers<cr>')
     vim.keymap.set('n', '<leader>f', '<cmd>Telescope find_files<cr>')
+    vim.keymap.set('n', '<leader>F', '<cmd>Telescope find_files hidden=true no_ignore=true<cr>')
     vim.keymap.set('n', '<leader>/', '<cmd>Telescope live_grep<cr>')
   end,
 
