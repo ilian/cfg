@@ -23,5 +23,10 @@
   # programs.bcc.enable = true;
   programs.nix-ld.enable = true;
 
-  services.tailscale.extraDaemonFlags = [ "--no-logs-no-support" ];
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
+    extraSetFlags = [ "--advertise-exit-node" ];
+    extraDaemonFlags = [ "--no-logs-no-support" ];
+  };
 }

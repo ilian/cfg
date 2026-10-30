@@ -33,10 +33,7 @@
   };
   programs.mosh.enable = true;
 
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-  };
+  services.tailscale.openFirewall = true;
   # k3s' certificate covers the hostname, which MagicDNS resolves to the Tailscale IP
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 6443 ];
 

@@ -20,7 +20,6 @@
   nix.settings.trusted-users = [ "root" "@wheel" ];
 
   programs.mosh.enable = true;
-  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     kubectl
