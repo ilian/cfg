@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../../profiles/linux/remote-unlock.nix
     ../../../profiles/linux/docker.nix
     ../../../profiles/linux/k3s.nix
     ../../../profiles/linux/remote-desktop.nix
@@ -10,8 +11,6 @@
     ../../../profiles/linux/vpn-interface.nix
     ../../../users/ili/linux
   ];
-
-  boot.growPartition = true;
 
   boot.loader.grub = {
     efiSupport = true;
@@ -35,5 +34,5 @@
   networking.firewall.enable = true;
   networking.hostName = "ampere";
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "26.05";
 }
