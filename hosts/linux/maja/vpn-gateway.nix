@@ -1,20 +1,18 @@
 # Forward traffic of LAN devices using this host as their default gateway
-# through a WireGuard VPN. The host itself and Tailscale exit node traffic keep
-# using the regular uplink.
-#
-# The provider's wg-quick config contains secrets and is kept out of the repo at
-# /etc/wireguard/wg-vpn.conf. Only its WireGuard, Address and MTU settings are
-# used; DNS has to be configured on the LAN devices.
-{ config, lib, pkgs, ... }:
+# through the WireGuard VPN of vpn-interface.nix. The host itself and Tailscale
+# exit node traffic keep using the regular uplink. DNS has to be configured on
+# the LAN devices.
+{ config, lib, ... }:
 
 let
   cfg = config.vpnGateway;
   lan = "enp0s31f6";
   vpn = "wg-vpn";
-  vpnConfig = "/etc/wireguard/${vpn}.conf";
   vpnTable = 100;
 in
 {
+  imports = [ ../../../profiles/linux/vpn-interface.nix ];
+
   options.vpnGateway = {
     networks = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
@@ -36,35 +34,8 @@ in
   };
 
   config = {
-    systemd.services.${vpn} = {
-      description = "WireGuard VPN for LAN gateway clients";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      unitConfig.ConditionPathExists = vpnConfig;
-      path = with pkgs; [ iproute2 wireguard-tools ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        Restart = "on-failure";
-        RestartSec = 10;
-      };
-      # Unlike wg-quick, only route via vpnTable instead of replacing the host's default route
-      script = ''
-        setting() { sed -n "s/#.*//; s/^\s*$1\s*=\s*//Ip" ${vpnConfig}; }
-
-        ip link add ${vpn} type wireguard
-        wg setconf ${vpn} <(wg-quick strip ${vpnConfig})
-        for address in $(setting Address | tr , ' '); do
-          # Keep provider subnets wider than /32 out of the main table
-          ip address add "$address" dev ${vpn} noprefixroute
-        done
-        mtu=$(setting MTU)
-        ip link set ${vpn} ''${mtu:+mtu $mtu} up
-        ip route add default dev ${vpn} table ${toString vpnTable}
-      '';
-      postStop = "ip link delete ${vpn} || true";
-    };
+    # Unlike wg-quick, only route via vpnTable instead of replacing the host's default route
+    systemd.services.${vpn}.postStart = "ip route add default dev ${vpn} table ${toString vpnTable}";
 
     systemd.network.networks."40-${lan}" = {
       # Evaluated after Tailscale's rules, so replies to exit node clients still reach tailscale0

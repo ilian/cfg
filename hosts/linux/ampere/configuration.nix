@@ -7,6 +7,7 @@
     ../../../profiles/linux/k3s.nix
     ../../../profiles/linux/remote-desktop.nix
     ../../../profiles/linux/dnscrypt-proxy.nix
+    ../../../profiles/linux/vpn-interface.nix
     ../../../users/ili/linux
   ];
 
@@ -33,13 +34,6 @@
 
   networking.firewall.enable = true;
   networking.hostName = "ampere";
-
-  networking.wg-quick.interfaces.wg0 = {
-    autostart = true;
-    configFile = "/home/ili/Documents/wg0.conf";
-  };
-  systemd.services.wg-quick-wg0.preStop = lib.mkForce
-    "wg-quick down ${config.networking.wg-quick.interfaces.wg0.configFile}";
 
   system.stateVersion = "22.11";
 }
