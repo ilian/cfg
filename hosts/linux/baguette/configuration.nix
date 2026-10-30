@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     ../../../profiles/linux/remote-unlock.nix
     ../../../profiles/linux/k3s-flannel.nix
-    ../../../profiles/linux/netboot-xyz-tftp.nix
     ../../../users/ili/linux
   ];
 
