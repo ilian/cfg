@@ -12,7 +12,6 @@
       pdfpc # PDF Presentation
       xclip
       mesa-demos # glxinfo
-      jetbrains-toolbox
     ];
   };
 
