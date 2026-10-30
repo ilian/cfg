@@ -30,6 +30,8 @@
   services.openssh.settings.X11Forwarding = true;
 
   networking.firewall.enable = true;
+  # k3s API server for kubectl, its certificate covers the hostname, which MagicDNS resolves to the Tailscale IP
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 6443 ];
   networking.hostName = "ampere";
 
   system.stateVersion = "26.05";
