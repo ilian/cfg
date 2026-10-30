@@ -1,6 +1,8 @@
 { pkgs, ...} :
 
 {
+  imports = [ ./k3s-manifests.nix ];
+
   # Install cilium after creating a k3s cluster:
   # cilium install --version 1.19.0 --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16"
   services.k3s = {
