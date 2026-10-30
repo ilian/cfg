@@ -6,7 +6,6 @@
     ../../../profiles/linux/remote-unlock.nix
     ../../../profiles/linux/docker.nix
     ../../../profiles/linux/k3s.nix
-    ../../../profiles/linux/remote-desktop.nix
     ../../../profiles/linux/dnscrypt-proxy.nix
     ../../../profiles/linux/vpn-interface.nix
     ../../../users/ili/linux
