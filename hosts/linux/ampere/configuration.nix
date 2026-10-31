@@ -5,9 +5,8 @@
     ./hardware-configuration.nix
     ../../../profiles/linux/remote-unlock.nix
     ../../../profiles/linux/docker.nix
-    ../../../profiles/linux/k3s.nix
+    ../../../profiles/linux/k3s-vpn.nix
     ../../../profiles/linux/dnscrypt-proxy.nix
-    ../../../profiles/linux/vpn-interface.nix
     ../../../users/ili/linux
   ];
 
@@ -23,7 +22,6 @@
 
   environment.systemPackages = with pkgs; [
     kubectl
-    cilium-cli
   ];
 
   services.openssh.enable = true;
@@ -32,6 +30,7 @@
   networking.firewall.enable = true;
   # k3s API server for kubectl, its certificate covers the hostname, which MagicDNS resolves to the Tailscale IP
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 6443 ];
+  services.k3s.extraFlags = [ "--tls-san 100.80.57.27" ];
   networking.hostName = "ampere";
 
   system.stateVersion = "26.05";
