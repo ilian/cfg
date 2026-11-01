@@ -116,10 +116,15 @@ in
       let
         drop = chain: match:
           "iptables -t mangle -C ${chain} ${match} -j DROP 2>/dev/null || iptables -t mangle -I ${chain} ${match} -j DROP";
+        # Keeps the TCP segments peers send to forwarded connections within
+        # the interface's MTU, as path MTU discovery doesn't reliably work
+        # through the VPN
+        clamp = "-o ${vpn} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
       in
       ''
         ${drop "FORWARD" "-d ${cfg.dns} ! -o ${vpn}"}
         ${drop "OUTPUT" "-d ${cfg.dns} ! -o ${vpn}"}
+        iptables -t mangle -C FORWARD ${clamp} 2>/dev/null || iptables -t mangle -I FORWARD ${clamp}
       '';
   };
 }
