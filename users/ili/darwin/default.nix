@@ -41,6 +41,7 @@
       settings = {
         font-family = "Hack Nerd Font Mono";
         theme = "light:Selenized Light,dark:Kanagawa Wave";
+        drag-handle = "never";
         keybind = [
           "alt+left=unbind"
           "alt+right=unbind"
