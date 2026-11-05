@@ -2,8 +2,6 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./k3s-manifests.nix ];
-
   services.k3s = {
     enable = true;
     role = "server";
