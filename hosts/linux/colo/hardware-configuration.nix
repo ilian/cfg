@@ -26,16 +26,6 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/var/lib/abox/sandboxes/_builder/rootfs" =
-    { device = "overlay";
-      fsType = "overlay";
-    };
-
-  fileSystems."/var/lib/abox/sandboxes/_builder/secrets" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
-    };
-
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
