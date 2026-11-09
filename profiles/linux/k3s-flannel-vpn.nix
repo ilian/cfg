@@ -31,6 +31,9 @@ in
     ./vpn-interface.nix
   ];
 
+  # k3s' default, pinned as the bridge subnet and guards depend on it
+  services.k3s.extraFlags = [ "--cluster-cidr=${clusterCidr}" ];
+
   # k3s reads templates in containerd 2 syntax from the -v3 name, NixOS'
   # containerdConfigTemplate writes the older one. Linking it here also
   # restarts k3s on changes.
