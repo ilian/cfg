@@ -76,7 +76,10 @@ in
       description = "Routing rules of the WireGuard VPN";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-pre.target" ];
-      before = [ "network-pre.target" ];
+      before = [ "network-pre.target" "shutdown.target" ];
+      conflicts = [ "shutdown.target" ];
+      # Like the firewall, so networkd isn't held back until basic.target
+      unitConfig.DefaultDependencies = false;
       path = [ pkgs.iproute2 ];
       serviceConfig = {
         Type = "oneshot";
