@@ -1,8 +1,8 @@
 # k3s with flannel, where pods using the vpn RuntimeClass get a separate bridge
-# whose traffic to the internet goes through the VPN of vpn-interface.nix. The
-# RuntimeClass, the admission policies assigning it to pods in namespaces
-# labelled egress=vpn and the DNS setup for those pods are manifests in
-# ~/k8s/<host>/vpn.
+# whose traffic to the internet goes through the VPN of vpn-interface.nix. In
+# namespaces labelled egress=vpn, a label that can only be set on creation,
+# pods get that class, can't use the host's network and resolve names through
+# the provider's DNS server.
 { config, pkgs, ... }:
 
 let
@@ -24,6 +24,14 @@ let
     [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.vpn.options]
       SystemdCgroup = {{ .SystemdCgroup }}
   '';
+
+  podCreations = {
+    apiGroups = [ "" ];
+    apiVersions = [ "v1" ];
+    operations = [ "CREATE" ];
+    resources = [ "pods" ];
+  };
+  vpnNamespaces.namespaceSelector.matchLabels.egress = "vpn";
 in
 {
   imports = [
@@ -62,6 +70,149 @@ in
       }
     ];
   };
+
+  services.k3s.manifests.vpn-egress.content = [
+    {
+      apiVersion = "node.k8s.io/v1";
+      kind = "RuntimeClass";
+      metadata.name = "vpn";
+      handler = "vpn";
+    }
+    {
+      apiVersion = "admissionregistration.k8s.io/v1";
+      kind = "MutatingAdmissionPolicy";
+      metadata.name = "vpn-egress";
+      spec = {
+        failurePolicy = "Fail";
+        reinvocationPolicy = "Never";
+        matchConstraints.resourceRules = [ podCreations ];
+        mutations = [
+          {
+            patchType = "ApplyConfiguration";
+            applyConfiguration.expression = "Object{ spec: Object.spec{ runtimeClassName: 'vpn' } }";
+          }
+        ];
+      };
+    }
+    {
+      apiVersion = "admissionregistration.k8s.io/v1";
+      kind = "MutatingAdmissionPolicyBinding";
+      metadata.name = "vpn-egress";
+      spec = {
+        policyName = "vpn-egress";
+        matchResources = vpnNamespaces;
+      };
+    }
+    # Pods the mutation didn't reach, and hostNetwork pods, which have no bridge
+    {
+      apiVersion = "admissionregistration.k8s.io/v1";
+      kind = "ValidatingAdmissionPolicy";
+      metadata.name = "vpn-egress";
+      spec = {
+        failurePolicy = "Fail";
+        matchConstraints.resourceRules = [ podCreations ];
+        validations = [
+          {
+            expression = "has(object.spec.runtimeClassName) && object.spec.runtimeClassName == 'vpn'";
+            message = "Pods in namespaces labelled egress=vpn need runtimeClassName: vpn";
+          }
+          {
+            expression = "!has(object.spec.hostNetwork) || !object.spec.hostNetwork";
+            message = "Pods in namespaces labelled egress=vpn can't use hostNetwork";
+          }
+        ];
+      };
+    }
+    {
+      apiVersion = "admissionregistration.k8s.io/v1";
+      kind = "ValidatingAdmissionPolicyBinding";
+      metadata.name = "vpn-egress";
+      spec = {
+        policyName = "vpn-egress";
+        validationActions = [ "Deny" ];
+        matchResources = vpnNamespaces;
+      };
+    }
+    # Labelling a namespace later would leave its existing and pending pods on flannel
+    {
+      apiVersion = "admissionregistration.k8s.io/v1";
+      kind = "ValidatingAdmissionPolicy";
+      metadata.name = "egress-label";
+      spec = {
+        failurePolicy = "Fail";
+        matchConstraints.resourceRules = [
+          {
+            apiGroups = [ "" ];
+            apiVersions = [ "v1" ];
+            operations = [ "UPDATE" ];
+            resources = [ "namespaces" ];
+          }
+        ];
+        variables = [
+          {
+            name = "old";
+            expression = "has(oldObject.metadata.labels) && 'egress' in oldObject.metadata.labels ? oldObject.metadata.labels['egress'] : ''";
+          }
+          {
+            name = "new";
+            expression = "has(object.metadata.labels) && 'egress' in object.metadata.labels ? object.metadata.labels['egress'] : ''";
+          }
+        ];
+        validations = [
+          {
+            expression = "variables.old == variables.new";
+            message = "The egress label can only be set when creating a namespace";
+          }
+        ];
+      };
+    }
+    {
+      apiVersion = "admissionregistration.k8s.io/v1";
+      kind = "ValidatingAdmissionPolicyBinding";
+      metadata.name = "egress-label";
+      spec = {
+        policyName = "egress-label";
+        validationActions = [ "Deny" ];
+      };
+    }
+    {
+      apiVersion = "v1";
+      kind = "ConfigMap";
+      metadata = {
+        name = "coredns-custom";
+        namespace = "kube-system";
+      };
+      # Server blocks are matched top to bottom. k3s' default block, which
+      # forwards to the host's resolver, is limited to pods outside the VPN
+      # and any other client falls through to the block after it, a copy of
+      # the default without the plugins that exist once per process.
+      data = {
+        "vpn.override" = ''
+          view direct {
+            expr !incidr(client_ip(), '${vpnPodCidr}')
+          }
+        '';
+        "vpn.server" = ''
+          .:53 {
+            errors
+            kubernetes cluster.local in-addr.arpa ip6.arpa {
+              pods insecure
+              fallthrough in-addr.arpa ip6.arpa
+            }
+            hosts /etc/coredns/NodeHosts {
+              ttl 60
+              reload 15s
+              fallthrough
+            }
+            cache 30
+            loop
+            loadbalance
+            forward . ${config.vpn.dns}
+          }
+        '';
+      };
+    }
+  ];
 
   vpn.sources = [ vpnPodCidr ];
 
