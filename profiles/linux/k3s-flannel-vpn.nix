@@ -63,13 +63,6 @@ in
 
   vpn.sources = [ vpnPodCidr ];
 
-  networking.nat = {
-    enable = true;
-    # By source, as kube-router changes the packet mark NixOS uses for interfaces
-    internalIPs = [ vpnPodCidr ];
-    externalInterface = config.vpn.interface;
-  };
-
   # Pods on the VPN bridge reach the API server the same way as on cni0
   networking.firewall.interfaces.${vpnBridge}.allowedTCPPorts = [ 6443 ];
 
