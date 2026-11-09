@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../../../profiles/linux/remote-unlock.nix
     ../../../profiles/linux/docker.nix
-    ../../../profiles/linux/k3s-vpn.nix
+    ../../../profiles/linux/k3s-flannel-vpn.nix
     ../../../profiles/linux/dnscrypt-proxy.nix
     ../../../users/ili/linux
   ];

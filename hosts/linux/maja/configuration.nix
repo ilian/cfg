@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./vpn-gateway.nix
-    ../../../profiles/linux/k3s-vpn.nix
+    ../../../profiles/linux/k3s-flannel-vpn.nix
     ../../../profiles/linux/remote-unlock-tailscale.nix
     ../../../profiles/linux/systemd-boot.nix
     ../../../users/ili/linux
