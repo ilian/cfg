@@ -13,6 +13,7 @@ let
   vpn = cfg.interface;
   vpnConfig = "/etc/wireguard/${vpn}.conf";
   table = toString cfg.table;
+  selectors = map (source: "from ${source}") cfg.sources ++ map (interface: "iif ${interface}") cfg.interfaces;
   families = guard: lib.optional guard.ipv4 "iptables" ++ lib.optional guard.ipv6 "ip6tables";
   # The guards grouped by the table each family restores them into
   guardTables = map (t: t // {
@@ -50,6 +51,17 @@ in
         Local IPv4 subnets, such as container bridges, whose traffic to the
         internet goes through the VPN. Traffic to networks the main table has
         a more specific route for, like replies to LAN hosts, doesn't.
+        Masquerading them is left to whatever creates them.
+      '';
+    };
+
+    interfaces = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "enp0s31f6" ];
+      description = ''
+        Interfaces whose forwarded traffic goes through the VPN like that of
+        `sources`, and is masqueraded. The host's own traffic doesn't.
       '';
     };
 
@@ -149,10 +161,11 @@ in
         ip route replace unreachable default metric 4096 table ${table}
         # From anywhere, so lookups fail instead of going out the uplink while the VPN is down
         rule priority 9500 to ${cfg.dns} table ${table}
-        ${lib.concatMapStrings (source: ''
-          rule priority 10001 from ${source} table main suppress_prefixlength 0
-          rule priority 10002 from ${source} table ${table}
-        '') cfg.sources}
+        # After Tailscale's rules, so replies to its clients still reach tailscale0
+        ${lib.concatMapStrings (selector: ''
+          rule priority 10001 ${selector} table main suppress_prefixlength 0
+          rule priority 10002 ${selector} table ${table}
+        '') selectors}
       '';
     };
 
@@ -160,6 +173,12 @@ in
     systemd.network.config.networkConfig = {
       ManageForeignRoutingPolicyRules = false;
       ManageForeignRoutes = false;
+    };
+
+    networking.nat = lib.mkIf (cfg.interfaces != [ ]) {
+      enable = true;
+      externalInterface = vpn;
+      internalInterfaces = cfg.interfaces;
     };
 
     # Strict, so packets with a source that is only routed via a local bridge
