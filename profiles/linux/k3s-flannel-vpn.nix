@@ -46,12 +46,11 @@ in
       {
         type = "bridge";
         bridge = vpnBridge;
-        isGateway = true;
+        isDefaultGateway = true;
         hairpinMode = true;
         ipam = {
           type = "host-local";
           ranges = [ [ { subnet = vpnPodCidr; } ] ];
-          routes = [ { dst = "0.0.0.0/0"; } ];
         };
       }
       {
