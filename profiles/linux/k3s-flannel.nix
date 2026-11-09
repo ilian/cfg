@@ -1,10 +1,11 @@
 # Single node k3s with flannel
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   services.k3s = {
     enable = true;
     role = "server";
+    package = lib.mkIf (lib.versionOlder pkgs.k3s.version "1.36") pkgs.k3s_1_36;
     # Unused, and each of them costs memory
     disable = [ "traefik" "servicelb" ];
     # Admin kubeconfig at /etc/rancher/k3s/k3s.yaml, wheel can become root anyway

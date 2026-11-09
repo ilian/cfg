@@ -3,7 +3,7 @@
 # RuntimeClass, the admission policies assigning it to pods in namespaces
 # labelled egress=vpn and the DNS setup for those pods are manifests in
 # ~/k8s/<host>/vpn.
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   clusterCidr = "10.42.0.0/16";
@@ -31,9 +31,6 @@ in
     ./k3s-flannel.nix
     ./vpn-interface.nix
   ];
-
-  # The RuntimeClass is assigned by a MutatingAdmissionPolicy, GA since 1.36
-  services.k3s.package = lib.mkIf (lib.versionOlder pkgs.k3s.version "1.36") pkgs.k3s_1_36;
 
   # k3s reads templates in containerd 2 syntax from the -v3 name, NixOS'
   # containerdConfigTemplate writes the older one. Linking it here also
