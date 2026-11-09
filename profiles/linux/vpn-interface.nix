@@ -109,8 +109,9 @@ in
       ManageForeignRoutes = false;
     };
 
-    # Replies arriving through the VPN come from addresses the main table routes via the uplink
-    networking.firewall.checkReversePath = "loose";
+    # Strict, so packets with a source that is only routed via a local bridge
+    # can't enter from the uplink and be relayed into the VPN
+    networking.firewall.checkReversePath = true;
 
     # Second layer next to the routing rule, which also holds while it is
     # missing. In the mangle table, as k3s puts filter rules accepting pod and
@@ -125,6 +126,9 @@ in
         clamp = "-o ${vpn} -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu";
       in
       ''
+        # Replies arriving through the VPN come from addresses the main table routes via the uplink
+        ip46tables -t mangle -I nixos-fw-rpfilter -i ${vpn} -j RETURN
+
         ${drop "FORWARD" "-d ${cfg.dns} ! -o ${vpn}"}
         ${drop "OUTPUT" "-d ${cfg.dns} ! -o ${vpn}"}
         iptables -t mangle -C FORWARD ${clamp} 2>/dev/null || iptables -t mangle -I FORWARD ${clamp}
