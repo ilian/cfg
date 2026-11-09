@@ -6,7 +6,6 @@
 
 let
   lan = "enp0s31f6";
-  vpn = "wg-vpn";
 in
 {
   imports = [ ../../../profiles/linux/vpn-interface.nix ];
@@ -21,18 +20,11 @@ in
   networking.nat = {
     enable = true;
     internalInterfaces = [ lan ];
-    externalInterface = vpn;
+    externalInterface = config.vpn.interface;
   };
 
-  # Second layer next to the routing rule, which also holds while it is
-  # missing: never forward LAN traffic back out the LAN interface, which is
-  # also the uplink to the ISP. In the mangle table, as k3s puts filter rules
-  # accepting pod and established traffic first.
-  networking.firewall.extraCommands = ''
-    for ipt in iptables ip6tables; do
-      $ipt -t mangle -C FORWARD -i ${lan} -o ${lan} -j DROP 2>/dev/null || $ipt -t mangle -I FORWARD -i ${lan} -o ${lan} -j DROP
-    done
-  '';
+  # Never forward LAN traffic back out the LAN interface, which is also the uplink to the ISP
+  vpn.guards = [ { match = "-i ${lan} -o ${lan}"; ipv6 = true; } ];
 
   # Redirects are sent before the firewall sees the packet and would make LAN devices bypass this host
   boot.kernel.sysctl = {

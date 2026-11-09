@@ -3,11 +3,10 @@
 # RuntimeClass, the admission policies assigning it to pods in namespaces
 # labelled egress=vpn and the DNS setup for those pods are manifests in
 # ~/k8s/<host>/vpn.
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   clusterCidr = "10.42.0.0/16";
-  vpn = "wg-vpn";
   vpnBridge = "cni-vpn";
   # Within the cluster CIDR, so kube-proxy and flannel treat it as pods, but
   # outside the /24 flannel assigns to this node
@@ -68,27 +67,19 @@ in
     enable = true;
     # By source, as kube-router changes the packet mark NixOS uses for interfaces
     internalIPs = [ vpnPodCidr ];
-    externalInterface = vpn;
+    externalInterface = config.vpn.interface;
   };
 
   # Pods on the VPN bridge reach the API server the same way as on cni0
   networking.firewall.interfaces.${vpnBridge}.allowedTCPPorts = [ 6443 ];
 
-  # Second layer next to the routing rules, which also holds while they are
-  # missing: pods on the VPN bridge only open connections to the cluster and,
-  # through the VPN, the internet, and only from their own subnet. Packets
-  # without a connection have no direction to match. In the raw and mangle
-  # tables, as k3s puts filter rules accepting pod and established traffic
-  # first.
-  networking.firewall.extraCommands =
-    let
-      drop = ipt: table: chain: match:
-        "${ipt} -t ${table} -C ${chain} ${match} -j DROP 2>/dev/null || ${ipt} -t ${table} -I ${chain} ${match} -j DROP";
-    in
-    ''
-      ${drop "iptables" "raw" "PREROUTING" "-i ${vpnBridge} ! -s ${vpnPodCidr}"}
-      ${drop "iptables" "mangle" "FORWARD" "-i ${vpnBridge} ! -o ${vpn} ! -d ${clusterCidr} -m conntrack --ctdir ORIGINAL"}
-      ${drop "iptables" "mangle" "FORWARD" "-i ${vpnBridge} -m conntrack --ctstate INVALID,UNTRACKED"}
-      ${drop "ip6tables" "mangle" "FORWARD" "-i ${vpnBridge}"}
-    '';
+  # Pods on the VPN bridge only open connections to the cluster and, through
+  # the VPN, the internet, and only from their own subnet. Packets without a
+  # connection have no direction to match.
+  vpn.guards = [
+    { table = "raw"; chain = "PREROUTING"; match = "-i ${vpnBridge} ! -s ${vpnPodCidr}"; }
+    { match = "-i ${vpnBridge} ! -o ${config.vpn.interface} ! -d ${clusterCidr} -m conntrack --ctdir ORIGINAL"; }
+    { match = "-i ${vpnBridge} -m conntrack --ctstate INVALID,UNTRACKED"; }
+    { match = "-i ${vpnBridge}"; ipv4 = false; ipv6 = true; }
+  ];
 }

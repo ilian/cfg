@@ -10,12 +10,26 @@
 
 let
   cfg = config.vpn;
-  vpn = "wg-vpn";
+  vpn = cfg.interface;
   vpnConfig = "/etc/wireguard/${vpn}.conf";
   table = toString cfg.table;
+  families = guard: lib.optional guard.ipv4 "iptables" ++ lib.optional guard.ipv6 "ip6tables";
+  # The guards grouped by the table each family restores them into
+  guardTables = map (t: t // {
+    guards = lib.filter (guard: guard.table == t.table && lib.elem t.ipt (families guard)) cfg.guards;
+  }) (lib.unique (lib.concatMap (guard:
+    map (ipt: { inherit ipt; inherit (guard) table; }) (families guard)
+  ) cfg.guards));
 in
 {
   options.vpn = {
+    interface = lib.mkOption {
+      type = lib.types.str;
+      default = "wg-vpn";
+      readOnly = true;
+      description = "The WireGuard interface.";
+    };
+
     table = lib.mkOption {
       type = lib.types.int;
       default = 100;
@@ -36,6 +50,45 @@ in
         Local IPv4 subnets, such as container bridges, whose traffic to the
         internet goes through the VPN. Traffic to networks the main table has
         a more specific route for, like replies to LAN hosts, doesn't.
+      '';
+    };
+
+    guards = lib.mkOption {
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          table = lib.mkOption {
+            type = lib.types.enum [ "raw" "mangle" ];
+            default = "mangle";
+            description = "iptables table of the rule.";
+          };
+          chain = lib.mkOption {
+            type = lib.types.str;
+            default = "FORWARD";
+            description = "Built-in chain of the rule.";
+          };
+          match = lib.mkOption {
+            type = lib.types.str;
+            example = "-i enp0s31f6 -o enp0s31f6";
+            description = "Matches of the packets to drop.";
+          };
+          ipv4 = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = "Whether to drop matching IPv4 packets.";
+          };
+          ipv6 = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Whether to drop matching IPv6 packets.";
+          };
+        };
+      });
+      default = [ ];
+      description = ''
+        Packets to drop ahead of all other firewall rules, as a second layer
+        next to the routing rules, which also holds while they are missing.
+        In the raw and mangle tables, as k3s puts filter rules accepting pod
+        and established traffic first.
       '';
     };
   };
@@ -113,13 +166,13 @@ in
     # can't enter from the uplink and be relayed into the VPN
     networking.firewall.checkReversePath = true;
 
-    # Second layer next to the routing rule, which also holds while it is
-    # missing. In the mangle table, as k3s puts filter rules accepting pod and
-    # established traffic first.
+    vpn.guards = [
+      { match = "-d ${cfg.dns} ! -o ${vpn}"; }
+      { chain = "OUTPUT"; match = "-d ${cfg.dns} ! -o ${vpn}"; }
+    ];
+
     networking.firewall.extraCommands =
       let
-        drop = chain: match:
-          "iptables -t mangle -C ${chain} ${match} -j DROP 2>/dev/null || iptables -t mangle -I ${chain} ${match} -j DROP";
         # Keeps the TCP segments peers send to forwarded connections within
         # the interface's MTU, as path MTU discovery doesn't reliably work
         # through the VPN
@@ -129,9 +182,19 @@ in
         # Replies arriving through the VPN come from addresses the main table routes via the uplink
         ip46tables -t mangle -I nixos-fw-rpfilter -i ${vpn} -j RETURN
 
-        ${drop "FORWARD" "-d ${cfg.dns} ! -o ${vpn}"}
-        ${drop "OUTPUT" "-d ${cfg.dns} ! -o ${vpn}"}
-        iptables -t mangle -C FORWARD ${clamp} 2>/dev/null || iptables -t mangle -I FORWARD ${clamp}
+        # Own chains, replaced in one transaction, so a rebuild neither adds to
+        # the guards nor leaves them empty for a moment
+        ${lib.concatMapStrings ({ ipt, table, guards }:
+          let chains = lib.unique (map (guard: guard.chain) guards);
+          in ''
+            ${ipt}-restore -w -n <<'EOF'
+            *${table}
+            ${lib.concatMapStrings (chain: ":vpn-${chain} - [0:0]\n") chains}${lib.concatMapStrings (guard: "-A vpn-${guard.chain} ${guard.match} -j DROP\n") guards}COMMIT
+            EOF
+            ${lib.concatMapStringsSep "\n" (chain: "${ipt} -w -t ${table} -C ${chain} -j vpn-${chain} 2>/dev/null || ${ipt} -w -t ${table} -I ${chain} -j vpn-${chain}") chains}
+          '') guardTables}
+
+        iptables -w -t mangle -C FORWARD ${clamp} 2>/dev/null || iptables -w -t mangle -I FORWARD ${clamp}
       '';
   };
 }
