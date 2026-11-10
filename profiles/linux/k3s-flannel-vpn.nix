@@ -145,7 +145,8 @@ in
             apiGroups = [ "" ];
             apiVersions = [ "v1" ];
             operations = [ "UPDATE" ];
-            resources = [ "namespaces" ];
+            # Updates through the subresources can change labels as well
+            resources = [ "namespaces" "namespaces/status" "namespaces/finalize" ];
           }
         ];
         variables = [
