@@ -98,6 +98,11 @@
 
         # Export packages defined in ./pkgs as an overlay and flake packages.
         overlays.default = import ./pkgs;
+
+        nixosModules = {
+          base = { imports = commonModules ++ linuxModules; };
+          ili = ./users/ili/linux;
+        };
       };
   in
   (eachDefaultSystem
