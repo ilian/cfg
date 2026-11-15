@@ -79,7 +79,7 @@
                    ));
 
         # Deployed with `deploy`, building on the hosts as macOS can't build for Linux
-        deploy.nodes = genAttrs [ "maja" "baguette" "ampere" ] (host:
+        deploy.nodes = genAttrs [ "mai" "maja" "baguette" "ampere" ] (host:
           let
             cfg = self.nixosConfigurations.${host};
             # Activate with the deploy-rs of nixpkgs, which is in the binary
