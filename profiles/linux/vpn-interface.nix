@@ -188,6 +188,15 @@ in
     vpn.guards = [
       { match = "-d ${cfg.dns} ! -o ${vpn}"; }
       { chain = "OUTPUT"; match = "-d ${cfg.dns} ! -o ${vpn}"; }
+      # Only packets for the VPN's own address may enter through it, so the
+      # provider can't reach the pods and LAN devices behind the host directly.
+      # Host ports still work, their destination is rewritten after this check.
+      {
+        table = "raw";
+        chain = "PREROUTING";
+        match = "-i ${vpn} -m addrtype ! --dst-type LOCAL --limit-iface-in";
+        ipv6 = true;
+      }
     ];
 
     networking.firewall.extraCommands =
