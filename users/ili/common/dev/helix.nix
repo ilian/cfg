@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs; [
     jsonnet-language-server
-    marksman # Markdown language server
     bash-language-server
     terraform-ls
     yaml-language-server
