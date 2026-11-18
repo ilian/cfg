@@ -32,6 +32,10 @@
     fsType = "vfat";
     options = [ "fmask=0077" "dmask=0077" ];
   };
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 32 * 1024;
+  } ];
 
   boot.supportedFilesystems.zfs = true;
   boot.zfs = {
