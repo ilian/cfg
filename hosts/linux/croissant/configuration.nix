@@ -20,6 +20,8 @@
   # Intel NIC, for networking in the initrd
   boot.initrd.availableKernelModules = [ "igb" ];
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   networking = {
     hostName = "croissant";
     # The default DHCP network of useDHCP matches the NIC's ports, in the initrd too

@@ -14,6 +14,8 @@
   # Onboard Intel I350 NIC, for networking in the initrd
   boot.initrd.availableKernelModules = [ "igb" ];
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   networking = {
     hostName = "baguette";
     # The default DHCP network of useDHCP matches both onboard ports, in the initrd too
