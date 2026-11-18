@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ./storage.nix
     ../../../profiles/linux/remote-unlock-tailscale.nix
+    ../../../profiles/linux/k3s-flannel-vpn.nix
     ../../../users/ili/linux
   ];
 
@@ -40,6 +41,8 @@
   programs.mosh.enable = true;
 
   services.tailscale.openFirewall = true;
+  # k3s' certificate covers the hostname, which MagicDNS resolves to the Tailscale IP
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 6443 ];
 
   system.stateVersion = "26.05";
 }
