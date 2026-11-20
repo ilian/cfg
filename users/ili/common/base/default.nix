@@ -162,6 +162,19 @@
         vim_mode = true;
       };
     };
+    btop = {
+      enable = true;
+      settings = {
+        color_theme = "kanagawa-wave.theme";
+        vim_keys = true;
+        update_ms = 1000;
+        proc_per_core = true;
+        freq_mode = "range";
+        disks_filter = "exclude=/boot";
+        swap_disk = false;
+        io_mode = true;
+      };
+    };
     tmux = {
       enable = true;
       keyMode = "vi";
