@@ -103,12 +103,12 @@ echo "Starting the installer in $name" >&2
 sudo install -d -o "$USER" "$dir"
 install -m 644 "$ovmf/OVMF_CODE.fd" "$dir/OVMF_CODE.fd"
 install -m 600 "$ovmf/OVMF_VARS.fd" "$dir/efivars.fd"
-qemu-img create -q -f qcow2 "$dir/disk.qcow2" 100G
+qemu-img create -q -f qcow2 "$dir/disk.qcow2" 200G
 cat > "$tmp/domain.xml" <<EOF
 <domain type='kvm'>
   <name>$name</name>
-  <memory unit='GiB'>16</memory>
-  <vcpu>4</vcpu>
+  <memory unit='GiB'>64</memory>
+  <vcpu>64</vcpu>
   <cpu mode='host-passthrough'/>
   <os>
     <type arch='x86_64' machine='q35'>hvm</type>
