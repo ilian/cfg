@@ -19,7 +19,7 @@
 
     # Infra
     awscli2
-    terraform
+    opentofu
     deploy-rs
     kubectl
     krew
@@ -63,12 +63,10 @@
     bash = {
       shellAliases = {
         "k" = "kubectl";
-        "tf" = "terraform";
         "lg" = "lazygit";
       };
       initExtra = ''
-        complete -o nospace -C ${pkgs.terraform}/bin/terraform terraform
-        complete -o nospace -C ${pkgs.terraform}/bin/terraform tf
+        complete -o nospace -C ${pkgs.opentofu}/bin/tofu tofu
         complete -F _complete_alias k
       '';
     };
