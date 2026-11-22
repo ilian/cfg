@@ -30,8 +30,18 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      for _, server in ipairs({ 'pyright', 'gopls', 'elixirls', 'ruby_lsp' }) do
-        vim.lsp.enable(server)
+      -- Servers come from per-project environments; enabling one that is not
+      -- on $PATH errors on every matching buffer.
+      local servers = {
+        pyright = 'pyright-langserver',
+        gopls = 'gopls',
+        elixirls = 'elixir-ls',
+        ruby_lsp = 'ruby-lsp',
+      }
+      for server, executable in pairs(servers) do
+        if vim.fn.executable(executable) == 1 then
+          vim.lsp.enable(server)
+        end
       end
 
       vim.api.nvim_create_autocmd('LspAttach', {
