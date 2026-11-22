@@ -16,6 +16,15 @@ if vim.g.vscode then
   return {}
 end
 
+-- Neovim points 'tagfunc' at the language server when one attaches and falls
+-- back to ctags when it has no result, so this works with and without LSP.
+-- g<C-]> jumps directly on a single match and lists candidates otherwise.
+-- Without either, e.g. outside a project, use the builtin local declaration.
+vim.keymap.set('n', 'gd', function()
+  if vim.bo.tagfunc == '' and #vim.fn.tagfiles() == 0 then return 'gd' end
+  return 'g<C-]>'
+end, { expr = true, desc = 'Go to definition' })
+
 return {
   {
     'neovim/nvim-lspconfig',
@@ -31,7 +40,6 @@ return {
             vim.keymap.set('n', lhs, rhs, { buffer = args.buf, desc = desc })
           end
 
-          map('gd', vim.lsp.buf.definition, 'Go to definition')
           map('gD', vim.lsp.buf.declaration, 'Go to declaration')
           map('gr', vim.lsp.buf.references, 'References')
           map('gi', vim.lsp.buf.implementation, 'Go to implementation')
