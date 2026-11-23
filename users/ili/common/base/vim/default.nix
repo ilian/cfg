@@ -29,9 +29,5 @@
       nodejs
       go
     ];
-    # extraPackages are appended to $PATH, where macOS' BSD ctags would win
-    initLua = ''
-      vim.g.gutentags_ctags_executable = "${pkgs.universal-ctags}/bin/ctags"
-    '';
   };
 }

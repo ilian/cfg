@@ -16,14 +16,21 @@ if vim.g.vscode then
   return {}
 end
 
--- Neovim points 'tagfunc' at the language server when one attaches and falls
--- back to ctags when it has no result, so this works with and without LSP.
+-- Neovim points 'tagfunc' at a language server supporting definitions, where
 -- g<C-]> jumps directly on a single match and lists candidates otherwise.
--- Without either, e.g. outside a project, use the builtin local declaration.
+-- Without a server or an answer from it, search the project with AnyJump.
+-- Outside a project, where that would grep everything below the cwd, use the
+-- builtin local declaration.
 vim.keymap.set('n', 'gd', function()
-  if vim.bo.tagfunc == '' and #vim.fn.tagfiles() == 0 then return 'gd' end
-  return 'g<C-]>'
-end, { expr = true, desc = 'Go to definition' })
+  if vim.bo.tagfunc ~= '' and pcall(vim.cmd.normal, { vim.keycode('g<C-]>'), bang = true }) then
+    return
+  end
+  if vim.fn.FindRootDirectory() ~= '' then
+    vim.cmd.AnyJump()
+  else
+    vim.cmd.normal({ 'gd', bang = true })
+  end
+end, { desc = 'Go to definition' })
 
 return {
   {
