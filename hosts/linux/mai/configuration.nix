@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../../profiles/linux/remote-unlock-tailscale.nix
     ../../../users/ili/linux
   ];
 
