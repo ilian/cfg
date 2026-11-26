@@ -220,13 +220,15 @@ in
   # Pods on the VPN bridge reach the API server the same way as on cni0
   networking.firewall.interfaces.${vpnBridge}.allowedTCPPorts = [ 6443 ];
 
-  # flannel masquerades traffic between pods unless one of them is in the
-  # node's own subnet, which pods on the VPN bridge aren't. kube-proxy and the
-  # portmap plugin mark the traffic they have to masquerade themselves, like a
-  # pod reaching itself through a service or its host port.
+  # flannel masquerades traffic to pods outside the node's own subnet, which
+  # pods on the VPN bridge are, unless it comes from that subnet. Their
+  # neighbours and the peers reaching their host ports through the VPN would
+  # all come from the bridge address. kube-proxy and the portmap plugin mark
+  # the traffic they have to masquerade themselves, like a pod reaching itself
+  # through a service or its host port.
   networking.firewall.extraCommands =
     let
-      keep = "-s ${vpnPodCidr} -d ${vpnPodCidr} -m mark --mark 0/0x6000 -j ACCEPT";
+      keep = "-d ${vpnPodCidr} -m mark --mark 0/0x6000 -j ACCEPT";
     in
     ''
       iptables -w -t nat -C POSTROUTING ${keep} 2>/dev/null || iptables -w -t nat -I POSTROUTING ${keep}
