@@ -31,6 +31,11 @@
 
   nix.settings.trusted-users = [ "root" "@wheel" ];
 
+  # passt binds the pod's end of a UDP flow to the guest's source port. From
+  # 41641 tailscaled's packets didn't reach other hosts, while UDP from other
+  # ports does. Through passt, peers can't reach the VM's port either way.
+  services.tailscale.port = 0;
+
   services.openssh.enable = true;
   programs.mosh.enable = true;
 
