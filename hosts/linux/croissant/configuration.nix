@@ -1,5 +1,8 @@
 { ... }:
 
+let
+  tailscaleRelayPort = 40000;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -43,6 +46,11 @@
   services.tailscale.openFirewall = true;
   # k3s' certificate covers the hostname, which MagicDNS resolves to the Tailscale IP
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 6443 ];
+
+  # Peer relay for tailnet devices that can't connect to each other directly.
+  # Who may use it is granted with tailscale.com/cap/relay in the tailnet policy.
+  services.tailscale.extraSetFlags = [ "--relay-server-port=${toString tailscaleRelayPort}" ];
+  networking.firewall.allowedUDPPorts = [ tailscaleRelayPort ];
 
   system.stateVersion = "26.05";
 }
