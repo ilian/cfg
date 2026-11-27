@@ -9,7 +9,7 @@
 # with the pod and shuts it down with it. Manage the VM with virsh as your user:
 #   nix shell nixpkgs#libvirt
 #   virsh console devpod-vm   # also the passphrase prompt; Ctrl+] leaves
-# The pod's localhost:2201 and localhost:2202 reach the VM's SSH and its initrd's.
+# The pod's localhost:2202 reaches the VM's initrd SSH, localhost:2201 only the installer's.
 set -euo pipefail
 
 name=devpod-vm

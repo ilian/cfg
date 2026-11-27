@@ -48,8 +48,15 @@
 
   nix.settings.trusted-users = [ "root" "@wheel" ];
 
-  services.openssh.enable = true;
-  programs.mosh.enable = true;
+  # Not reachable from the internet, SSH and mosh stay open on the LAN
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+  };
+  programs.mosh = {
+    enable = true;
+    openFirewall = true;
+  };
 
   services.tailscale = {
     openFirewall = true;
